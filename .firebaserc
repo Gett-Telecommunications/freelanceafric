@@ -1,6 +1,8 @@
 {
-  "targets": {},
   "projects": {
-    "default": "freelanceafric"
-  }
+    "default": "freelanceafric",
+    "production": "freelanceafric"
+  },
+  "targets": {},
+  "etags": {}
 }

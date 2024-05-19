@@ -1,4 +1,20 @@
 {
   "conventionalCommits.scopes": ["setup"],
-  "cSpell.words": ["eventarc", "remoteconfig"]
+  "cSpell.words": [
+    "AAAAALZDHDI",
+    "eventarc",
+    "freelanceafric",
+    "Lcah",
+    "prerender",
+    "remoteconfig",
+    "simondotm",
+    "vertexai"
+  ],
+  "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+  "editor.formatOnType": false, // required
+  "editor.formatOnPaste": true, // optional
+  "editor.formatOnSave": true, // optional
+  "editor.formatOnSaveMode": "file", // required to format on save
+  "files.autoSave": "onFocusChange", // optional but recommended
+  "vs-code-prettier-eslint.prettierLast": false // set as "true" to run 'prettier' last not first
 }

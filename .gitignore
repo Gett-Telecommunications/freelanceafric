@@ -51,3 +51,8 @@ pubsub-debug.log
 ui-debug.log
 firebase-export*
 .secret.local
+
+# Firebase
+.firebase
+*-debug.log
+.runtimeconfig.json

@@ -4,23 +4,32 @@
   "projectType": "application",
   "prefix": "app",
   "sourceRoot": "apps/freelanceafric/src",
-  "tags": ["scope:application", "framework:angular"],
+  "tags": [
+    "scope:application",
+    "framework:angular"
+  ],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/freelanceafric",
         "index": "apps/freelanceafric/src/index.html",
         "browser": "apps/freelanceafric/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "apps/freelanceafric/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
           "apps/freelanceafric/src/favicon.ico",
           "apps/freelanceafric/src/assets"
         ],
-        "styles": ["apps/freelanceafric/src/styles.scss"],
+        "styles": [
+          "apps/freelanceafric/src/styles.scss"
+        ],
         "scripts": [],
         "server": "apps/freelanceafric/src/main.server.ts",
         "prerender": true,
@@ -47,7 +56,13 @@
         "development": {
           "optimization": false,
           "extractLicenses": false,
-          "sourceMap": true
+          "sourceMap": true,
+          "fileReplacements": [
+            {
+              "replace": "apps/freelanceafric/src/environments/environment.ts",
+              "with": "apps/freelanceafric/src/environments/environment.development.ts"
+            }
+          ]
         }
       },
       "defaultConfiguration": "production"
@@ -75,7 +90,9 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "jestConfig": "apps/freelanceafric/jest.config.ts"
       }
