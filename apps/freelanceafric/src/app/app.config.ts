@@ -1,4 +1,4 @@
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
@@ -14,6 +14,7 @@ import { connectStorageEmulator, getStorage, provideStorage } from '@angular/fir
 import { getRemoteConfig, provideRemoteConfig } from '@angular/fire/remote-config';
 import { getVertexAI, provideVertexAI } from '@angular/fire/vertexai-preview';
 import { environment } from '../environments/environment';
+import { provideToastr } from 'ngx-toastr';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -57,7 +58,6 @@ export const appConfig: ApplicationConfig = {
     ScreenTrackingService,
     UserTrackingService,
     provideAppCheck(() => {
-      // TODO get a reCAPTCHA Enterprise here https://console.cloud.google.com/security/recaptcha?project=_
       const provider = new ReCaptchaEnterpriseProvider('6LcahOEpAAAAALZDHDI3DNkgAG-r_EsHUO-v7_BU');
       return initializeAppCheck(undefined, { provider, isTokenAutoRefreshEnabled: true });
     }),
@@ -65,5 +65,6 @@ export const appConfig: ApplicationConfig = {
     providePerformance(() => getPerformance()),
     provideRemoteConfig(() => getRemoteConfig()),
     provideVertexAI(() => getVertexAI()),
+    provideToastr(),
   ],
 };

@@ -15,6 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@freelanceafric/auth-ng-feature": ["libs/auth/ng/feature/src/index.ts"],
+      "@freelanceafric/auth-ng-ui": ["libs/auth/ng/ui/src/index.ts"],
       "@freelanceafric/shared-shared": ["libs/shared/shared/src/index.ts"]
     }
   },

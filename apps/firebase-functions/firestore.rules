@@ -2,8 +2,10 @@ rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{document=**} {
-      allow read, write: if false;
+    match /user_permissions/{document=**} {
+      // Anybody can submit to the assessors collection if they are loggged in but only if the email being submitted belongs to them
+      allow get: if ((request.auth.uid == resource.data.uid));
+      allow read, write: if request.auth.token.isAdmin;
     }
   }
 }

@@ -1,5 +1,5 @@
 {
-  "conventionalCommits.scopes": ["setup"],
+  "conventionalCommits.scopes": ["setup", "auth"],
   "cSpell.words": [
     "AAAAALZDHDI",
     "eventarc",
