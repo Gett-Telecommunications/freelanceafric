@@ -3,7 +3,7 @@ export default {
   displayName: 'freelanceafric',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../coverage/ apps/freelanceafric',
+  coverageDirectory: '../../coverage/apps/freelanceafric',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

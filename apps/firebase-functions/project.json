@@ -2,6 +2,12 @@
   "name": "firebase-functions",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
+  "tags": [
+    "firebase:app",
+    "firebase:name:firebase-functions",
+    "scope:functions",
+    "framework:firebase-functions"
+  ],
   "targets": {
     "build": {
       "executor": "nx:run-commands",
@@ -47,7 +53,7 @@
     "getconfig": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "nx run firebase-functions:firebase functions:config:get > apps/firebase-functions/environment/.runtimeconfig.json"
+        "command": "nx run firebase-functions:firebase functions:config:get >apps/firebase-functions/environment/.runtimeconfig.json"
       }
     },
     "emulate": {
@@ -77,10 +83,5 @@
       }
     }
   },
-  "tags": [
-    "firebase:app",
-    "firebase:name:firebase-functions",
-    "scope:functions",
-    "framework:firebase-functions"
-  ]
+  "implicitDependencies": ["firebase-auth"]
 }

@@ -1,0 +1,56 @@
+{
+  "name": "firebase-auth",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/auth/firebase/src",
+  "projectType": "application",
+  "tags": [
+    "firebase:function",
+    "firebase:name:firebase-auth",
+    "firebase:dep:firebase-functions",
+    "framework:firebase",
+    "scope:function"
+  ],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/auth/firebase",
+        "main": "libs/auth/firebase/src/main.ts",
+        "tsConfig": "libs/auth/firebase/tsconfig.app.json",
+        "assets": [
+          "libs/auth/firebase/src/assets",
+          {
+            "glob": "**/*",
+            "input": "apps/firebase-functions/environment",
+            "output": "."
+          }
+        ],
+        "generatePackageJson": true,
+        "platform": "node",
+        "bundle": true,
+        "thirdParty": false,
+        "dependenciesFieldType": "dependencies",
+        "target": "node16",
+        "format": ["esm"],
+        "esbuildOptions": {
+          "logLevel": "info"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/auth/firebase/jest.config.ts"
+      }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "nx run firebase-functions:deploy --only functions:firebase-auth"
+      },
+      "dependsOn": ["build"]
+    }
+  }
+}
