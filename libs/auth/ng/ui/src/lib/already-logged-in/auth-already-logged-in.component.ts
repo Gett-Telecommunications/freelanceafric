@@ -1,11 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Auth, user } from '@angular/fire/auth';
+import { SharedLoadingComponent } from '@freelanceafric/shared-ng-ui';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'lib-auth-already-logged-in',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, SharedLoadingComponent, MatButtonModule],
   templateUrl: './auth-already-logged-in.component.html',
   styleUrl: './auth-already-logged-in.component.scss',
 })
-export class AuthAlreadyLoggedInComponent {}
+export class AuthAlreadyLoggedInComponent {
+  private auth: Auth = inject(Auth);
+  user$ = user(this.auth);
+
+  logout() {
+    this.auth.signOut();
+  }
+}

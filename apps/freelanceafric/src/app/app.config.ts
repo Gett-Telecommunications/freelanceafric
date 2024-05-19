@@ -15,6 +15,7 @@ import { getRemoteConfig, provideRemoteConfig } from '@angular/fire/remote-confi
 import { getVertexAI, provideVertexAI } from '@angular/fire/vertexai-preview';
 import { environment } from '../environments/environment';
 import { provideToastr } from 'ngx-toastr';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -58,6 +59,11 @@ export const appConfig: ApplicationConfig = {
     ScreenTrackingService,
     UserTrackingService,
     provideAppCheck(() => {
+      if (environment.environment === 'development') {
+        const provider = new ReCaptchaEnterpriseProvider('something');
+        self['FIREBASE_APPCHECK_DEBUG_TOKEN'] = true;
+        return initializeAppCheck(undefined, { provider, isTokenAutoRefreshEnabled: true });
+      }
       const provider = new ReCaptchaEnterpriseProvider('6LcahOEpAAAAALZDHDI3DNkgAG-r_EsHUO-v7_BU');
       return initializeAppCheck(undefined, { provider, isTokenAutoRefreshEnabled: true });
     }),
@@ -66,5 +72,6 @@ export const appConfig: ApplicationConfig = {
     provideRemoteConfig(() => getRemoteConfig()),
     provideVertexAI(() => getVertexAI()),
     provideToastr(),
+    provideAnimationsAsync(),
   ],
 };

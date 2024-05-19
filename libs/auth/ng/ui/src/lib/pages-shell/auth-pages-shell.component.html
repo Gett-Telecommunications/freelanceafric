@@ -1,6 +1,9 @@
-<p>auth-pages-shell works!</p>
-@if (user$ | async; as user) {
-  <lib-auth-already-logged-in></lib-auth-already-logged-in>
-} @else {
-  <ng-content #authContent></ng-content>
-}
+<section id="auth_pages_shell">
+  <section class="card">
+    @if (user$ | async; as user) {
+      <lib-auth-already-logged-in></lib-auth-already-logged-in>
+    } @else {
+      <ng-content #authContent></ng-content>
+    }
+  </section>
+</section>

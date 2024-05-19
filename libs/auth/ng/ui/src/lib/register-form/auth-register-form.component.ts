@@ -4,11 +4,12 @@ import { Auth, GoogleAuthProvider, signInWithPopup, user } from '@angular/fire/a
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { FirebaseError } from '@angular/fire/app';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'lib-auth-register-form',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatButtonModule],
   templateUrl: './auth-register-form.component.html',
   styleUrl: './auth-register-form.component.scss',
 })
