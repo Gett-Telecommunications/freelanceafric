@@ -1,3 +1,14 @@
-<lib-dashboard-shell [menu]="[{ label: 'Home', icon: 'home', link: '/dashboard/admin' }]">
+<lib-dashboard-shell
+  [menu]="[
+    { label: 'Home', icon: 'home', link: '/dashboard/admin' },
+    { label: 'Users', icon: 'people', link: '/dashboard/admin/users' },
+    {
+      label: 'Categories',
+      icon: 'category',
+      link: '/dashboard/admin/categories',
+      children: [{ label: 'New Category', icon: 'add', link: '/dashboard/admin/categories/new' }]
+    }
+  ]"
+>
   <router-outlet></router-outlet>
 </lib-dashboard-shell>

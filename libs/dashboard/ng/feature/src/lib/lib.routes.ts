@@ -10,7 +10,12 @@ export const dashboardNgFeatureRoutes: Route[] = [
     component: DashboardPageComponent,
     title: 'Dashboard | Freelance Afric',
     children: [
-      { path: 'admin', component: DashboardAdminPageComponent, title: 'Admin | Freelance Afric' },
+      {
+        path: 'admin',
+        component: DashboardAdminPageComponent,
+        title: 'Admin | Freelance Afric',
+        loadChildren: () => import('@freelanceafric/admin-ng-feature').then((m) => m.adminDashboardNgFeatureRoutes),
+      },
       { path: 'sell', component: DashboardSellerPageComponent, title: 'Sell | Freelance Afric' },
       { path: 'buy', component: DashboardBuyerPageComponent, title: 'Buy | Freelance Afric' },
     ],

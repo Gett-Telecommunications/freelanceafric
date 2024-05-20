@@ -1,0 +1,26 @@
+{
+  "name": "categories-shared",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/categories/shared/src",
+  "projectType": "library",
+  "tags": ["scope:shared"],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/categories/shared",
+        "main": "libs/categories/shared/src/index.ts",
+        "tsConfig": "libs/categories/shared/tsconfig.lib.json",
+        "assets": ["libs/categories/shared/*.md"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/categories/shared/jest.config.ts"
+      }
+    }
+  }
+}

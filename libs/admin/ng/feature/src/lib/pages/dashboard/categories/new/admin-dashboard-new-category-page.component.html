@@ -1,0 +1,14 @@
+<section id="admin_dashboard_new_category_page">
+  <div class="card">
+    <h3>Preview: Card</h3>
+    <lib-category-card [category]="editing()"></lib-category-card>
+  </div>
+  <div class="header">
+    <h3>Preview: Header</h3>
+    <lib-category-header [category]="editing()"></lib-category-header>
+  </div>
+  <div class="form">
+    <h3>New Category Form</h3>
+    <lib-new-category-form (editedCategory)="editing.set($event)"></lib-new-category-form>
+  </div>
+</section>

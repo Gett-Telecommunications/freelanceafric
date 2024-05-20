@@ -11,5 +11,10 @@ nav {
       text-align: left;
       justify-content: flex-start;
     }
+
+    ul {
+      margin-left: 16px;
+      border-left: 1px solid #eee;
+    }
   }
 }
