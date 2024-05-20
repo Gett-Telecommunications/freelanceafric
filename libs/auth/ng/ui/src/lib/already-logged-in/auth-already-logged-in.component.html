@@ -5,6 +5,7 @@
     <div class="actions">
       <button mat-raised-button (click)="logout()">Logout</button>
       <button mat-raised-button routerLink="/">Go to Homepage</button>
+      <a mat-raised-button [routerLink]="['/dashboard']">Go to Dashboard</a>
     </div>
   </section>
 } @else {

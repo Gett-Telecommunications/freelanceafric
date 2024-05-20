@@ -1,0 +1,24 @@
+main#dashboard {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr;
+  height: 100dvh;
+  width: 100dvw;
+
+  nav {
+    background-color: #1F2131;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    gap: 16px;
+
+    * {
+      color: white;
+    }
+  }
+
+  section.dashboard_page {
+    background-color: red;
+  }
+
+}

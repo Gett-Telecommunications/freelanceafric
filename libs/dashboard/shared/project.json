@@ -1,0 +1,26 @@
+{
+  "name": "dashboard-shared",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/dashboard/shared/src",
+  "projectType": "library",
+  "tags": ["scope:shared", "framework:js"],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/dashboard/shared",
+        "main": "libs/dashboard/shared/src/index.ts",
+        "tsConfig": "libs/dashboard/shared/tsconfig.lib.json",
+        "assets": ["libs/dashboard/shared/*.md"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/dashboard/shared/jest.config.ts"
+      }
+    }
+  }
+}

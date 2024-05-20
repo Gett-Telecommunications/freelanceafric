@@ -1,0 +1,31 @@
+<nav>
+  <section class="menu">
+    @for (menuItem of menu(); track menuItem.label) {
+      <ng-container *ngTemplateOutlet="menuItemTemplate; context: { $implicit: menuItem }"> </ng-container>
+    }
+  </section>
+</nav>
+
+<ng-template #menuItemTemplate let-menuItem>
+  @if (menuItem.link) {
+    <div class="nav-item">
+      <a mat-button [routerLink]="['/' + menuItem.link]"
+        ><mat-icon>{{ menuItem.icon }}</mat-icon> {{ menuItem.label }}
+      </a>
+    </div>
+  } @else {
+    <div class="nav-label">
+      <p class="label">{{ menuItem.label }}</p>
+    </div>
+  }
+
+  @if (menuItem.children) {
+    <ul role="list" [attr.aria-label]="menuItem.label" class="nav-children">
+      @for (child of menuItem.children; track child.label) {
+        <li>
+          <ng-container *ngTemplateOutlet="menuItemTemplate; context: { $implicit: child }"> </ng-container>
+        </li>
+      }
+    </ul>
+  }
+</ng-template>

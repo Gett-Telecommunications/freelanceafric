@@ -22,6 +22,7 @@ export class AuthRegisterFormComponent {
   async signInWithGoogle() {
     try {
       await signInWithPopup(this.auth, new GoogleAuthProvider());
+      this.router.navigate(['/dashboard']);
     } catch (error: unknown) {
       this.handleError(error as FirebaseError);
     }

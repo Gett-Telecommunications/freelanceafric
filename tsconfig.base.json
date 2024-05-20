@@ -17,6 +17,9 @@
     "paths": {
       "@freelanceafric/auth-ng-feature": ["libs/auth/ng/feature/src/index.ts"],
       "@freelanceafric/auth-ng-ui": ["libs/auth/ng/ui/src/index.ts"],
+      "@freelanceafric/dashboard-ng-feature": ["libs/dashboard/ng/feature/src/index.ts"],
+      "@freelanceafric/dashboard-ng-ui": ["libs/dashboard/ng/ui/src/index.ts"],
+      "@freelanceafric/dashboard-shared": ["libs/dashboard/shared/src/index.ts"],
       "@freelanceafric/shared-ng-ui": ["libs/shared/ng/ui/src/index.ts"],
       "@freelanceafric/shared-shared": ["libs/shared/shared/src/index.ts"]
     }

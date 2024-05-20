@@ -1,0 +1,15 @@
+nav {
+  padding-top: 32px;
+
+  section.menu {
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+
+    a {
+      width: 100%;
+      text-align: left;
+      justify-content: flex-start;
+    }
+  }
+}

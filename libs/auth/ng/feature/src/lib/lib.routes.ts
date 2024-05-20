@@ -4,7 +4,7 @@ import { AuthRegisterPageComponent } from './pages/register-page/auth-register-p
 
 export const authNgFeatureRoutes: Route[] = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
-  { path: 'login', component: AuthLoginPageComponent },
-  { path: 'register', component: AuthRegisterPageComponent },
+  { path: 'login', component: AuthLoginPageComponent, title: 'Login | Freelance Afric' },
+  { path: 'register', component: AuthRegisterPageComponent, title: 'Register | Freelance Afric' },
   { path: '**', redirectTo: 'login' },
 ];

@@ -43,7 +43,7 @@ export const appConfig: ApplicationConfig = {
       const auth = getAuth();
       console.log('ENV:', environment.environment);
       if (environment.environment === 'development') {
-        connectAuthEmulator(auth, 'http://localhost:9099', { disableWarnings: false });
+        connectAuthEmulator(auth, 'http://localhost:9099', { disableWarnings: true });
         return auth;
       }
       return auth;

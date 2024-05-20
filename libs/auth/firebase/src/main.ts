@@ -42,3 +42,22 @@ export const createUserPermissionsDocumentOnLoginIfNotExists = functions.auth.us
       email: user.email,
     });
 });
+
+export const setCustomClaimsOnUserOnUpdateToUserPermissionsDocument = onDocumentWritten(
+  { document: `${E_FirestoreCollections.USER_PERMISSIONS}/{documentId}`, region: 'us-east1' },
+  async (event: any) => {
+    const userID = event.params.documentId;
+    const data = event.data.after.data();
+    const user = await getAuth().getUser(userID);
+
+    const _defaultClaims = {
+      ...defaultCustomClaims,
+      uid: userID,
+      email: user.email,
+    };
+    // Log a message to the console
+    logger.log('User updated with UID:', userID);
+    // Set the custom claims on the user
+    getAuth().setCustomUserClaims(userID, { ..._defaultClaims, ...data, uid: userID });
+  },
+);

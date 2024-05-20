@@ -1,0 +1,13 @@
+<mat-drawer-container class="container" autosize>
+  <mat-drawer #drawer class="sidenav" [opened]="true" mode="side">
+    <lib-dashboard-menu [menu]="menu()"></lib-dashboard-menu>
+  </mat-drawer>
+
+  <div class="sidenav_content">
+    <section class="content">
+      <div class="overflow">
+        <ng-content #dashboardContent></ng-content>
+      </div>
+    </section>
+  </div>
+</mat-drawer-container>

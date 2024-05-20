@@ -1,0 +1,38 @@
+<main id="dashboard">
+  <nav>
+    <div class="logo">logo</div>
+    <div class="roles">
+      <ul>
+        <li>
+          <a mat-icon-button routerLink="/dashboard/admin" *ngIf="claims().isAdmin">
+            <mat-icon class="mat-18">shield_person</mat-icon>
+          </a>
+        </li>
+        <li>
+          <a mat-icon-button routerLink="/dashboard/sell" *ngIf="claims().isSeller">
+            <mat-icon class="mat-18">storefront</mat-icon>
+          </a>
+        </li>
+        <li>
+          <a mat-icon-button routerLink="/dashboard/buy">
+            <mat-icon class="mat-18">shopping_cart</mat-icon>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="user">
+      <div class="user_avatar">
+        <img
+          src="https://avatars.githubusercontent.com/u/1000100?s=460&u=ae0ee1d9ef1a3e9a0a9d5e4e0d0b2e0c0a0?v=4"
+          width="50px"
+        />
+      </div>
+      <button mat-icon-button (click)="logOut()">
+        <mat-icon class="mat-18">logout</mat-icon>
+      </button>
+    </div>
+  </nav>
+  <section class="dashboard_page">
+    <router-outlet></router-outlet>
+  </section>
+</main>
