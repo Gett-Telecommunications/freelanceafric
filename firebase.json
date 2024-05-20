@@ -4,8 +4,12 @@
     "indexes": "apps/firebase-functions/firestore.indexes.json"
   },
   "hosting": {
-    "public": "apps/firebase-functions/public",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "public": "dist/apps/freelanceafric/browser",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
     "rewrites": [
       {
         "source": "**",
@@ -21,7 +25,9 @@
       "codebase": "firebase-auth",
       "source": "dist/libs/auth/firebase",
       "runtime": "nodejs16",
-      "ignore": ["*.local"]
+      "ignore": [
+        "*.local"
+      ]
     }
   ],
   "emulators": {

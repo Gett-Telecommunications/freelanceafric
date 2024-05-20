@@ -4,5 +4,9 @@
     "production": "freelanceafric"
   },
   "targets": {},
-  "etags": {}
+  "etags": {
+    "freelanceafric": {
+      "extensionInstances": {}
+    }
+  }
 }

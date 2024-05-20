@@ -26,6 +26,7 @@ export class AuthRegisterFormComponent {
       this.handleError(error as FirebaseError);
     }
   }
+
   async handleError(error: FirebaseError) {
     switch (error.code) {
       case 'auth/user-not-found':

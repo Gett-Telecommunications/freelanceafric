@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start:dev": "npx nx serve freelanceafric --configuration=development"
+    "start:dev": "npx nx serve freelanceafric --configuration=development",
+    "build": "npx nx run freelanceafric:build --configuration=production "
   },
   "private": true,
   "devDependencies": {
