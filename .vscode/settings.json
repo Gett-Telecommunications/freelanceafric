@@ -1,5 +1,5 @@
 {
-  "conventionalCommits.scopes": ["setup", "auth", "dashboard", "categories", "file-management"],
+  "conventionalCommits.scopes": ["setup", "auth", "dashboard", "categories", "file-management", "pages"],
   "cSpell.words": [
     "AAAAALZDHDI",
     "Afric",

@@ -6,3 +6,7 @@ export * from './lib/file/file-item/file-item.component';
 export * from './lib/file/file-upload/file-upload.component';
 
 //
+
+export * from './lib/main-navigation/main-navigation.component';
+
+export * from './lib/main-footer/main-footer.component';
