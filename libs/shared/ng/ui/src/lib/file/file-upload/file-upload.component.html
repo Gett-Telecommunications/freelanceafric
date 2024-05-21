@@ -1,0 +1,55 @@
+<main id="file_upload_widget">
+  <form (ngSubmit)="onSubmit()" [formGroup]="fileUploadForm">
+    <div class="form_input">
+      <input
+        type="file"
+        formControlName="file"
+        (change)="onFileChange($event)"
+        [accept]="accepts.join(',')"
+        [multiple]="multiple"
+        [required]="required"
+      />
+      @if(accepts.length){
+      <p>Accepted file types: {{ accepts.join(', ') }}</p>
+      }
+    </div>
+    <div class="upload">
+      @if(files){
+      <button mat-flat-button color="primary" type="submit" [disabled]="!fileUploadForm.valid || !files.length">
+        Upload ({{ files.length }} {{ (files.length === 1 ? 'file' : 'files') || '' }})
+      </button>
+      }
+    </div>
+  </form>
+  <section class="un_uploaded">
+    @if(files?.length){
+    <ul>
+      @for(file of files; track file.name){
+      <li><lib-file-item [file]="file" [fileActions]="fileActions"> </lib-file-item></li>
+      <ng-template #fileActions>
+        <button mat-icon-button color="warn" (click)="removeFile(file.name)"><mat-icon class="mat-18">delete</mat-icon></button>
+      </ng-template>
+      }
+    </ul>
+    }
+  </section>
+  <section class="uploaded">
+    @if(fileUploadProgress.length){
+    <ul>
+      @for(progressObj of fileUploadProgress; track progressObj.progress_percentage){
+      <li><lib-file-item [file]="progressObj.file" [uploadProgress]="progressObj" [fileActions]="fileActions"> </lib-file-item></li>
+      <ng-template #fileActions>
+        @if(progressObj.progress_percentage < 100){
+        <button *ngIf="progressObj.running" mat-icon-button color="primary" (click)="fileManagementService.pauseUpload(progressObj.file.name)"><mat-icon class="mat-18">pause</mat-icon></button>
+        <button *ngIf="progressObj.paused" mat-icon-button color="primary" (click)="fileManagementService.resumeUpload(progressObj.file.name)"><mat-icon class="mat-18">play_arrow</mat-icon></button>
+        }
+        @else{
+          <mat-icon>done</mat-icon>
+        }
+        <button mat-icon-button color="warn" (click)="fileManagementService.cancelUpload(progressObj.file.name)"><mat-icon class="mat-18">delete_forever</mat-icon></button>
+      </ng-template>
+      }
+    </ul>
+    }
+  </section>
+</main>

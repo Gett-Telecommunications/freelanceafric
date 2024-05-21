@@ -1,0 +1,20 @@
+<main id="file_details">
+  <section class="info">
+    <form (ngSubmit)="onSubmit()" [formGroup]="fileEditForm">
+      <h3>Edit file details</h3>
+      <mat-form-field>
+        <mat-label>Display name to show instead of the actual file name</mat-label>
+        <input matInput placeholder="Example file name" formControlName="displayName" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Additional Notes to make search work better</mat-label>
+        <textarea matInput placeholder="Ex. 'not working', 'important', etc" formControlName="notes"></textarea>
+      </mat-form-field>
+      <div class="actions">
+        <button mat-raised-button color="primary" type="submit" [disabled]="!fileEditForm.valid">Save</button>
+      </div>
+    </form>
+  </section>
+  <section class="preview"></section>
+</main>

@@ -1,0 +1,15 @@
+main#file_details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 16px;
+
+  section {
+    padding: 16px;
+    &.info {
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+}

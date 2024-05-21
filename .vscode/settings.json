@@ -1,5 +1,5 @@
 {
-  "conventionalCommits.scopes": ["setup", "auth", "dashboard", "categories"],
+  "conventionalCommits.scopes": ["setup", "auth", "dashboard", "categories", "file-management"],
   "cSpell.words": [
     "AAAAALZDHDI",
     "Afric",
@@ -10,6 +10,7 @@
     "prerender",
     "remoteconfig",
     "simondotm",
+    "unsubscriber",
     "vertexai"
   ],
   "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",

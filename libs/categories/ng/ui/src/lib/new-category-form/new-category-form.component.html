@@ -1,1 +1,53 @@
-<p>new-category-form works!</p>
+<div class="files">
+  <div class="bg">
+    <h3>Background Image</h3>
+    <lib-file-upload
+      [fileRoute]="fileRoutes.PUBLIC_CATEGORY_IMAGES"
+      [required]="true"
+      (uploadedFiles)="backgroundImage.set($event)"
+    ></lib-file-upload>
+  </div>
+  <div class="category">
+    <h3>Category Image</h3>
+    <lib-file-upload
+      [fileRoute]="fileRoutes.PUBLIC_CATEGORY_IMAGES"
+      [required]="true"
+      (uploadedFiles)="categoryImage.set($event)"
+    ></lib-file-upload>
+  </div>
+</div>
+<form [formGroup]="newCategoryForm" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="outline">
+    <mat-label>Icon</mat-label>
+    <input matInput formControlName="icon" placeholder="Icon" />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Slug</mat-label>
+    <input matInput formControlName="slug" placeholder="Slug" />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name" placeholder="Name" />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Card Intro</mat-label>
+    <input matInput formControlName="cardIntro" placeholder="Card Intro" />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Description</mat-label>
+    <input matInput formControlName="description" placeholder="Description" />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Background Style</mat-label>
+    <input matInput formControlName="backgroundStyle" placeholder="Background Style" />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>actionLabel</mat-label>
+    <input matInput formControlName="actionLabel" placeholder="Buy Now" />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>actionLink</mat-label>
+    <input matInput formControlName="actionLink" placeholder="/user.something" />
+  </mat-form-field>
+  <button mat-raised-button type="submit">Submit</button>
+</form>

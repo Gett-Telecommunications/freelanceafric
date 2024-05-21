@@ -1,0 +1,26 @@
+@if (file){
+<section class="file_item">
+  <div class="name">
+    @if (!uploadProgress()?.downloadUrl){
+    <p>{{ file.name }} ({{ convertBytesToHumanReadable(file.size) }})</p>
+    } @else {
+    <p>
+      <a href="{{ uploadProgress()?.downloadUrl }}" target="_blank" download="{{ file.name }}">{{ file.name }}</a> ({{
+        convertBytesToHumanReadable(file.size)
+      }}
+      )
+    </p>
+    }
+  </div>
+  <span *ngIf="uploadProgress()?.running">{{ uploadProgress()?.progress_percentage }}%</span>
+  <div class="actions">
+    <ng-container [ngTemplateOutlet]="fileActions || defaultActions"></ng-container>
+    <ng-template #defaultActions>
+      <button mat-button>delete</button>
+    </ng-template>
+  </div>
+  @if(uploadProgress()?.progress_percentage){
+  <div class="progress_bar" [style.width]="uploadProgress()?.progress_percentage + '%'"></div>
+  }
+</section>
+}

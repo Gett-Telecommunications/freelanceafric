@@ -22,13 +22,13 @@ export class AdminDashboardNewCategoryPageComponent {
     name: 'string',
     cardIntro: 'string',
     description: 'string',
-    image: 'string',
+    imageId: 'string',
     background: {
       style: 'string',
-      image: 'string',
+      imageId: 'string',
     },
     action: {
-      url: 'string',
+      link: 'string',
       label: 'string',
     },
   };

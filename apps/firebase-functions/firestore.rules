@@ -7,5 +7,15 @@ service cloud.firestore {
       allow get: if ((request.auth.uid == resource.data.uid));
       allow read, write: if request.auth.token.isAdmin;
     }
+    match /files/{document=**} {
+      // Any logged in person can create a file in the files collection
+      allow create: if request.auth != null;
+      // anyone can read files that are public
+      allow get: if request.resource.data.route.startsWith('public') || request.auth.token.isAdmin;
+      // Anyone can view files uploaded by themselves
+      allow read: if request.auth.uid == resource.data.uploadedBy;
+      // Anyone can update files that are uploaded by them
+      allow update, delete: if request.auth.uid == resource.data.uploadedBy;
+    }
   }
 }
