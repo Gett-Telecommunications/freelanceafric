@@ -10,3 +10,5 @@ export * from './lib/file/file-upload/file-upload.component';
 export * from './lib/main-navigation/main-navigation.component';
 
 export * from './lib/main-footer/main-footer.component';
+
+export * from './lib/headers/cover-header/cover-header.component';

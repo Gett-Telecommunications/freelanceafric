@@ -1,0 +1,18 @@
+<header>
+  <div class="decorations">
+    <div class="infoCard" *ngIf="infoCard() as infoCard">
+      <div class="value">{{ infoCard.value }}</div>
+      <div class="tag_line">{{ infoCard.tagLine }}</div>
+    </div>
+  </div>
+  <div class="image">
+    <img [src]="imageURL()" alt="image" />
+  </div>
+  <div class="content">
+    <h1 class="mat-headline-1" [innerHTML]="heading()"></h1>
+    <p [innerHTML]="subHeading()"></p>
+    <div class="other">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</header>

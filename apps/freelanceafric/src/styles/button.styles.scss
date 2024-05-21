@@ -1,0 +1,52 @@
+.rounded {
+
+  &.mdc-button,
+  &.mat-mdc-button,
+  &.mdc-raised-button,
+  &.mdc-flat-button {
+    border-radius: 32px !important;
+    min-height: 54px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+.outlined {
+
+  &.mdc-button,
+  &.mat-mdc-button,
+  &.mdc-raised-button,
+  &.mdc-flat-button {
+    border: 2px solid !important;
+
+    &.dark {
+      border-color: #900C3F !important;
+      color: #900C3F !important;
+    }
+
+    &.light {
+      border-color: white !important;
+      color: white !important;
+    }
+  }
+}
+
+.size {
+
+  &.mdc-button,
+  &.mat-mdc-button,
+  &.mdc-raised-button,
+  &.mdc-flat-button {
+    border: 1px solid !important;
+
+    &.large {
+      font-size: 1.5rem !important;
+      min-height: 68px;
+    }
+
+    &.small {
+      font-size: 1rem !important;
+      min-height: 36px;
+    }
+  }
+}

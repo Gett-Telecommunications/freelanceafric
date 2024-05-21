@@ -1,1 +1,11 @@
-<p>landing-page works!</p>
+<lib-cover-header
+  [heading]="'Freelance <span>Jobs</span> and Talents at Your Fingertips'"
+  [subHeading]="'Millions of businesses are using <span>Freelance Afric</span> to make outsourcing easy'"
+  [imageURL]="'/assets/images/landing-page/header.png'"
+  [infoCard]="{ value: '30k/month', tagLine: 'Average income' }"
+>
+  <div class="actions">
+    <a mat-flat-button class="rounded outlined dark" [routerLink]="['/explore']">Find Freelancers</a>
+    <a mat-raised-button class="rounded" color="primary" [routerLink]="['/become_a_seller']">Sell on Freelance Afric</a>
+  </div>
+</lib-cover-header>
