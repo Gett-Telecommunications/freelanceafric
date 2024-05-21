@@ -17,5 +17,11 @@ service cloud.firestore {
       // Anyone can update files that are uploaded by them
       allow update, delete: if request.auth.uid == resource.data.uploadedBy;
     }
+    match /categories/{document=**} {
+      // anyone can read from the categories collection
+      allow get, list: if true;
+      // only admins can update and delete
+      allow read, write: if request.auth.token.isAdmin;
+    }
   }
 }

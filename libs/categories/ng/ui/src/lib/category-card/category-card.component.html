@@ -1,1 +1,9 @@
-{{ category() | json }}
+<section class="category_card">
+  <div class="icon">
+    <div class="icon" [innerHTML]="sanitizedSVG()"></div>
+  </div>
+  <div class="details">
+    <h3>{{ category().name }}</h3>
+    <p>{{ category().cardIntro }}</p>
+  </div>
+</section>

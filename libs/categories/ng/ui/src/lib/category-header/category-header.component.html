@@ -1,1 +1,11 @@
-{{ category() | json }}
+<header
+  class="category_header"
+  [style.backgroundImage]="'url(' + backgroundImageURL() || '' + ')'"
+  [style.background]="category().background.style"
+>
+  <div class="details">
+    <h3>{{ category().name }}</h3>
+    <p>{{ category().description }}</p>
+  </div>
+  <img *ngIf="coverImageURL()" [src]="coverImageURL() || ''" alt="cover" />
+</header>

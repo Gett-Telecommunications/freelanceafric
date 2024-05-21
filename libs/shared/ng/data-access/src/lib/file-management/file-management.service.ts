@@ -265,6 +265,20 @@ export class FileManagementService implements OnDestroy {
     }
   }
 
+  async getFileDownloadURLById(fileId: string): Promise<string> {
+    try {
+      const fileFromDB = await this.getFileDataByIdFromDB(fileId);
+      if (!fileFromDB) throw new Error('File not found in the DB');
+      if (fileFromDB.downloadUrl) return fileFromDB.downloadUrl;
+      const storageRef = ref(this.storage, fileFromDB.fullPath);
+      const fileUrl = await getDownloadURL(storageRef);
+      return fileUrl;
+    } catch (error) {
+      console.log(error);
+      throw new Error('Error getting file from the storage');
+    }
+  }
+
   ngOnDestroy(): void {
     this.userSubscription.unsubscribe();
   }
