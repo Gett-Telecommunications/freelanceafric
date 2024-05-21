@@ -1,1 +1,24 @@
-<p>main-navigation works!</p>
+<nav id="main_nav">
+  <a [routerLink]="['/']" class="logo">
+    <img src="/assets/images/logo-color.png" height="60px" />
+  </a>
+  <ul>
+    <li>
+      <a mat-flat-button [routerLink]="['/explore']">Explore</a>
+    </li>
+    <li>
+      <a mat-flat-button [routerLink]="['/categories']">Categories</a>
+    </li>
+    <li>
+      <a mat-flat-button [routerLink]="['/become_a_seller']">Become a Seller</a>
+    </li>
+  </ul>
+  <div class="search">search</div>
+  <div class="auth">
+    <a mat-flat-button [routerLink]="['/auth']" *ngIf="(user$ | async) === null">Log In</a>
+    <a mat-flat-button [routerLink]="['/dashboard']" *ngIf="(user$ | async) !== null">Dashboard</a>
+    <button mat-icon-button (click)="logOut()" *ngIf="(user$ | async) !== null">
+      <mat-icon class="mat-18">logout</mat-icon>
+    </button>
+  </div>
+</nav>
