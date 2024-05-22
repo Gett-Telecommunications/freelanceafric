@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, WritableSignal, computed, effect, inject, signal } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, WritableSignal, computed, effect, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -10,6 +10,9 @@ import { FileUploadComponent } from '@freelanceafric/shared-ng-ui';
 import { E_FileRoutes, I_File } from '@freelanceafric/shared-shared';
 import { SellerProfileService, SellerCareerService } from '@freelanceafric/user-ng-data-access';
 import { FileManagementService } from '@freelanceafric/shared-ng-data-access';
+import { Router } from '@angular/router';
+import { UsersSellerCareerComponent, UsersSellerProfileComponent } from '@freelanceafric/users-ng-ui';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'lib-onboarding-sellers-page',
@@ -23,17 +26,24 @@ import { FileManagementService } from '@freelanceafric/shared-ng-data-access';
     MatFormFieldModule,
     MatInputModule,
     FileUploadComponent,
+    UsersSellerProfileComponent,
+    UsersSellerCareerComponent,
   ],
   templateUrl: './onboarding-sellers-page.component.html',
   styleUrl: './onboarding-sellers-page.component.scss',
 })
-export class OnboardingSellersPageComponent implements AfterViewInit {
+export class OnboardingSellersPageComponent implements AfterViewInit, OnDestroy {
   sellerProfileService = inject(SellerProfileService);
   filesService = inject(FileManagementService);
   sellerCareerService = inject(SellerCareerService);
+  router = inject(Router);
 
+  //updated from DB changes
   myExistingProfile = signal<I_SellerProfile | null>(null);
   myExistingCareer = signal<I_SellerCareer | null>(null);
+  // Updated from form changes
+  updatedProfile = signal<I_SellerProfile | null>(null);
+  updatedCareer = signal<I_SellerCareer | null>(null);
 
   personalInfoFormGroup = this._formBuilder.group({
     displayName: ['', Validators.required],
@@ -61,6 +71,9 @@ export class OnboardingSellersPageComponent implements AfterViewInit {
   profilePicURL = signal('');
 
   fileRoutes = E_FileRoutes;
+
+  careerFormSub: Subscription;
+  profileFormSub: Subscription;
 
   constructor(private _formBuilder: FormBuilder) {
     effect(() => {
@@ -107,6 +120,13 @@ export class OnboardingSellersPageComponent implements AfterViewInit {
         education: careerToUse.education,
       });
     });
+
+    this.careerFormSub = this.careerFormGroup.valueChanges.subscribe(() => {
+      this.updatedCareer.set(this.formatCareer());
+    });
+    this.profileFormSub = this.personalInfoFormGroup.valueChanges.subscribe(() => {
+      this.updatedProfile.set(this.formatProfile());
+    });
   }
 
   ngAfterViewInit() {
@@ -137,6 +157,7 @@ export class OnboardingSellersPageComponent implements AfterViewInit {
       education: this.careerFormGroup.value.education || '',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
+      status: 'pending',
     };
   }
 
@@ -192,5 +213,21 @@ export class OnboardingSellersPageComponent implements AfterViewInit {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  async submitForReview() {
+    try {
+      await this.sellerCareerService.submitForReview();
+      await this.sellerProfileService.submitForReview();
+      this.router.navigate(['/dashboard']);
+    } catch (error) {
+      console.log(error);
+      return;
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.careerFormSub.unsubscribe();
+    this.profileFormSub.unsubscribe();
   }
 }

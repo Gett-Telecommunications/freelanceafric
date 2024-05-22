@@ -8,4 +8,6 @@ export interface I_SellerCareer {
   createdAt: string;
   updatedAt: string;
   draft?: I_SellerCareer | null;
+  status: 'active' | 'inactive' | 'pending';
+  requestReview?: boolean;
 }

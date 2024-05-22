@@ -1,8 +1,8 @@
-<mat-stepper [linear]="true" #stepper>
+<mat-stepper [linear]="false" #stepper>
   <mat-step>
     <form>
       <ng-template matStepLabel>Make your profile stand out</ng-template>
-      <h2>Do these things to make your profile stand out</h2>
+      <h2>Get Started</h2>
       <div class="actions">
         <button mat-raised-button class="rounded" color="primary" matStepperNext>Next</button>
       </div>
@@ -82,11 +82,24 @@
     </form>
   </mat-step>
   <mat-step>
-    <ng-template matStepLabel>Review</ng-template>
-    <p>You are now done.</p>
-    <div class="actions">
-      <button mat-button matStepperPrevious class="rounded dark outlined">Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
+    <div class="content">
+      <ng-template matStepLabel>Review</ng-template>
+      <p>You are now done.</p>
+      <section>
+        <lib-users-seller-profile
+          *ngIf="updatedProfile() as updatedProfile"
+          [profile]="updatedProfile"
+        ></lib-users-seller-profile>
+        <lib-users-seller-career
+          *ngIf="updatedCareer() as updatedCareer"
+          [career]="updatedCareer"
+        ></lib-users-seller-career>
+      </section>
+      <div class="actions">
+        <button mat-button matStepperPrevious class="rounded dark outlined">Back</button>
+        <button mat-flat-button (click)="stepper.reset()" class="rounded" color="accent">Reset</button>
+        <button mat-raised-button (click)="submitForReview()" class="rounded" color="primary">Request Review</button>
+      </div>
     </div>
   </mat-step>
 </mat-stepper>

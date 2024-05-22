@@ -73,4 +73,25 @@ export class SellerProfileService {
       return false;
     }
   }
+
+  async submitForReview(): Promise<boolean> {
+    const loggedInUser = await firstValueFrom(this.user$);
+    if (!loggedInUser) throw new Error('User must be logged in to submit for review');
+    const uid = loggedInUser.uid;
+    const profile = await this.getMyProfile();
+    if (!profile) throw new Error('No profile to submit for review');
+    try {
+      await setDoc(
+        doc(this.collection, uid),
+        {
+          requestReview: true,
+        },
+        { merge: true },
+      );
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
 }

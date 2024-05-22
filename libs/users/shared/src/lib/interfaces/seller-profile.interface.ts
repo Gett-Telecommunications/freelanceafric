@@ -9,4 +9,5 @@ export interface I_SellerProfile {
   createdAt: string;
   updatedAt: string;
   draft?: I_SellerProfile;
+  requestReview?: boolean;
 }

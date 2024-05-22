@@ -3,7 +3,7 @@ import { E_FirestoreCollections } from '@freelanceafric/shared-shared';
 import { Firestore, collection, doc, getDoc, setDoc } from '@angular/fire/firestore';
 import { Auth, user } from '@angular/fire/auth';
 import { I_SellerCareer } from '@freelanceafric/users-shared';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, merge } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -38,6 +38,13 @@ export class SellerCareerService {
     career.uid = uid;
     career.updatedAt = new Date().toISOString();
     try {
+      await setDoc(
+        doc(this.collection, uid),
+        {
+          status: 'pending',
+        },
+        { merge: true },
+      );
       await setDoc(doc(this.collection, uid, 'draft', 'default'), career);
       return career;
     } catch (error) {
@@ -71,5 +78,26 @@ export class SellerCareerService {
       return career;
     }
     return null;
+  }
+
+  async submitForReview(): Promise<boolean> {
+    const loggedInUser = await firstValueFrom(this.user$);
+    if (!loggedInUser) throw new Error('User must be logged in to submit for review');
+    const uid = loggedInUser.uid;
+    const career = await this.getMySellerCareer();
+    if (!career) throw new Error('No career to submit for review');
+    try {
+      await setDoc(
+        doc(this.collection, uid),
+        {
+          requestReview: true,
+        },
+        { merge: true },
+      );
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
   }
 }
