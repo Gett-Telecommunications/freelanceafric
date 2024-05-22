@@ -26,6 +26,8 @@
       "@freelanceafric/dashboard-ng-feature": ["libs/dashboard/ng/feature/src/index.ts"],
       "@freelanceafric/dashboard-ng-ui": ["libs/dashboard/ng/ui/src/index.ts"],
       "@freelanceafric/dashboard-shared": ["libs/dashboard/shared/src/index.ts"],
+      "@freelanceafric/onboarding-ng-feature": ["libs/onboarding/ng/feature/src/index.ts"],
+      "@freelanceafric/onboarding-ng-ui": ["libs/onboarding/ng/ui/src/index.ts"],
       "@freelanceafric/pages-ng-feature": ["libs/pages/ng/feature/src/index.ts"],
       "@freelanceafric/pages-ng-ui": ["libs/pages/ng/ui/src/index.ts"],
       "@freelanceafric/shared-ng-data-access": ["libs/shared/ng/data-access/src/index.ts"],

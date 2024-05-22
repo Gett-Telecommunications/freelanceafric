@@ -1,0 +1,12 @@
+form {
+  min-height: 70vh;
+  padding: 16px;
+  border: 1px solid lightgrey;
+  border-radius: 16px;
+  width: 100%;
+
+  .actions {
+    display: flex;
+    gap: 32px;
+  }
+}

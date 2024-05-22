@@ -1,0 +1,50 @@
+section.onboarding_dashboard_page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  gap: 32px;
+  max-width: 1200px;
+
+  * {
+    text-align: center;
+  }
+
+  h2 {
+    color: var(--primary-color);
+  }
+
+  ul {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 32px;
+
+    li {
+      padding: 16px;
+
+      * {
+        color: white;
+      }
+
+      &.blog {
+        background-color: #222222 !important;
+
+      }
+
+      &.explore {
+        background-color: var(--accent-color) !important;
+      }
+
+      &.sell {
+        background-color: var(--primary-color) !important;
+      }
+
+      a {
+        padding: 32px;
+        height: 100%;
+      }
+    }
+  }
+}

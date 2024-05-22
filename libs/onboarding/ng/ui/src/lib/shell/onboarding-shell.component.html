@@ -1,0 +1,17 @@
+<section class="onboarding_shell">
+  <nav>
+    <div class="container with_width">
+      <a [routerLink]="['/onboarding/welcome']" class="logo">
+        <img src="/assets/images/logo-color.png" height="100px" />
+      </a>
+      <div class="actions">
+        <a mat-raised-button class="rounded" color="primary" [routerLink]="['/onboarding/welcome']">Start Over </a>
+      </div>
+    </div>
+  </nav>
+  <main>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</section>

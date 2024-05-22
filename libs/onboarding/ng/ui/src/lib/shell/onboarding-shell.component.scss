@@ -1,0 +1,23 @@
+section.onboarding_shell {
+  min-height: 70dvh;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 16px;
+
+  nav {
+    border-bottom: 1px solid #e1e1e1;
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  main {
+    padding-top: 64px;
+    display: grid;
+    place-items: center;
+  }
+}
