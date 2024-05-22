@@ -30,10 +30,15 @@ service cloud.firestore {
       allow read, write: if (request.auth.token.isAdmin || request.auth.uid == request.resource.id);
     }
     match /seller_careers/{document=**} {
-      // anyone can read from the seller profiles collection
-      allow get, list: if true;
+      // anyone who is logged in can read from the seller profiles collection
+      allow get, list: if request.auth != null;
       // only admins can update and delete
-      allow read, write: if (request.auth.token.isAdmin || request.auth.uid == request.resource.id);
+      allow read, write: if (request.auth.token.isAdmin || request.auth.uid == request.resource.data.uid);
+
+      // subcollection of drafts is only accessible to the seller who created it
+      match /drafts/{draft} {
+        allow read, write: if request.auth.token.isAdmin || request.auth.uid == request.resource.data.uid;
+      }
     }
   }
 }
