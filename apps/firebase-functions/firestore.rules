@@ -23,5 +23,17 @@ service cloud.firestore {
       // only admins can update and delete
       allow read, write: if request.auth.token.isAdmin;
     }
+    match /seller_profiles/{document=**} {
+      // anyone can read from the seller profiles collection
+      allow get, list: if true;
+      // only admins can update and delete
+      allow read, write: if (request.auth.token.isAdmin || request.auth.uid == request.resource.id);
+    }
+    match /seller_careers/{document=**} {
+      // anyone can read from the seller profiles collection
+      allow get, list: if true;
+      // only admins can update and delete
+      allow read, write: if (request.auth.token.isAdmin || request.auth.uid == request.resource.id);
+    }
   }
 }

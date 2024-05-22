@@ -13,5 +13,9 @@ service firebase.storage {
     match /public/category-images/{allPaths=**} {
       allow create: if request.auth.token.isAdmin;
     }
+    // all files about the category-images can only be created by admins
+    match /public/seller-profile-images/{allPaths=**} {
+      allow create: if request.auth != null;
+    }
   }
 }

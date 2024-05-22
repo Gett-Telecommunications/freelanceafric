@@ -32,7 +32,9 @@
       "@freelanceafric/pages-ng-ui": ["libs/pages/ng/ui/src/index.ts"],
       "@freelanceafric/shared-ng-data-access": ["libs/shared/ng/data-access/src/index.ts"],
       "@freelanceafric/shared-ng-ui": ["libs/shared/ng/ui/src/index.ts"],
-      "@freelanceafric/shared-shared": ["libs/shared/shared/src/index.ts"]
+      "@freelanceafric/shared-shared": ["libs/shared/shared/src/index.ts"],
+      "@freelanceafric/user-ng-data-access": ["libs/users/ng/data-access/src/index.ts"],
+      "@freelanceafric/users-shared": ["libs/users/shared/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

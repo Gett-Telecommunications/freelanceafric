@@ -13,29 +13,21 @@
       <ng-template matStepLabel>What not to do.</ng-template>
       <h2>How to avoid getting banned</h2>
       <div class="actions">
-        <button mat-button matStepperPrevious class="rounded dark outlined">Back</button>
-        <button mat-raised-button class="rounded" color="primary" matStepperNext>Next</button>
+        <button mat-button matStepperPrevious class="rounded dark outlined" type="submit">Back</button>
+        <button mat-raised-button class="rounded" color="primary" matStepperNext type="submit">Next</button>
       </div>
     </form>
   </mat-step>
   <mat-step [stepControl]="personalInfoFormGroup">
-    <form [formGroup]="personalInfoFormGroup">
+    <form [formGroup]="personalInfoFormGroup" (submit)="submitProfileForm()">
       <ng-template matStepLabel>Personal Profile</ng-template>
       <h2>Personal Profile</h2>
-      <div class="form_group">
-        <mat-form-field>
-          <mat-label>First name</mat-label>
-          <input matInput placeholder="First name" formControlName="firstName" required />
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Last name</mat-label>
-          <input matInput placeholder="Last name" formControlName="lastName" required />
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Other name</mat-label>
-          <input matInput placeholder="Other name" formControlName="otherName" />
-        </mat-form-field>
-      </div>
+      <lib-file-upload
+        [fileRoute]="fileRoutes.PUBLIC_SELLER_PROFILE_IMAGES"
+        (uploadedFiles)="uploadedFiles.set($event)"
+        [multiple]="false"
+      ></lib-file-upload>
+      <img [src]="profilePicURL()" width="200px" />
       <mat-form-field>
         <mat-label>Display name</mat-label>
         <input matInput placeholder="Display name" formControlName="displayName" required />
@@ -43,10 +35,6 @@
       <mat-form-field>
         <mat-label>Personal Intro</mat-label>
         <textarea matInput placeholder="Intro" formControlName="intro" required></textarea>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Phone number</mat-label>
-        <input matInput placeholder="Phone number" formControlName="phoneNumber" required />
       </mat-form-field>
       <div class="form_group">
         <mat-form-field>
@@ -59,8 +47,8 @@
         </mat-form-field>
       </div>
       <div class="actions">
-        <button mat-button matStepperPrevious class="rounded dark outlined">Back</button>
-        <button mat-raised-button class="rounded" color="primary" matStepperNext>Next</button>
+        <button mat-button matStepperPrevious class="rounded dark outlined" type="submit">Back</button>
+        <button mat-raised-button class="rounded" color="primary" matStepperNext type="submit">Next</button>
       </div>
     </form>
   </mat-step>
