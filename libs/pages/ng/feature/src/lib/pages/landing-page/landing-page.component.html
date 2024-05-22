@@ -1,11 +1,99 @@
-<lib-cover-header
-  [heading]="'Freelance <span>Jobs</span> and Talents at Your Fingertips'"
-  [subHeading]="'Millions of businesses are using <span>Freelance Afric</span> to make outsourcing easy'"
-  [imageURL]="'/assets/images/landing-page/header.png'"
-  [infoCard]="{ value: '30k/month', tagLine: 'Average income' }"
->
-  <div class="actions">
-    <a mat-flat-button class="rounded outlined dark" [routerLink]="['/explore']">Find Freelancers</a>
-    <a mat-raised-button class="rounded" color="primary" [routerLink]="['/become_a_seller']">Sell on Freelance Afric</a>
-  </div>
-</lib-cover-header>
+<section class="landing_page">
+  <lib-cover-header
+    [heading]="'Freelance <span>Jobs</span> and Talents at Your Fingertips'"
+    [subHeading]="'Millions of businesses are using <span>Freelance Afric</span> to make outsourcing easy'"
+    [imageURL]="'/assets/images/landing-page/header.png'"
+    [infoCard]="{ value: '30k/month', tagLine: 'Average income' }"
+  >
+    <div class="actions">
+      <a mat-flat-button class="rounded outlined dark" [routerLink]="['/explore']">Find Freelancers</a>
+      <a mat-raised-button class="rounded" color="primary" [routerLink]="['/become_a_seller']"
+        >Sell on Freelance Afric
+      </a>
+    </div>
+  </lib-cover-header>
+
+  <section class="search with_width"></section>
+
+  <section class="steps">
+    <div class="content with_width">
+      <h2>Need something done?</h2>
+      <p>
+        We have brought together some of the smartest people from Kenya and Africa at large to work on building your
+        dream business. Here`s all you need to do to access that.
+      </p>
+      <ul>
+        @for (step of steps; track $index) {
+          <li>
+            <div class="icon">
+              <img [src]="step.icon" alt="icon" />
+            </div>
+            <h3>{{ step.heading }}</h3>
+            <p>{{ step.description }}</p>
+          </li>
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="categories">
+    <header class="with_width">
+      <h2>Browse talent by category</h2>
+      <p>Find the right freelancer for your project</p>
+      <div class="actions">
+        <a mat-flat-button class="rounded" [routerLink]="['/categories']"
+          ><mat-icon class="mat-18">arrow_right_alt</mat-icon>All Categories</a
+        >
+      </div>
+    </header>
+
+    <lib-category-list class="with_width"></lib-category-list>
+  </section>
+
+  <section class="social_proof">
+    <div class="content with_width">
+      <div class="right image_side">
+        <img src="/assets/images/landing-page/social-proof.png" alt="icon" />
+      </div>
+      <div class="left text_content">
+        <h2>Elevate your business by outsourcing projects to skilled freelancers.</h2>
+        <p>
+          Lorem ipsum dolor sit amet consectetur. Viverra lacinia sed praesent pharetra quisque consectetur tellus elit.
+          Suspendisse ultrices vitae at platea. Euismod pretium sit est etiam.
+        </p>
+        <ul>
+          <li>
+            <div class="icon">
+              <img src="/assets/images/landing-page/social-proof/icon-1.png" alt="icon" />
+            </div>
+            <h3>Budget friendly</h3>
+            <p>
+              Compare prices from several freelancers and select the ideal service for your price range. Embrace
+              project-based pricing instead of hourly rates.
+            </p>
+          </li>
+          <li>
+            <div class="icon">
+              <img src="/assets/images/landing-page/social-proof/icon-2.png" alt="icon" />
+            </div>
+            <h3>Achieve top-notch results promptly.</h3>
+            <p>
+              Select the skilled freelancer of your choice to deliver your project within moments and share your project
+              brief. All within minutes.
+            </p>
+          </li>
+          <li>
+            <div class="icon">
+              <img src="/assets/images/landing-page/social-proof/icon-3.png" alt="icon" />
+            </div>
+            <h3>Settle payment upon satisfaction</h3>
+            <p>
+              Receive upfront invoices that are transparent without hidden costs. The freelancer is paid once they have
+              met your specifications and you are satisfied.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</section>

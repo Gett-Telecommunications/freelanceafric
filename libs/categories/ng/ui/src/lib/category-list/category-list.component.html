@@ -1,0 +1,7 @@
+<ul class="category_list">
+  @for (category of categories(); track category.id) {
+    <li>
+      <lib-category-card [category]="category"></lib-category-card>
+    </li>
+  }
+</ul>

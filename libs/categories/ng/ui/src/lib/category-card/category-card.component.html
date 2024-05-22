@@ -1,4 +1,4 @@
-<section class="category_card">
+<a [routerLink]="['/category', category().slug]" class="category_card">
   <div class="icon">
     <div class="icon" [innerHTML]="sanitizedSVG()"></div>
   </div>
@@ -6,4 +6,4 @@
     <h3>{{ category().name }}</h3>
     <p>{{ category().cardIntro }}</p>
   </div>
-</section>
+</a>

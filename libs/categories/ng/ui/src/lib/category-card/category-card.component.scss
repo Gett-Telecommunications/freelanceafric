@@ -1,8 +1,21 @@
-section.category_card {
+a.category_card {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 16px;
-  padding: 16px;
+  padding: 32px;
   background-color: white;
+  border: 1px solid white;
+  border-radius: 16px;
+  height: 100%;
+  width: 100%;
+
+  * {
+    color: black;
+  }
+
+  &:hover {
+    border: 1px solid rgba(0, 0, 0, 0.367);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.199);
+  }
 }

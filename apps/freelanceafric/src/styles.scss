@@ -80,7 +80,14 @@ $freelanceafric-accent: mat.define-palette($md-freelanceafric-accent);
 $freelanceafric-warn: mat.define-palette(mat.$red-palette);
 
 // Create the theme fonts object.
-$freelanceafric-fonts: mat.define-typography-config($font-family: "Poppins", );
+$freelanceafric-fonts: mat.define-typography-config($font-family: "DM Sans",
+    /* Header section, */
+    $headline-5: mat.define-typography-level(5.0rem, 5.5rem, 600,
+      $font-family: "Poppins",
+    ),
+    $headline-6: mat.define-typography-level(3.0rem, 3.5rem, 600, $font-family: "Poppins", ),
+    $subtitle-1: mat.define-typography-level(1.5rem, 2rem, 600, $font-family: "Poppins", ),
+  );
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
@@ -94,6 +101,7 @@ $freelanceafric-theme: mat.define-light-theme((color: (primary: $freelanceafric-
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
+@include mat.typography-hierarchy($freelanceafric-fonts);
 @include mat.all-component-themes($freelanceafric-theme);
 
 /* You can add global styles to this file, and also import other style files */
@@ -103,6 +111,7 @@ $freelanceafric-theme: mat.define-light-theme((color: (primary: $freelanceafric-
 @import './styles/variables.styles.scss';
 // global styles
 @import './styles/button.styles.scss';
+@import './styles/heading.styles.scss';
 
 html,
 body {
@@ -111,7 +120,6 @@ body {
 
 body {
   margin: 0;
-  font-family: Roboto, "Poppins", sans-serif;
 
   * {
     box-sizing: border-box;
