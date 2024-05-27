@@ -1,7 +1,12 @@
 <lib-dashboard-shell
   [menu]="[
     { label: 'Home', icon: 'home', link: '/dashboard/admin' },
-    { label: 'Users', icon: 'people', link: '/dashboard/admin/users' },
+    {
+      label: 'Users',
+      icon: 'people',
+      link: '/dashboard/admin/users',
+      children: [{ label: 'Sellers', icon: 'storefront', link: '/dashboard/admin/users/sellers' }]
+    },
     {
       label: 'Categories',
       icon: 'category',

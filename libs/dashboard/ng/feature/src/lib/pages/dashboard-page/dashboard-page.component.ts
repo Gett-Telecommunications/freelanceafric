@@ -27,7 +27,6 @@ export class DashboardPageComponent {
       }
       const customClaims = (await user?.getIdTokenResult())?.claims;
       if (customClaims) {
-        console.log('customClaims', customClaims);
         const _claims = { ...defaultCustomClaims, ...customClaims };
         this.claims.set(_claims);
       }

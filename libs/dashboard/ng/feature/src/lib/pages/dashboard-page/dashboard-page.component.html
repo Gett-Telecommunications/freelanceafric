@@ -5,13 +5,13 @@
     </a>
     <div class="roles">
       <ul>
-        <li>
-          <a mat-icon-button routerLink="/dashboard/admin" *ngIf="claims().isAdmin">
+        <li *ngIf="claims().isAdmin">
+          <a mat-icon-button routerLink="/dashboard/admin">
             <mat-icon class="mat-18">shield_person</mat-icon>
           </a>
         </li>
-        <li>
-          <a mat-icon-button routerLink="/dashboard/sell" *ngIf="claims().isSeller">
+        <li *ngIf="claims().isSeller">
+          <a mat-icon-button routerLink="/dashboard/sell">
             <mat-icon class="mat-18">storefront</mat-icon>
           </a>
         </li>

@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AdminNgUiComponent } from './admin-ng-ui.component';
+import { UsersNgFeatureComponent } from './users-ng-feature.component';
 
-describe('AdminNgUiComponent', () => {
-  let component: AdminNgUiComponent;
-  let fixture: ComponentFixture<AdminNgUiComponent>;
+describe('UsersNgFeatureComponent', () => {
+  let component: UsersNgFeatureComponent;
+  let fixture: ComponentFixture<UsersNgFeatureComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdminNgUiComponent],
+      imports: [UsersNgFeatureComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AdminNgUiComponent);
+    fixture = TestBed.createComponent(UsersNgFeatureComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

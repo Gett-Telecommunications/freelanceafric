@@ -34,6 +34,7 @@
       "@freelanceafric/shared-ng-ui": ["libs/shared/ng/ui/src/index.ts"],
       "@freelanceafric/shared-shared": ["libs/shared/shared/src/index.ts"],
       "@freelanceafric/user-ng-data-access": ["libs/users/ng/data-access/src/index.ts"],
+      "@freelanceafric/users-ng-feature": ["libs/users/ng/feature/src/index.ts"],
       "@freelanceafric/users-ng-ui": ["libs/users/ng/ui/src/index.ts"],
       "@freelanceafric/users-shared": ["libs/users/shared/src/index.ts"]
     }
