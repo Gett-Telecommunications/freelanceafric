@@ -87,6 +87,9 @@ $freelanceafric-fonts: mat.define-typography-config($font-family: "DM Sans",
     ),
     $headline-6: mat.define-typography-level(3.0rem, 3.5rem, 600, $font-family: "Poppins", ),
     $subtitle-1: mat.define-typography-level(1.5rem, 2rem, 600, $font-family: "Poppins", ),
+    $body-1: mat.define-typography-level(1.125rem, 1.5rem, 400),
+    $body-2: mat.define-typography-level(1.125rem, 1.5rem, 400),
+    $button: mat.define-typography-level(1.125rem, 1.5rem, 600),
   );
 
 // Create the theme object. A theme consists of configurations for individual

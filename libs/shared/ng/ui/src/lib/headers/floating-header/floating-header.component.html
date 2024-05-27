@@ -1,0 +1,17 @@
+<header class="floating">
+  <section class="layer content">
+    <h1>{{ title() }}</h1>
+    <p>{{ description() }}</p>
+    <div class="actions">
+      <a mat-raised-button color="primary" *ngFor="let action of actions()" [routerLink]="action[1]" class="rounded">{{
+        action[0]
+      }}</a>
+    </div>
+  </section>
+  <section class="layer circles">
+    <div class="circle small"></div>
+    <div class="circle medium"></div>
+    <div class="circle large"></div>
+    <div class="circle extra_large"></div>
+  </section>
+</header>
