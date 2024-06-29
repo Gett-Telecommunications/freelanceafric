@@ -18,6 +18,7 @@
       "@freelanceafric/admin-ng-data-access": ["libs/admin/ng/data-access/src/index.ts"],
       "@freelanceafric/admin-ng-feature": ["libs/admin/ng/feature/src/index.ts"],
       "@freelanceafric/admin-ng-ui": ["libs/admin/ng/ui/src/index.ts"],
+      "@freelanceafric/auth-data-access": ["libs/auth/ng/data-access/src/index.ts"],
       "@freelanceafric/auth-ng-feature": ["libs/auth/ng/feature/src/index.ts"],
       "@freelanceafric/auth-ng-ui": ["libs/auth/ng/ui/src/index.ts"],
       "@freelanceafric/categories-ng-data-access": ["libs/categories/ng/data-access/src/index.ts"],

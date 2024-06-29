@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Auth, user } from '@angular/fire/auth';
-import { Firestore, collection, doc, getDoc, setDoc } from '@angular/fire/firestore';
+import { Firestore, collection, deleteDoc, doc, getDoc, getDocs, setDoc } from '@angular/fire/firestore';
 import { E_FirestoreCollections } from '@freelanceafric/shared-shared';
 import { I_SellerProfile } from '@freelanceafric/users-shared';
 import { firstValueFrom } from 'rxjs';
@@ -47,6 +47,15 @@ export class SellerProfileService {
     }
   }
 
+  async getAllSellerProfiles(): Promise<I_SellerProfile[]> {
+    const querySnapshot = await getDocs(this.collection);
+    const sellerProfiles: I_SellerProfile[] = [];
+    querySnapshot.forEach((doc) => {
+      sellerProfiles.push(doc.data() as I_SellerProfile);
+    });
+    return sellerProfiles;
+  }
+
   getProfileByID(uid: string): Promise<I_SellerProfile | null | false> {
     const docRef = doc(this.collection, uid);
     return getDoc(docRef).then((docSnap) => {
@@ -88,6 +97,39 @@ export class SellerProfileService {
         },
         { merge: true },
       );
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+
+  async approveSellerProfile(
+    uid: string,
+    approvalStatus: 'approved' | 'rejected' | 'pending' | 'revoked',
+    message = '',
+  ): Promise<boolean> {
+    const loggedInUser = await firstValueFrom(this.user$);
+    if (!loggedInUser) throw new Error('User must be logged in to approve a seller profile');
+    const my_uid = loggedInUser.uid;
+    const profile = await this.getProfileByID(uid);
+    if (!profile) throw new Error('No profile to approve');
+    try {
+      await setDoc(
+        doc(this.collection, uid),
+        {
+          approval: {
+            approvalStatus,
+            approvedBy: my_uid,
+            approvedAt: new Date().toISOString(),
+            message,
+          },
+          draft: null,
+        },
+        { merge: true },
+      );
+      // delete the draft
+      await deleteDoc(doc(this.collection, uid, 'draft', 'default'));
       return true;
     } catch (error) {
       console.log(error);

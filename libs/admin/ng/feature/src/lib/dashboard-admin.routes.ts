@@ -16,6 +16,7 @@ export const adminDashboardNgFeatureRoutes: Route[] = [
       { path: '', component: AdminDashboardUsersHomePageComponent },
       { path: 'home', component: AdminDashboardUsersHomePageComponent },
       { path: 'sellers', component: AdminDashboardUsersSellersPageComponent },
+      { path: 'sellers/:r_seller_uid', component: AdminDashboardUsersSellersPageComponent },
     ],
   },
   {

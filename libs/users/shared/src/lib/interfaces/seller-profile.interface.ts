@@ -10,4 +10,10 @@ export interface I_SellerProfile {
   updatedAt: string;
   draft?: I_SellerProfile;
   requestReview?: boolean;
+  approval?: {
+    approvalStatus: 'pending' | 'approved' | 'rejected' | 'revoked';
+    approvedBy?: string;
+    approvedAt?: string;
+    message?: string;
+  };
 }
