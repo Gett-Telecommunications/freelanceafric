@@ -4,11 +4,13 @@ import { ActivatedRoute } from '@angular/router';
 import { GigsService } from '@freelanceafric/gigs-data-access';
 import { I_Gig } from '@freelanceafric/gigs-shared';
 import { Subscription } from 'rxjs';
+import { MatButtonModule } from '@angular/material/button';
+import { GooglePayButtonModule } from '@google-pay/button-angular';
 
 @Component({
   selector: 'lib-checkout-page',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatButtonModule, GooglePayButtonModule],
   templateUrl: './checkout-page.component.html',
   styleUrl: './checkout-page.component.scss',
 })
@@ -30,6 +32,10 @@ export class CheckoutPageComponent implements OnDestroy, OnInit {
         }
       });
     });
+  }
+
+  onLoadPaymentData(event: any) {
+    console.log('load payment data', event.detail);
   }
 
   ngOnDestroy(): void {
