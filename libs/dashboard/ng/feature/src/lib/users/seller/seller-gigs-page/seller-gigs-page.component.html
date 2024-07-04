@@ -1,6 +1,13 @@
 <section id="seller_gigs_page">
   <aside>
     <button mat-flat-button color="primary" [routerLink]="['/dashboard/sell/gigs/new']">Create New Gig</button>
+    <ul>
+      @for (gig of allMyGigs(); track gig.id) {
+        <li>
+          <a [routerLink]="['/dashboard/sell/gigs/preview', gig.id]">{{ gig.title }}</a>
+        </li>
+      }
+    </ul>
   </aside>
   <div class="section main_page">
     <router-outlet></router-outlet>

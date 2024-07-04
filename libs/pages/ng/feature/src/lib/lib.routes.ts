@@ -6,6 +6,8 @@ import { ExplorePageComponent } from './pages/explore-page/explore-page.componen
 import { CategoriesPageComponent } from './pages/categories-page/categories-page.component';
 import { CategoryPageComponent } from './pages/category-page/category-page.component';
 import { SearchResultsPageComponent } from './pages/search-results-page/search-results-page.component';
+import { GigPageComponent } from './pages/gig-page/gig-page.component';
+import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.component';
 
 export const pagesNgFeatureRoutes: Route[] = [
   { path: '', component: LandingPageComponent },
@@ -15,5 +17,7 @@ export const pagesNgFeatureRoutes: Route[] = [
   { path: 'categories', component: CategoriesPageComponent },
   { path: 'category/:r_categoryId', component: CategoryPageComponent },
   { path: 'search', component: SearchResultsPageComponent },
+  { path: 'gig/:r_gigId', component: GigPageComponent },
+  { path: 'checkout/:r_gigId', component: CheckoutPageComponent },
   { path: '**', component: NotFoundPageComponent },
 ];

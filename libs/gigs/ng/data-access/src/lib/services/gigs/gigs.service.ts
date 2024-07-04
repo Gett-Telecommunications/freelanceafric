@@ -72,4 +72,18 @@ export class GigsService {
       throw new Error('Error getting gig by id');
     }
   }
+
+  async getAllGigs(): Promise<I_Gig[]> {
+    try {
+      const querySnapshot = await getDocs(this.collection);
+      const gigs: I_Gig[] = [];
+      querySnapshot.forEach((doc) => {
+        gigs.push(doc.data() as I_Gig);
+      });
+      return gigs;
+    } catch (error) {
+      console.log(error);
+      throw new Error('Error getting all gigs');
+    }
+  }
 }

@@ -1,0 +1,10 @@
+<a class="gig_item" [routerLink]="['/gig', gig().id]" routerLinkActive="active">
+  <h3>{{ gig().title }}</h3>
+  <p>
+    from: <span>KES: {{ gig().price }}</span>
+  </p>
+  <div class="actions">
+    <button mat-mini-fab><mat-icon>favorite</mat-icon></button>
+    <button mat-flat-button color="primary" class="rounded">More Details</button>
+  </div>
+</a>
