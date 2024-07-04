@@ -40,5 +40,11 @@ service cloud.firestore {
         allow read, write: if request.auth.token.isAdmin || request.auth.uid == request.resource.data.uid;
       }
     }
+    match /gigs/{document=**} {
+      // anyone can read from the gigs collection
+      allow get, list: if true;
+      // only admins can update and delete
+      allow read, write: if request.auth.token.isSeller;
+    }
   }
 }

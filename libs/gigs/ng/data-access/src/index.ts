@@ -1,1 +1,1 @@
-export * from './lib/gigs-data-access/gigs-data-access.component';
+export * from './lib/services/gigs/gigs.service';

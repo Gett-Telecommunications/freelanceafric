@@ -1,0 +1,16 @@
+section#seller_gigs_page {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 16px;
+
+  aside {
+    grid-column: 1/2;
+    grid-row: 1/2;
+  }
+
+  section.main_page {
+    grid-column: 2/3;
+    grid-row: 2/3;
+  }
+}

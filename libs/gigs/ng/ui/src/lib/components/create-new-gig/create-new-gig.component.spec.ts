@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { GigsDataAccessComponent } from './gigs-data-access.component';
+import { CreateNewGigComponent } from './create-new-gig.component';
 
-describe('GigsDataAccessComponent', () => {
-  let component: GigsDataAccessComponent;
-  let fixture: ComponentFixture<GigsDataAccessComponent>;
+describe('CreateNewGigComponent', () => {
+  let component: CreateNewGigComponent;
+  let fixture: ComponentFixture<CreateNewGigComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GigsDataAccessComponent],
+      imports: [CreateNewGigComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(GigsDataAccessComponent);
+    fixture = TestBed.createComponent(CreateNewGigComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

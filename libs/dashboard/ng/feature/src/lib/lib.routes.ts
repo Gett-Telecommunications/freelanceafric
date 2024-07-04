@@ -5,6 +5,7 @@ import { DashboardSellerPageComponent } from './pages/seller-page/dashboard-sell
 import { DashboardBuyerPageComponent } from './pages/buyer-page/dashboard-buyer-page.component';
 import { SellerProfilePageComponent } from '@freelanceafric/pages-ng-feature';
 import { SellerGigsPageComponent } from './users/seller/seller-gigs-page/seller-gigs-page.component';
+import { SellerNewGigPageComponent } from './users/seller/seller-new-gig-page/seller-new-gig-page.component';
 
 export const dashboardNgFeatureRoutes: Route[] = [
   {
@@ -36,6 +37,13 @@ export const dashboardNgFeatureRoutes: Route[] = [
             path: 'gigs',
             component: SellerGigsPageComponent,
             title: 'My Gigs | Freelance Afric',
+            children: [
+              {
+                path: 'new',
+                component: SellerNewGigPageComponent,
+                title: 'Create new Gig | Freelance Afric',
+              },
+            ],
           },
         ],
       },

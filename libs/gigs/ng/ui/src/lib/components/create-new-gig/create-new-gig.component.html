@@ -1,0 +1,59 @@
+<mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="gigIntroFormGroup">
+    <form [formGroup]="gigIntroFormGroup">
+      <ng-template matStepLabel>Basic Gig Details</ng-template>
+      <mat-form-field>
+        <mat-label>Title</mat-label>
+        <input matInput placeholder="I will..." formControlName="title" required />
+        <mat-error *ngIf="gigIntroFormGroup.controls.title.hasError('required')">Please enter a title</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Categories</mat-label>
+        <mat-select formControlName="categories" multiple>
+          @for (category of allCategories(); track category.id) {
+            <mat-option value="{{ category.id }}">{{ category.name }}</mat-option>
+          }
+        </mat-select>
+        <mat-error *ngIf="gigIntroFormGroup.controls.categories.hasError('required')">
+          Please select at least one category
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Description</mat-label>
+        <textarea matInput placeholder="I will..." formControlName="description" required></textarea>
+        <mat-error *ngIf="gigIntroFormGroup.controls.description.hasError('required')">
+          Please enter a description
+        </mat-error>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="pricingFormGroup">
+    <form [formGroup]="pricingFormGroup">
+      <ng-template matStepLabel>Time and Budget</ng-template>
+      <mat-form-field>
+        <mat-label>Price in KES</mat-label>
+        <input matInput type="number" formControlName="price" placeholder="500" required />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Duration</mat-label>
+        <input matInput type="number" formControlName="duration" placeholder="1 week" required />
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <p>You are now done.</p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+      <button mat-raised-button (click)="onSubmit()" color="primary">Submit</button>
+    </div>
+  </mat-step>
+</mat-stepper>

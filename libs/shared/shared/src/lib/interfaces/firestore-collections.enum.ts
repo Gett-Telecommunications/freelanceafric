@@ -4,4 +4,5 @@ export enum E_FirestoreCollections {
   CATEGORIES = 'categories',
   SELLER_PROFILES = 'seller_profiles',
   SELLER_CAREERS = 'seller_careers',
+  GIGS = 'gigs',
 }

@@ -1,1 +1,2 @@
-export * from './lib/gigs-shared';
+// Interfaces //
+export * from './lib/interfaces';

@@ -1,1 +1,8 @@
-<p>seller-gigs-page works!</p>
+<section id="seller_gigs_page">
+  <aside>
+    <button mat-flat-button color="primary" [routerLink]="['/dashboard/sell/gigs/new']">Create New Gig</button>
+  </aside>
+  <div class="section main_page">
+    <router-outlet></router-outlet>
+  </div>
+</section>
