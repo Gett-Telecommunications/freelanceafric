@@ -1,0 +1,51 @@
+<section id="seller_profile_page">
+  <section class="header">
+    <div class="content">
+      <h2>{{ sellerProfile()?.displayName }}'s Profile</h2>
+    </div>
+  </section>
+  <section class="main_content container">
+    <section class="profile floating">
+      <div class="image">
+        <img [src]="profilePicURL()" />
+      </div>
+      <div class="details">
+        <h3>{{ sellerProfile()?.displayName }}</h3>
+      </div>
+      <div class="actions">
+        <a mat-flat-button color="primary" class="rounded">Follow</a>
+        <a mat-flat-button color="accent" class="rounded">Message</a>
+        <button mat-icon-button>
+          <mat-icon class="mat-18">favorite</mat-icon>
+        </button>
+      </div>
+      <ul class="cards">
+        <li>
+          <div class="icon_card">
+            <mat-icon class="mat-18">location_pin</mat-icon>
+            <span class="text">
+              <span class="heading">Location</span>
+              <span class="sub_heading">
+                <p>{{ sellerProfile()?.country + ', ' + sellerProfile()?.city }}</p>
+              </span>
+            </span>
+          </div>
+        </li>
+        <li>
+          <div class="icon_card">
+            <mat-icon class="mat-18">star</mat-icon>
+            <span class="text">
+              <span class="heading">Status</span>
+              <span class="sub_heading">{{ sellerProfile()?.status }}</span>
+            </span>
+          </div>
+        </li>
+      </ul>
+      <div class="description">
+        <h3>About the person</h3>
+        <p>{{ sellerProfile()?.intro }}</p>
+      </div>
+    </section>
+    <section class="gigs floating"></section>
+  </section>
+</section>
