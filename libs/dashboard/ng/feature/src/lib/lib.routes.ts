@@ -4,6 +4,7 @@ import { DashboardAdminPageComponent } from './pages/admin-page/dashboard-admin-
 import { DashboardSellerPageComponent } from './pages/seller-page/dashboard-seller-page.component';
 import { DashboardBuyerPageComponent } from './pages/buyer-page/dashboard-buyer-page.component';
 import { SellerProfilePageComponent } from '@freelanceafric/pages-ng-feature';
+import { SellerGigsPageComponent } from './users/seller/seller-gigs-page/seller-gigs-page.component';
 
 export const dashboardNgFeatureRoutes: Route[] = [
   {
@@ -30,6 +31,11 @@ export const dashboardNgFeatureRoutes: Route[] = [
               self: true,
               adminMode: true,
             },
+          },
+          {
+            path: 'gigs',
+            component: SellerGigsPageComponent,
+            title: 'My Gigs | Freelance Afric',
           },
         ],
       },

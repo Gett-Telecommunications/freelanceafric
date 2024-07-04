@@ -1,0 +1,26 @@
+{
+  "name": "gigs-shared",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/gigs/shared/src",
+  "projectType": "library",
+  "tags": ["scope:shared", "framework:js"],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/gigs/shared",
+        "main": "libs/gigs/shared/src/index.ts",
+        "tsConfig": "libs/gigs/shared/tsconfig.lib.json",
+        "assets": ["libs/gigs/shared/*.md"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/gigs/shared/jest.config.ts"
+      }
+    }
+  }
+}
