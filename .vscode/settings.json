@@ -10,7 +10,8 @@
     "users",
     "shared",
     "gigs",
-    "checkout"
+    "checkout",
+    "search"
   ],
   "cSpell.words": [
     "AAAAALZDHDI",

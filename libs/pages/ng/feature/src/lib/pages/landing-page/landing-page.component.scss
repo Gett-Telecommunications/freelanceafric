@@ -172,6 +172,8 @@ section.landing_page {
 
   section.featured_freelancers {
     padding-top: 64px;
+    padding-bottom: 64px;
+    background: #ECECEC;
 
     .header {
       display: grid;
@@ -189,7 +191,6 @@ section.landing_page {
 
   section.cta {
     margin-top: 64px;
-    background: #ECECEC;
     position: relative;
 
     .content {

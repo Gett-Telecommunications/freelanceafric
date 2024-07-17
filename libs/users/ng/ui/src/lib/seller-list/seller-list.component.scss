@@ -2,7 +2,7 @@ ul {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(335px, 1fr));
   grid-gap: 32px;
-  padding: 32px;
+  padding: 32px 0;
 
   li {
     list-style-type: none;
