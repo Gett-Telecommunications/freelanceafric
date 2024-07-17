@@ -1,0 +1,7 @@
+<ul class="with_width">
+  @for (gig of allGigs(); track gig.id) {
+    <li>
+      <lib-gig-item [gig]="gig"></lib-gig-item>
+    </li>
+  }
+</ul>
