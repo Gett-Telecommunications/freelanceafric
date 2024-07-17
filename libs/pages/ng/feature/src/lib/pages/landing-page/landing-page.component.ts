@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CategoryListComponent } from '@freelanceafric/categories-ng-ui';
 import { SellerListComponent } from '@freelanceafric/users-ng-ui';
+import { SearchFieldComponent } from '@freelanceafric/search-ui';
 
 @Component({
   selector: 'lib-landing-page',
@@ -18,6 +19,7 @@ import { SellerListComponent } from '@freelanceafric/users-ng-ui';
     MatIconModule,
     CategoryListComponent,
     SellerListComponent,
+    SearchFieldComponent,
   ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.scss',

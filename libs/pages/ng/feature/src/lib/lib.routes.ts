@@ -11,6 +11,10 @@ import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.compo
 import { SellerProfilePageComponent } from './pages/seller-profile-page/seller-profile-page.component';
 
 export const pagesNgFeatureRoutes: Route[] = [
+  {
+    path: 'search',
+    loadChildren: () => import('@freelanceafric/search-feature').then((m) => m.searchFeatureRoutes),
+  },
   { path: '', component: LandingPageComponent },
   { path: 'home', component: LandingPageComponent },
   { path: 'become_a_seller', component: BecomeSellerPageComponent },
