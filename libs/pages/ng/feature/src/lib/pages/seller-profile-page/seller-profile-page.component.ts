@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnDestroy, effect, inject, input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, Subscription } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { Auth, User } from '@angular/fire/auth';
@@ -39,6 +39,7 @@ export class SellerProfilePageComponent implements AfterViewInit, OnDestroy {
     this.user.set(user);
   });
 
+  routeSub?: Subscription;
   constructor() {
     effect(async () => {
       const routeData = this.routeData();
@@ -50,6 +51,17 @@ export class SellerProfilePageComponent implements AfterViewInit, OnDestroy {
         if (profile) {
           this.sellerProfile.set(profile);
         }
+      } else {
+        // get the users profile uid from the route
+        this.routeSub = this.route.paramMap.subscribe((params) => {
+          const uid = params.get('r_seller_uid');
+          if (!uid) return;
+          this.sellerProfileService.getProfileByID(uid).then((profile) => {
+            if (profile) {
+              this.sellerProfile.set(profile);
+            }
+          });
+        });
       }
     });
     effect(() => {

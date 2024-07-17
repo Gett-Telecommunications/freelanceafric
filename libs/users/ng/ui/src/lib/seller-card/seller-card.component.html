@@ -1,0 +1,9 @@
+<div class="seller_card" [routerLink]="['/seller', sellerProfile().uid]">
+  <div class="image">
+    <img [src]="profilePicURL() || ''" alt="image" />
+  </div>
+  <div class="details">
+    <h3>{{ sellerProfile().displayName }}</h3>
+    <p>{{ sellerProfile().intro }}</p>
+  </div>
+</div>

@@ -5,11 +5,20 @@ import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CategoryListComponent } from '@freelanceafric/categories-ng-ui';
+import { SellerListComponent } from '@freelanceafric/users-ng-ui';
 
 @Component({
   selector: 'lib-landing-page',
   standalone: true,
-  imports: [CommonModule, CoverHeaderComponent, RouterModule, MatButtonModule, MatIconModule, CategoryListComponent],
+  imports: [
+    CommonModule,
+    CoverHeaderComponent,
+    RouterModule,
+    MatButtonModule,
+    MatIconModule,
+    CategoryListComponent,
+    SellerListComponent,
+  ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.scss',
 })

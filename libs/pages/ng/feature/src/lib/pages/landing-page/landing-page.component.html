@@ -96,4 +96,44 @@
       </div>
     </div>
   </section>
+
+  <section class="featured_freelancers">
+    <div class="content with_width">
+      <div class="header">
+        <div class="left">
+          <h2>Featured Freelancers</h2>
+          <p>
+            We have worked with some of the best freelancers in the world to help you find the right fit for your
+            project.
+          </p>
+        </div>
+        <div class="right">
+          <button mat-flat-button class="rounded" color="primary" [routerLink]="['/become_a_seller']">
+            <mat-icon class="mat-18">groups_2</mat-icon>
+            Become a freelancer
+          </button>
+        </div>
+      </div>
+      <section class="freelancers">
+        <lib-seller-list></lib-seller-list>
+      </section>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="content with_width">
+      <div class="cta_card">
+        <div class="left">
+          <h2>Find the talent needed to get your business off the ground</h2>
+          <p>
+            We have worked with some of the best freelancers in the world to help you find the right fit for your
+            project.
+          </p>
+          <button mat-flat-button class="rounded" color="accent" [routerLink]="['/explore']">
+            Explore Freelance Afric
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
 </section>

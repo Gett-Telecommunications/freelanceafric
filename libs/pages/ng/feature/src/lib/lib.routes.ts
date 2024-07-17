@@ -8,6 +8,7 @@ import { CategoryPageComponent } from './pages/category-page/category-page.compo
 import { SearchResultsPageComponent } from './pages/search-results-page/search-results-page.component';
 import { GigPageComponent } from './pages/gig-page/gig-page.component';
 import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.component';
+import { SellerProfilePageComponent } from './pages/seller-profile-page/seller-profile-page.component';
 
 export const pagesNgFeatureRoutes: Route[] = [
   { path: '', component: LandingPageComponent },
@@ -19,5 +20,11 @@ export const pagesNgFeatureRoutes: Route[] = [
   { path: 'search', component: SearchResultsPageComponent },
   { path: 'gig/:r_gigId', component: GigPageComponent },
   { path: 'checkout/:r_gigId', component: CheckoutPageComponent },
+  {
+    path: 'seller/:r_seller_uid',
+    component: SellerProfilePageComponent,
+    title: 'Seller Profile | Freelance Afric',
+    data: { self: false, adminMode: false },
+  },
   { path: '**', component: NotFoundPageComponent },
 ];
