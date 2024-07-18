@@ -1,1 +1,17 @@
-<p>search-field works!</p>
+<section class="search" [ngClass]="mode()">
+  <form [formGroup]="filtersForm" *ngIf="showFilters()">
+    <mat-form-field>
+      <mat-select formControlName="typeFilter" *ngIf="showFilters()">
+        <mat-option value="all">All</mat-option>
+        <mat-option value="freelancers">Freelancers</mat-option>
+        <mat-option value="gigs">Gigs</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+  <form class="search_term" [formGroup]="searchForm">
+    <input matInput placeholder="Search" formControlName="searchTerm" />
+    <button mat-icon-button type="submit">
+      <mat-icon class="mat-18">search</mat-icon>
+    </button>
+  </form>
+</section>

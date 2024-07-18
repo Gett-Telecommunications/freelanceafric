@@ -20,6 +20,8 @@ section.landing_page {
     position: relative;
     box-shadow: 2.651px 5.303px 42.422px 0px rgba(1, 70, 177, 0.08);
     border-radius: 16px;
+    display: grid;
+    align-items: center;
 
     @media screen and (max-width: 1200px) {
       margin: 0;

@@ -1,0 +1,26 @@
+section.search.compact {
+  display: flex;
+  gap: 16px;
+
+  form.search_term {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    padding: 4px;
+    border-radius: 32px;
+    border: 2px solid #9f9f9f;
+
+    input {
+      flex: 1;
+      min-width: 200px;
+      padding: 16px;
+      border-radius: 32px;
+      border: none;
+    }
+
+    button {
+      background-color: rgba(0, 0, 0, 0.027);
+    }
+  }
+}
