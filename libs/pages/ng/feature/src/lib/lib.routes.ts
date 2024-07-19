@@ -20,7 +20,7 @@ export const pagesNgFeatureRoutes: Route[] = [
   { path: 'become_a_seller', component: BecomeSellerPageComponent },
   { path: 'explore', component: ExplorePageComponent },
   { path: 'categories', component: CategoriesPageComponent },
-  { path: 'category/:r_categoryId', component: CategoryPageComponent },
+  { path: 'category/:r_category_slug', component: CategoryPageComponent },
   { path: 'search', component: SearchResultsPageComponent },
   { path: 'gig/:r_gigId', component: GigPageComponent },
   { path: 'checkout/:r_gigId', component: CheckoutPageComponent },

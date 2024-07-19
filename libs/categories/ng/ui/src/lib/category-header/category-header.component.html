@@ -4,7 +4,7 @@
   [style.background]="category().background.style"
 >
   <div class="details">
-    <h3>{{ category().name }}</h3>
+    <h1>{{ category().name }}</h1>
     <p>{{ category().description }}</p>
   </div>
   <img *ngIf="coverImageURL()" [src]="coverImageURL() || ''" alt="cover" />

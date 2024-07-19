@@ -1,7 +1,15 @@
-<ul class="with_width">
-  @for (gig of allGigs(); track gig.id) {
-    <li>
-      <lib-gig-item [gig]="gig"></lib-gig-item>
-    </li>
+<ul>
+  @if (gigsToShow(); as gigsToShow) {
+    @if (gigsToShow.length === 0) {
+      <h3>No gigs found</h3>
+    } @else {
+      @for (gig of gigsToShow; track gig.id) {
+        <li>
+          <lib-gig-item [gig]="gig"></lib-gig-item>
+        </li>
+      }
+    }
+  } @else {
+    <h1>Loading Gigs</h1>
   }
 </ul>

@@ -97,7 +97,6 @@ export class NewCategoryFormComponent implements OnDestroy {
       const savedCategory = await this.categoryService.createCategory(this.formattedCategory());
       this.newCategoryForm.markAsPristine();
       this.newCategoryForm.markAsUntouched();
-      console.log({ savedCategory });
     } catch (error) {
       console.error(error);
     }

@@ -1,10 +1,10 @@
 <section id="seller_profile_page">
   <section class="header">
-    <div class="content">
+    <div class="content with_width">
       <h2>{{ sellerProfile()?.displayName }}'s Profile</h2>
     </div>
   </section>
-  <section class="main_content container">
+  <section class="main_content container with_width">
     <section class="profile floating">
       <div class="image">
         <img [src]="profilePicURL()" />
@@ -46,6 +46,8 @@
         <p>{{ sellerProfile()?.intro }}</p>
       </div>
     </section>
-    <section class="gigs floating"></section>
+    <section class="gigs floating">
+      <lib-gig-list [filterBySellerUid]="sellerProfile()?.uid"></lib-gig-list>
+    </section>
   </section>
 </section>

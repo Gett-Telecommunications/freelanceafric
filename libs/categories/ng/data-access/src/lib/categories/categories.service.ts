@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, collection, deleteDoc, doc, getDoc, getDocs, setDoc } from '@angular/fire/firestore';
+import { Firestore, collection, deleteDoc, doc, getDoc, getDocs, query, setDoc, where } from '@angular/fire/firestore';
 import { I_Category } from '@freelanceafric/categories-shared';
 import { E_FirestoreCollections } from '@freelanceafric/shared-shared';
 
@@ -32,6 +32,23 @@ export class CategoriesService {
       } else {
         return undefined;
       }
+    } catch (error) {
+      console.log(error);
+      throw new Error('Error getting category');
+    }
+  }
+
+  async getCategoryBySlug(slug: string): Promise<I_Category | null> {
+    try {
+      const _query = query(this.collection, where('slug', '==', slug));
+      const querySnapshot = await getDocs(_query);
+      const categories: I_Category[] = [];
+      querySnapshot.forEach((doc) => {
+        categories.push(doc.data() as I_Category);
+      });
+      if (categories.length === 0) return null;
+      const category = categories[0];
+      return category;
     } catch (error) {
       console.log(error);
       throw new Error('Error getting category');

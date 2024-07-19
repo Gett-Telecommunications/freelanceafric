@@ -9,11 +9,12 @@ import { user } from '@angular/fire/auth';
 import { SellerProfileService } from '@freelanceafric/user-ng-data-access';
 import { I_SellerProfile } from '@freelanceafric/users-shared';
 import { FileManagementService } from '@freelanceafric/shared-ng-data-access';
+import { GigListComponent } from '@freelanceafric/gigs-ui';
 
 @Component({
   selector: 'lib-seller-profile-page',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule],
+  imports: [CommonModule, MatIconModule, MatButtonModule, GigListComponent],
   templateUrl: './seller-profile-page.component.html',
   styleUrl: './seller-profile-page.component.scss',
 })
