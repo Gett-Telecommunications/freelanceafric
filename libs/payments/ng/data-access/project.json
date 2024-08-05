@@ -1,0 +1,20 @@
+{
+  "name": "payments-data-access",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/payments/ng/data-access/src",
+  "prefix": "lib",
+  "projectType": "library",
+  "tags": ["framework:ng", "scope:data-access"],
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/payments/ng/data-access/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

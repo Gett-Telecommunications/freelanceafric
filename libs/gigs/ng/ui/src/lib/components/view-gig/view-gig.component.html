@@ -1,2 +1,41 @@
-{{ selectedGig()?.title }}
-<button mat-button color="primary" class="rounded" [routerLink]="['/checkout', selectedGig()?.id]">Book Now</button>
+<section id="view_gig">
+  @if (selectedGig(); as selectedGig) {
+    <header class="with_width">
+      <div class="decoration left"></div>
+      <div class="decoration center"></div>
+      <div class="decoration right"></div>
+      <div class="text">
+        <h1>{{ selectedGig.title }}</h1>
+      </div>
+    </header>
+    <section class="main with_width">
+      <main>
+        <div [innerHTML]="selectedGig.description"></div>
+      </main>
+      <aside>
+        <div class="pricing">
+          <div class="price statistic">
+            <h3>Price</h3>
+            <p>KES {{ selectedGig.price }}</p>
+          </div>
+          <div class="duration statistic">
+            <h3>Duration</h3>
+            <p>{{ selectedGig.duration }} Days</p>
+          </div>
+          <button mat-flat-button color="accent" class="rounded" [routerLink]="['/checkout', selectedGig.id]">
+            Book Now
+          </button>
+        </div>
+        <div class="seller">
+          @if (sellerProfile(); as sellerProfile) {
+            <lib-seller-card [sellerProfile]="sellerProfile"></lib-seller-card>
+          } @else {
+            <p>Loading seller profile...</p>
+          }
+        </div>
+      </aside>
+    </section>
+  } @else {
+    <p>Loading gig...</p>
+  }
+</section>

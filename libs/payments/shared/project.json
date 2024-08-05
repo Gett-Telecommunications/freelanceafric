@@ -1,0 +1,26 @@
+{
+  "name": "payments-shared",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/payments/shared/src",
+  "projectType": "library",
+  "tags": ["scope:shared", "framework:js"],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/payments/shared",
+        "main": "libs/payments/shared/src/index.ts",
+        "tsConfig": "libs/payments/shared/tsconfig.lib.json",
+        "assets": ["libs/payments/shared/*.md"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/payments/shared/jest.config.ts"
+      }
+    }
+  }
+}

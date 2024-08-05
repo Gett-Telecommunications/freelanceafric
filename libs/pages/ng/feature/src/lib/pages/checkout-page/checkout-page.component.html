@@ -1,41 +1,47 @@
 <section id="checkout_page">
-  <h2>Checkout {{ selectedGig()?.title }}</h2>
-  <!-- <button mat-button color="primary" class="rounded">Pay Now</button> -->
-  <google-pay-button
-    environment="TEST"
-    buttonType="buy"
-    buttonColor="black"
-    [paymentRequest]="{
-      apiVersion: 2,
-      apiVersionMinor: 0,
-      allowedPaymentMethods: [
-        {
-          type: 'CARD',
-          parameters: {
-            allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
-            allowedCardNetworks: ['AMEX', 'VISA', 'MASTERCARD']
-          },
-          tokenizationSpecification: {
-            type: 'PAYMENT_GATEWAY',
-            parameters: {
-              gateway: 'example',
-              gatewayMerchantId: 'exampleGatewayMerchantId'
-            }
-          }
-        }
-      ],
-      merchantInfo: {
-        merchantId: '12345678901234567890',
-        merchantName: 'Demo Merchant'
-      },
-      transactionInfo: {
-        totalPriceStatus: 'FINAL',
-        totalPriceLabel: 'Total',
-        totalPrice: '100.00',
-        currencyCode: 'USD',
-        countryCode: 'US'
-      }
-    }"
-    (loadpaymentdata)="onLoadPaymentData($event)"
-  ></google-pay-button>
+  <section class="content with_width">
+    <main>
+      <h1>Checkout</h1>
+      <h3>{{ selectedGig()?.title }}</h3>
+      <form [formGroup]="paymentDetailsForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Additional Instructions</mat-label>
+          <textarea matInput placeholder="Additional Instructions" formControlName="additionalInstructions"></textarea>
+        </mat-form-field>
+      </form>
+    </main>
+    <aside>
+      <div class="pricing">
+        <div class="price_detail gig_price">
+          <h3>Gig Price</h3>
+          <p>KES {{ selectedGig()?.price }}</p>
+        </div>
+        <div class="price_detail extras_price">
+          <h3>Extras</h3>
+          <p>KES {{ extrasPrice() }}</p>
+        </div>
+        <div class="price_detail processing_fee">
+          <h3>Processing Fee</h3>
+          <p>KES {{ processingFee() }}</p>
+        </div>
+        <div class="price_detail total_price">
+          <h3>Total Price</h3>
+          <p>KES {{ totalPrice() }}</p>
+        </div>
+      </div>
+      <div>
+        <button
+          mat-flat-button
+          color="primary"
+          class="intaSendPayButton rounded"
+          [attr.data-amount]="totalPrice()"
+          data-currency="KES"
+          data-country="KE"
+        >
+          Pay Now
+        </button>
+        <button mat-flat-button color="accent" class="rounded">Fast forward</button>
+      </div>
+    </aside>
+  </section>
 </section>
