@@ -1,0 +1,10 @@
+<section class="order_list">
+  <aside>
+    @for (order of orders(); track order.id) {
+      <lib-order-list-item [order]="order" [role]="role()"></lib-order-list-item>
+    }
+  </aside>
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+</section>

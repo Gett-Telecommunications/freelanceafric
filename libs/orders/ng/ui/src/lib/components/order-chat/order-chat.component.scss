@@ -1,0 +1,45 @@
+main.chat {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100%;
+
+  main {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+
+    .chat_item {
+      max-width: 80%;
+      min-width: 300px;
+      width: 100%;
+
+      &.mine {
+        align-self: flex-end;
+      }
+    }
+  }
+
+  footer {
+    form {
+      background-color: rgb(242, 242, 242);
+      border: lightgray;
+      border-radius: 8px;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      align-items: center;
+      padding: 4px;
+
+      input {
+        padding: 16px;
+        flex: 1;
+        border: none;
+        border-radius: 8px;
+        background-color: transparent;
+        font-size: 1rem;
+      }
+    }
+  }
+}

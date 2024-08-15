@@ -64,7 +64,7 @@ export class CreateNewGigComponent implements OnInit {
         price: this.pricingFormGroup.value.price || 0,
         duration: this.pricingFormGroup.value.duration || '',
         status: 'pending',
-        sellerUid: '',
+        sellerUID: '',
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       };

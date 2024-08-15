@@ -8,7 +8,7 @@ export interface I_Gig {
   status: 'active' | 'inactive' | 'pending';
   createdAt: string;
   updatedAt: string;
-  sellerUid: string;
+  sellerUID: string;
   approval?: {
     approvalStatus: 'pending' | 'approved' | 'rejected' | 'revoked';
     approvedBy: string;

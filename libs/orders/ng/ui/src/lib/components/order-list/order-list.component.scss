@@ -1,0 +1,5 @@
+section.order_list {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 32px;
+}

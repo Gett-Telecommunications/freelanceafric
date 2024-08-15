@@ -12,7 +12,8 @@
     "gigs",
     "checkout",
     "search",
-    "payment"
+    "payment",
+    "orders"
   ],
   "cSpell.words": [
     "AAAAALZDHDI",

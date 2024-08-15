@@ -27,7 +27,7 @@ export class GigListComponent {
       filteredGigs = filteredGigs.filter((gig) => gig.categories.includes(filterByCategory));
     }
     if (filterBySeller) {
-      filteredGigs = filteredGigs.filter((gig) => gig.sellerUid === filterBySeller);
+      filteredGigs = filteredGigs.filter((gig) => gig.sellerUID === filterBySeller);
     }
     return filteredGigs;
   });

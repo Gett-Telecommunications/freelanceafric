@@ -7,6 +7,8 @@ import { SellerProfilePageComponent } from '@freelanceafric/pages-ng-feature';
 import { SellerGigsPageComponent } from './users/seller/seller-gigs-page/seller-gigs-page.component';
 import { SellerNewGigPageComponent } from './users/seller/seller-new-gig-page/seller-new-gig-page.component';
 import { SellerGigPreviewPageComponent } from './users/seller/seller-gig-preview-page/seller-gig-preview-page.component';
+import { DashboardOrdersPageComponent } from './pages/orders-page/dashboard-orders-page.component';
+import { OrderDetailsPageComponent } from '@freelanceafric/orders-feature';
 
 export const dashboardNgFeatureRoutes: Route[] = [
   {
@@ -51,9 +53,45 @@ export const dashboardNgFeatureRoutes: Route[] = [
               },
             ],
           },
+          {
+            path: 'orders',
+            component: DashboardOrdersPageComponent,
+            title: 'My Orders | Freelance Afric',
+            data: {
+              userRole: 'seller',
+            },
+            children: [
+              {
+                path: ':r_orderId',
+                component: OrderDetailsPageComponent,
+                title: 'Order Details | Freelance Afric',
+              },
+            ],
+          },
         ],
       },
-      { path: 'buy', component: DashboardBuyerPageComponent, title: 'Buy | Freelance Afric' },
+      {
+        path: 'buy',
+        component: DashboardBuyerPageComponent,
+        title: 'Buy | Freelance Afric',
+        children: [
+          {
+            path: 'orders',
+            component: DashboardOrdersPageComponent,
+            title: 'My Orders | Freelance Afric',
+            data: {
+              userRole: 'buyer',
+            },
+            children: [
+              {
+                path: ':r_orderId',
+                component: OrderDetailsPageComponent,
+                title: 'Order Details | Freelance Afric',
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
 ];

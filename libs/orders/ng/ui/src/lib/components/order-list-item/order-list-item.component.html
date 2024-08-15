@@ -1,0 +1,17 @@
+<div class="order_list_item" [routerLink]="[link(), order().id]">
+  <header>
+    <div class="title">
+      <h5>Order #{{ order().id }}</h5>
+    </div>
+    <div class="status">
+      <span class="label">Status: </span>
+      <span class="value">{{ order().status }}</span>
+    </div>
+  </header>
+
+  <div class="content">
+    <div class="gig">
+      <h3>{{ gig()?.title }}</h3>
+    </div>
+  </div>
+</div>

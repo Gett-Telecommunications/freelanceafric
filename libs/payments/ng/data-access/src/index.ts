@@ -1,1 +1,1 @@
-export * from './lib/payments-data-access/payments-data-access.component';
+export * from './lib/services/payment/payment.service'

@@ -1,0 +1,16 @@
+div.order_list_item {
+  background-color: lightgray;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 1px solid gray;
+
+  &:hover {
+    background-color: darkgray;
+    cursor: pointer;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+  }
+}

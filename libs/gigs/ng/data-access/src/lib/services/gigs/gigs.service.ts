@@ -19,7 +19,7 @@ export class GigsService {
     if (!loggedInUser) throw new Error('User must be logged in to create a gig');
     const uid = loggedInUser.uid;
     const docRef = doc(this.collection);
-    const newGig: I_Gig = { ...gig, id: docRef.id, sellerUid: uid };
+    const newGig: I_Gig = { ...gig, id: docRef.id, sellerUID: uid };
     try {
       await setDoc(docRef, newGig);
       return newGig;
@@ -44,8 +44,8 @@ export class GigsService {
     }
   }
 
-  async getGigsForSeller(sellerUid: string): Promise<I_Gig[]> {
-    const _query = query(this.collection, where('sellerUid', '==', sellerUid));
+  async getGigsForSeller(sellerUID: string): Promise<I_Gig[]> {
+    const _query = query(this.collection, where('sellerUID', '==', sellerUID));
     try {
       const querySnapshot = await getDocs(_query);
       const gigs: I_Gig[] = [];
@@ -55,7 +55,7 @@ export class GigsService {
       return gigs;
     } catch (error) {
       console.log(error);
-      throw new Error('Error getting all gigs for ' + sellerUid);
+      throw new Error('Error getting all gigs for ' + sellerUID);
     }
   }
 

@@ -1,0 +1,17 @@
+<main class="order_details_page">
+  <main>
+    <header>
+      <h3>Order Details</h3>
+    </header>
+    <section class="body">
+      <lib-order-chat [chatReference]="orderId()" [chatType]="'order'"></lib-order-chat>
+    </section>
+  </main>
+  <aside>
+    <div class="seller">
+      @if (seller(); as seller) {
+        <lib-seller-card [sellerProfile]="seller"></lib-seller-card>
+      }
+    </div>
+  </aside>
+</main>

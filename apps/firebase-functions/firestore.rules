@@ -11,7 +11,7 @@ service cloud.firestore {
       // Any logged in person can create a file in the files collection
       allow create: if request.auth != null;
       // anyone can read files that are public
-      allow get: if request.resource.data.route.startsWith('public') || request.auth.token.isAdmin;
+      allow get: if resource.data.route.matches('.*public/.*') || request.auth.token.isAdmin;
       // Anyone can view files uploaded by themselves
       allow read: if request.auth.uid == resource.data.uploadedBy;
       // Anyone can update files that are uploaded by them
@@ -34,7 +34,6 @@ service cloud.firestore {
       allow get, list: if request.auth != null;
       // only admins can update and delete
       allow read, write: if (request.auth.token.isAdmin || request.auth.uid == request.resource.data.uid);
-
       // subcollection of drafts is only accessible to the seller who created it
       match /drafts/{draft} {
         allow read, write: if request.auth.token.isAdmin || request.auth.uid == request.resource.data.uid;
@@ -45,6 +44,37 @@ service cloud.firestore {
       allow get, list: if true;
       // only admins can update and delete
       allow read, write: if request.auth.token.isSeller;
+    }
+    match /payments/{document=**} {
+      // Any buyer can create a payment where the senderUID is the same as the user who created it
+      allow create: if request.auth.uid == request.resource.data.senderUID;
+      // Only the senderUID and admin can read payments
+      allow get, list: if request.auth.uid == resource.data.senderUID || request.auth.token.isAdmin;
+      // Nobody can update or delete payments
+      allow update, delete: if false;
+    }
+    match /orders/{document=**} {
+      // Any buyer can create a new order or any sender can send a new chat message
+      allow create: if request.auth.uid == request.resource.data.buyerUID || request.auth.uid == request.resource.data.senderUID;
+      // Only the buyerUID, the sellerUID and admin can read orders and update them
+      allow get, update: if
+        request.auth.uid == resource.data.buyerUID
+        || request.auth.uid == resource.data.sellerUID
+        || request.auth.uid == request.resource.data.senderUID
+        || request.auth.token.isAdmin;
+      // allow the buyer and seller to list
+      allow list: if
+        (request.auth.uid == resource.data.buyerUID)
+        || (request.auth.uid == resource.data.sellerUID)
+        || request.auth.uid == get(request.query.parent).data.buyerUID
+        || request.auth.uid == get(request.query.parent).data.sellerUID;
+      // Nobody can delete orders
+      allow delete: if false;
+
+      // subcollection of chats is only accessible to the buyers and sellers of the order
+      match /chats/{chat} {
+        allow read, write: if request.auth.uid == resource.data.buyerUID || request.auth.uid == resource.data.sellerUID;
+      }
     }
   }
 }

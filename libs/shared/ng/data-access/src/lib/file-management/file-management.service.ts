@@ -245,7 +245,7 @@ export class FileManagementService implements OnDestroy {
       }
     } catch (error) {
       console.log(error);
-      throw new Error('Error getting file data from the DB');
+      throw new Error('Error getting file data from the DB (FileManagementService::getFileDataByIdFromDB)');
     }
   }
 

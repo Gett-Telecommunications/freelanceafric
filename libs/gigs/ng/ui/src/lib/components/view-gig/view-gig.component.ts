@@ -37,7 +37,7 @@ export class ViewGigComponent {
       // get the seller profile
       const selectedGig = this.selectedGig();
       if (!selectedGig) return;
-      const sellerProfile = await this.sellerProfileService.getProfileByID(selectedGig.sellerUid);
+      const sellerProfile = await this.sellerProfileService.getProfileByID(selectedGig.sellerUID);
       if (sellerProfile) {
         this.sellerProfile.set(sellerProfile);
       }

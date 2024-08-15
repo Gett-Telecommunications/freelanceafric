@@ -1,3 +1,8 @@
-<lib-dashboard-shell [menu]="[{ label: 'Home', icon: 'home', link: '/dashboard/buy' }]">
+<lib-dashboard-shell
+  [menu]="[
+    { label: 'Home', icon: 'home', link: '/dashboard/buy' },
+    { label: 'Orders', icon: 'shopping_cart', link: '/dashboard/buy/orders' }
+  ]"
+>
   <router-outlet></router-outlet>
 </lib-dashboard-shell>

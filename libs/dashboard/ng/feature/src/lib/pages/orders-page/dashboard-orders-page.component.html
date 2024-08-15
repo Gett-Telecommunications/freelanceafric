@@ -1,0 +1,5 @@
+@if (user$ | async; as user) {
+  @if (role(); as role) {
+    <lib-order-list [userUID]="user.uid" [role]="role"></lib-order-list>
+  }
+}

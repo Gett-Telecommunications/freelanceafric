@@ -1,0 +1,23 @@
+<main class="chat">
+  <header>
+    <!-- <h3>header</h3> -->
+  </header>
+  <main>
+    <div
+      *ngFor="let message of sortedMessages()"
+      class="chat_item"
+      [ngClass]="{ mine: message.senderUID === user()?.uid }"
+    >
+      <lib-chat-message [chat]="message"></lib-chat-message>
+    </div>
+  </main>
+  <footer>
+    <form [formGroup]="messageForm" (submit)="onSubmitMessage()">
+      <input matInput type="text" placeholder="Message" formControlName="message" />
+      <button mat-icon-button><mat-icon>attachment</mat-icon></button>
+      <button mat-icon-button color="primary" type="submit">
+        <mat-icon>send</mat-icon>
+      </button>
+    </form>
+  </footer>
+</main>
