@@ -4,11 +4,12 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { collection, collectionData, doc, Firestore, orderBy, query, setDoc } from '@angular/fire/firestore';
-import { E_FirestoreCollections, I_ChatMessage } from '@freelanceafric/shared-shared';
+import { E_FileRoutes, E_FirestoreCollections, I_ChatMessage, I_File } from '@freelanceafric/shared-shared';
 import { Auth, User, user } from '@angular/fire/auth';
 import { Observable, Subscription, tap } from 'rxjs';
 import { MatInputModule } from '@angular/material/input';
-import { ChatMessageComponent } from '@freelanceafric/shared-ng-ui';
+import { ChatMessageComponent, FileUploadComponent } from '@freelanceafric/shared-ng-ui';
+import { FileManagementService } from '@freelanceafric/shared-ng-data-access';
 
 @Component({
   selector: 'lib-order-chat',
@@ -21,6 +22,7 @@ import { ChatMessageComponent } from '@freelanceafric/shared-ng-ui';
     MatIconModule,
     MatInputModule,
     ChatMessageComponent,
+    FileUploadComponent,
   ],
   templateUrl: './order-chat.component.html',
   styleUrl: './order-chat.component.scss',
@@ -67,6 +69,7 @@ export class OrderChatComponent implements OnDestroy {
   });
 
   private messagesSub: Subscription | undefined;
+  E_FileRoutes = E_FileRoutes;
 
   constructor() {
     effect(() => {
@@ -93,6 +96,25 @@ export class OrderChatComponent implements OnDestroy {
     };
     this.sendMessage(formattedMessage);
     this.messageForm.reset();
+  }
+
+  public async onUploadFile(uploadedFiles: I_File[]): Promise<void> {
+    const allPromises = uploadedFiles.map((file) => {
+      const message: I_ChatMessage = {
+        id: '',
+        senderUID: this.user()?.uid || '',
+        type: 'file',
+        message: file.originalName,
+        createdAt: new Date().toISOString(),
+        reference: file,
+      };
+      return this.sendMessage(message);
+    });
+    try {
+      await Promise.all(allPromises);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   private async sendMessage(message: I_ChatMessage): Promise<void> {

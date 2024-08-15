@@ -6,6 +6,8 @@ export function getFileTypesForRoute(route: E_FileRoutes): T_FileTypes[] {
       return ['image/*'];
     case E_FileRoutes.PUBLIC_SELLER_PROFILE_IMAGES:
       return ['image/jpeg'];
+    case E_FileRoutes.PRIVATE_CHAT_UPLOADS:
+      return ['**/*'];
     default: {
       const _route: never = route;
       return _route;

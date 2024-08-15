@@ -14,7 +14,11 @@
   <footer>
     <form [formGroup]="messageForm" (submit)="onSubmitMessage()">
       <input matInput type="text" placeholder="Message" formControlName="message" />
-      <button mat-icon-button><mat-icon>attachment</mat-icon></button>
+      <lib-file-upload
+        [multiple]="true"
+        [fileRoute]="E_FileRoutes.PRIVATE_CHAT_UPLOADS"
+        (uploadedFiles)="onUploadFile($event)"
+      ></lib-file-upload>
       <button mat-icon-button color="primary" type="submit">
         <mat-icon>send</mat-icon>
       </button>

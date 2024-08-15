@@ -1,4 +1,5 @@
 export type T_FileTypes =
+  | '**/*'
   | 'image/*'
   | '.pdf'
   | 'image/png'
