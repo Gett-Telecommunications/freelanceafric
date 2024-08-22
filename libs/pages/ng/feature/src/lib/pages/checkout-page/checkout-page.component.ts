@@ -113,7 +113,7 @@ export class CheckoutPageComponent implements OnDestroy, OnInit, AfterViewInit {
       extras: [],
       sellerStatus: 'PENDING',
       createdAt: new Date().toISOString(),
-      status: 'PENDING',
+      buyerStatus: 'PENDING_REVISION',
       buyerFurtherDetails: this.paymentDetailsForm.value.additionalInstructions || '',
     };
     try {

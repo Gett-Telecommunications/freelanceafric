@@ -16,7 +16,7 @@ export const pagesNgFeatureRoutes: Route[] = [
     path: 'search',
     loadChildren: () => import('@freelanceafric/search-feature').then((m) => m.searchFeatureRoutes),
   },
-  { path: '', component: LandingPageComponent },
+  { path: '', component: LandingPageComponent, title: 'Home | Freelance Afric' },
   { path: 'home', component: LandingPageComponent, title: 'Home | Freelance Afric' },
   { path: 'become_a_seller', component: BecomeSellerPageComponent, title: 'Become a Seller | Freelance Afric' },
   { path: 'explore', component: ExplorePageComponent, title: 'Explore | Freelance Afric' },

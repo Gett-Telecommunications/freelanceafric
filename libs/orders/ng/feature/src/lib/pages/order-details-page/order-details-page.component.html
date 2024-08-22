@@ -4,14 +4,33 @@
       <h3>Order Details</h3>
     </header>
     <section class="body">
-      <lib-order-chat [chatReference]="orderId()" [chatType]="'order'"></lib-order-chat>
+      @if (order(); as order) {
+        @if (order.sellerStatus === 'REJECTED') {
+          <p>Seller rejected the gig</p>
+        } @else {
+          <lib-order-chat [chatReference]="orderId()" [chatType]="'order'" [chatMessage]="message()"></lib-order-chat>
+        }
+      } @else {
+        <p>Loading...</p>
+      }
     </section>
   </main>
   <aside>
     <div class="seller">
-      @if (seller(); as seller) {
-        <lib-seller-card [sellerProfile]="seller"></lib-seller-card>
+      @if (iAmThe() === 'buyer') {
+        @if (seller(); as seller) {
+          <lib-seller-card [sellerProfile]="seller"></lib-seller-card>
+        }
       }
+      @if (iAmThe() === 'seller') {
+        @if (order(); as order) {
+          @if (order.sellerStatus === 'PENDING') {
+            <button mat-raised-button (click)="sellerAcceptOrRejectGig('accept')">Accept</button>
+            <button mat-raised-button (click)="sellerAcceptOrRejectGig('reject')">Reject</button>
+          }
+        }
+      }
+      <button mat-raised-button (click)="markAsCompleted()">Mark as completed</button>
     </div>
   </aside>
 </main>

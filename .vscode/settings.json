@@ -13,7 +13,8 @@
     "checkout",
     "search",
     "payment",
-    "orders"
+    "orders",
+    "cleanup"
   ],
   "cSpell.words": [
     "AAAAALZDHDI",

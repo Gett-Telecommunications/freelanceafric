@@ -9,7 +9,6 @@ import { Auth, User, user } from '@angular/fire/auth';
 import { Observable, Subscription, tap } from 'rxjs';
 import { MatInputModule } from '@angular/material/input';
 import { ChatMessageComponent, FileUploadComponent } from '@freelanceafric/shared-ng-ui';
-import { FileManagementService } from '@freelanceafric/shared-ng-data-access';
 
 @Component({
   selector: 'lib-order-chat',
@@ -30,6 +29,7 @@ import { FileManagementService } from '@freelanceafric/shared-ng-data-access';
 export class OrderChatComponent implements OnDestroy {
   chatReference = input.required<string>();
   chatType = input.required<'order'>();
+  chatMessage = input<I_ChatMessage>();
 
   private firestore = inject(Firestore);
   private auth = inject(Auth);
@@ -79,6 +79,13 @@ export class OrderChatComponent implements OnDestroy {
       this.messagesSub = this.chatMessages$?.subscribe((messages) => {
         this.chatMessages.set(messages);
       });
+    });
+
+    effect(() => {
+      const message = this.chatMessage();
+      if (message) {
+        this.sendMessage(message);
+      }
     });
   }
 

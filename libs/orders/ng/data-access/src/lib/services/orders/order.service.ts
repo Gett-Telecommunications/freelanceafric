@@ -10,6 +10,7 @@ import {
   Query,
   query,
   setDoc,
+  updateDoc,
   where,
 } from '@angular/fire/firestore';
 import { E_FirestoreCollections } from '@freelanceafric/shared-shared';
@@ -55,5 +56,48 @@ export class OrderService {
       orders.push(doc.data() as I_Order);
     });
     return orders;
+  }
+
+  async markAsCompleted(orderReference: string, as: 'buyer' | 'seller'): Promise<boolean> {
+    const docRef = doc(this.collection, orderReference);
+
+    const updatedOrder: Partial<I_Order> = {};
+    switch (as) {
+      case 'buyer':
+        updatedOrder.buyerStatus = 'COMPLETED';
+        break;
+      case 'seller':
+        updatedOrder.sellerStatus = 'COMPLETED';
+        break;
+    }
+    try {
+      await updateDoc(docRef, updatedOrder);
+      return true;
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
+  }
+
+  async sellerMarkAs(orderReference: string, as: 'accepted' | 'rejected', rejectReason?: string): Promise<boolean> {
+    const docRef = doc(this.collection, orderReference);
+
+    const updatedOrder: Partial<I_Order> = {};
+    switch (as) {
+      case 'accepted':
+        updatedOrder.sellerStatus = 'ACCEPTED';
+        break;
+      case 'rejected':
+        updatedOrder.sellerStatus = 'REJECTED';
+        updatedOrder.sellerRejectReason = rejectReason;
+        break;
+    }
+    try {
+      await updateDoc(docRef, updatedOrder);
+      return true;
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
   }
 }

@@ -5,11 +5,11 @@ export interface I_Order {
   sellerUID: string;
   gigId: string;
   extras: { extraId: string; extraOptions: string[] }[];
-  sellerStatus: 'PENDING' | 'ACCEPTED' | 'REJECTED' | 'CANCELLED';
+  sellerStatus: 'PENDING' | 'ACCEPTED' | 'REJECTED' | 'COMPLETED' | 'CANCELLED' | 'FAILED';
   createdAt: string;
   startDate?: string;
   endDate?: string;
-  status: 'PENDING' | 'ACCEPTED' | 'REJECTED' | 'CANCELLED' | 'COMPLETED' | 'FAILED';
+  buyerStatus: 'PENDING_REVISION' | 'CANCELLED' | 'COMPLETED' | 'FAILED';
   buyerFurtherDetails?: string;
   sellerRejectReason?: string;
 }

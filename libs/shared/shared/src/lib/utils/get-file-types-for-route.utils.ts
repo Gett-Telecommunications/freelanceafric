@@ -5,7 +5,7 @@ export function getFileTypesForRoute(route: E_FileRoutes): T_FileTypes[] {
     case E_FileRoutes.PUBLIC_CATEGORY_IMAGES:
       return ['image/*'];
     case E_FileRoutes.PUBLIC_SELLER_PROFILE_IMAGES:
-      return ['image/jpeg'];
+      return ['image/*'];
     case E_FileRoutes.PRIVATE_CHAT_UPLOADS:
       return ['**/*'];
     default: {
