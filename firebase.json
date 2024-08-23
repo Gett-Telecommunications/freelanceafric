@@ -60,5 +60,8 @@
   "remoteconfig": {
     "template": "apps/firebase-functions/remoteconfig.template.json"
   },
-  "extensions": {}
+  "extensions": {
+    "firestore-algolia-search": "algolia/firestore-algolia-search@1.2.7",
+    "firestore-send-email": "firebase/firestore-send-email@0.1.34"
+  }
 }
