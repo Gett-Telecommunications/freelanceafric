@@ -7,7 +7,8 @@
   "etags": {
     "freelanceafric": {
       "extensionInstances": {
-        "firestore-send-email": "994cdccd6fae348f151f852b4fac0270c8a609c874946ff44b0bff9e311fcc3c"
+        "firestore-send-email": "557fab476a4360a2c5be440d4939b2746062222fba7be2e6f9d1277b74d1807c",
+        "firestore-algolia-search": "c674723dd01ca66d53de5c7d48ab60eac0181d9469dd974537fe93105fe4b236"
       }
     }
   }

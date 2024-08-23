@@ -5,7 +5,11 @@
   },
   "hosting": {
     "public": "dist/apps/freelanceafric/browser",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
     "rewrites": [
       {
         "source": "**",
@@ -21,13 +25,17 @@
       "codebase": "firebase-auth",
       "source": "dist/libs/auth/firebase",
       "runtime": "nodejs20",
-      "ignore": ["*.local"]
+      "ignore": [
+        "*.local"
+      ]
     },
     {
       "codebase": "orders-firebase",
       "source": "dist/libs/orders/firebase",
       "runtime": "nodejs20",
-      "ignore": ["*.local"]
+      "ignore": [
+        "*.local"
+      ]
     }
   ],
   "emulators": {
