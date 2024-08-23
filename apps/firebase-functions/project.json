@@ -2,12 +2,8 @@
   "name": "firebase-functions",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "tags": [
-    "firebase:app",
-    "firebase:name:firebase-functions",
-    "scope:functions",
-    "framework:firebase-functions"
-  ],
+  "tags": ["firebase:app", "firebase:name:firebase-functions", "scope:functions", "framework:firebase-functions"],
+  "implicitDependencies": ["firebase-auth", "orders-firebase"],
   "targets": {
     "build": {
       "executor": "nx:run-commands",
@@ -69,10 +65,7 @@
     "serve": {
       "executor": "@simondotm/nx-firebase:serve",
       "options": {
-        "commands": [
-          "nx run firebase-functions:watch",
-          "nx run firebase-functions:emulate"
-        ]
+        "commands": ["nx run firebase-functions:watch", "nx run firebase-functions:emulate"]
       }
     },
     "deploy": {
@@ -82,6 +75,5 @@
         "command": "nx run firebase-functions:firebase deploy"
       }
     }
-  },
-  "implicitDependencies": ["firebase-auth"]
+  }
 }

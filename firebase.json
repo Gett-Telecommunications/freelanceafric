@@ -22,6 +22,12 @@
       "source": "dist/libs/auth/firebase",
       "runtime": "nodejs20",
       "ignore": ["*.local"]
+    },
+    {
+      "codebase": "orders-firebase",
+      "source": "dist/libs/orders/firebase",
+      "runtime": "nodejs20",
+      "ignore": ["*.local"]
     }
   ],
   "emulators": {

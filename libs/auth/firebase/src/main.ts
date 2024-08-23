@@ -22,6 +22,18 @@ export const createUserPermissionsDocumentOnRegistration = functions.auth.user()
       isAdmin: false,
       isSeller: false,
     });
+
+  getFirestore()
+    .collection('mail')
+    .add({
+      to: user.email,
+      message: {
+        subject: 'Hello from Freelance Afric!',
+        text: 'We are so excited to have you onboard!',
+        html: '<h1>Welcome</h1> <p>We are so excited to have you onboard!</p>',
+      },
+    })
+    .then(() => console.log('Queued email for delivery!'));
 });
 
 export const createUserPermissionsDocumentOnLoginIfNotExists = functions.auth.user().beforeSignIn(async (user) => {

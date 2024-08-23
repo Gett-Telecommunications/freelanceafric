@@ -6,7 +6,9 @@
   "targets": {},
   "etags": {
     "freelanceafric": {
-      "extensionInstances": {}
+      "extensionInstances": {
+        "firestore-send-email": "994cdccd6fae348f151f852b4fac0270c8a609c874946ff44b0bff9e311fcc3c"
+      }
     }
   }
 }

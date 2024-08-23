@@ -14,7 +14,8 @@
     "search",
     "payment",
     "orders",
-    "cleanup"
+    "cleanup",
+    "email"
   ],
   "cSpell.words": [
     "AAAAALZDHDI",
@@ -27,6 +28,7 @@
     "prerender",
     "remoteconfig",
     "simondotm",
+    "Uids",
     "unsubscriber",
     "vertexai"
   ],

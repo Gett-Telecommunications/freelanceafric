@@ -1,0 +1,56 @@
+{
+  "name": "orders-firebase",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/orders/firebase/src",
+  "projectType": "application",
+  "tags": [
+    "firebase:function",
+    "firebase:name:orders-firebase",
+    "firebase:dep:firebase-functions",
+    "framework:firebase",
+    "scope:firebase"
+  ],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/orders/firebase",
+        "main": "libs/orders/firebase/src/main.ts",
+        "tsConfig": "libs/orders/firebase/tsconfig.app.json",
+        "assets": [
+          "libs/orders/firebase/src/assets",
+          {
+            "glob": "**/*",
+            "input": "apps/firebase-functions/environment",
+            "output": "."
+          }
+        ],
+        "generatePackageJson": true,
+        "platform": "node",
+        "bundle": true,
+        "thirdParty": false,
+        "dependenciesFieldType": "dependencies",
+        "target": "node20",
+        "format": ["esm"],
+        "esbuildOptions": {
+          "logLevel": "info"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/orders/firebase/jest.config.ts"
+      }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "nx run firebase-functions:deploy --only functions:orders-firebase"
+      },
+      "dependsOn": ["build"]
+    }
+  }
+}
