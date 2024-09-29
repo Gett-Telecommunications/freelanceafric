@@ -54,6 +54,10 @@ export class LandingPageComponent {
     },
   ];
 
-  nextOnTestimonialCarousel() {}
-  previousOnTestimonialCarousel() {}
+  nextOnTestimonialCarousel() {
+    console.log('next');
+  }
+  previousOnTestimonialCarousel() {
+    console.log('previous');
+  }
 }

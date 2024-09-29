@@ -24,3 +24,33 @@ section.search.compact {
     }
   }
 }
+
+
+section.search.full {
+  display: grid;
+  grid-template-columns: auto 1fr;
+
+  form {
+    display: grid;
+    grid-template-columns: 1fr auto;
+
+    &.search_term {
+      padding-bottom: 22px;
+
+      input {
+        padding: 4px 1rem;
+        border-radius: 32px;
+      }
+
+      span {
+        display: grid;
+        place-items: center;
+
+        button {
+          background-color: var(--primary-color);
+          color: white;
+        }
+      }
+    }
+  }
+}
