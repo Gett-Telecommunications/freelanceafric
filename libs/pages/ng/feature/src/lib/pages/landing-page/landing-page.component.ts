@@ -53,4 +53,7 @@ export class LandingPageComponent {
       description: 'You can always reach out to us and our team to help with any issues regarding a Gig.',
     },
   ];
+
+  nextOnTestimonialCarousel() {}
+  previousOnTestimonialCarousel() {}
 }
