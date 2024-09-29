@@ -1,11 +1,17 @@
 @if (user$ | async; as user) {
   <section id="already_logged_in">
-    <h1>Hi{{ ' ' + user.displayName }}!</h1>
-    <p>You are already logged in using {{ user.email }}</p>
+    <h3>
+      Hi
+      <span> {{ user.displayName }}</span
+      >!
+    </h3>
+    <p>
+      You are already logged in using <span>{{ user.email }}</span>
+    </p>
     <div class="actions">
-      <button mat-raised-button (click)="logout()">Logout</button>
-      <button mat-raised-button routerLink="/">Go to Homepage</button>
-      <a mat-raised-button [routerLink]="['/dashboard']">Go to Dashboard</a>
+      <button mat-button (click)="logout()">Logout</button>
+      <a mat-raised-button routerLink="/" color="primary">Go to Homepage</a>
+      <a mat-raised-button [routerLink]="['/dashboard']" color="accent">Go to Dashboard</a>
     </div>
   </section>
 } @else {

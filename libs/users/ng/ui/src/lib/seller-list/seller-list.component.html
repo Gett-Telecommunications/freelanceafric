@@ -1,7 +1,20 @@
-<ul>
-  @for (seller of allSellers(); track seller.uid) {
-    <li>
-      <lib-seller-card [sellerProfile]="seller"></lib-seller-card>
-    </li>
-  }
-</ul>
+<main id="seller_list">
+  <header *ngIf="showHeader()">
+    <form action="">
+      <mat-form-field appearance="outline">
+        <mat-label>Filter</mat-label>
+        <input matInput placeholder="Ex. Mia" />
+      </mat-form-field>
+    </form>
+
+    <div class="filters"></div>
+    <div class="layout"></div>
+  </header>
+  <ul>
+    @for (seller of allSellers(); track seller.uid) {
+      <li>
+        <lib-seller-card [sellerProfile]="seller"></lib-seller-card>
+      </li>
+    }
+  </ul>
+</main>

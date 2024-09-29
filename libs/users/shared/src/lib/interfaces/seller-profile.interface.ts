@@ -5,6 +5,7 @@ export interface I_SellerProfile {
   country: string;
   city: string;
   profileImageID: string;
+  categoryIds?: string[];
   status: 'active' | 'inactive' | 'pending';
   createdAt: string;
   updatedAt: string;

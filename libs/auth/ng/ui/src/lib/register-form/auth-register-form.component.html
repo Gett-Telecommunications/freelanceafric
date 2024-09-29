@@ -1,4 +1,25 @@
-<!-- Sign In With Google -->
-<button mat-raised-button type="button" class="rounded dark outlined size large" (click)="signInWithGoogle()">
-  Sign In With Google
-</button>
+<main id="auth_register_form">
+  <div class="content">
+    <h3>Sign In</h3>
+    <form (ngSubmit)="onRegisterSubmit()" [formGroup]="registerForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" placeholder="Email" formControlName="email" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" placeholder="Password" formControlName="password" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Confirm Password</mat-label>
+        <input matInput type="password" placeholder="Confirm Password" formControlName="confirmPassword" />
+      </mat-form-field>
+      <div class="actions">
+        <button mat-flat-button class="rounded outlined size" type="submit">Sign In</button>
+      </div>
+    </form>
+    <div class="forgot_password">
+      <h6><a routerLink="/auth/forgot_password">Forgot Password</a> or <a routerLink="/auth/login">Log In</a></h6>
+    </div>
+  </div>
+</main>

@@ -1,9 +1,35 @@
 <section id="auth_pages_shell">
   <section class="card">
+    <div class="logo">
+      <img src="/assets/images/logo-color.png" height="100px" />
+    </div>
+    <div class="intro">
+      <h3>Freelance jobs and talents at your fingertips</h3>
+    </div>
     @if (user$ | async; as user) {
       <lib-auth-already-logged-in></lib-auth-already-logged-in>
     } @else {
-      <ng-content #authContent></ng-content>
+      <section class="signin_options">
+        <div class="side left">
+          <ng-content #authContent></ng-content>
+        </div>
+        <div class="side centre">
+          <h5>OR</h5>
+        </div>
+        <div class="side right">
+          <!-- Sign In With Google -->
+          <button mat-raised-button type="button" class="rounded dark outlined size large" (click)="signInWithGoogle()">
+            <img src="/assets/images/icons-google.svg" alt="google logo" /><span>Sign In With Google</span>
+          </button>
+        </div>
+      </section>
     }
+    <div class="footer">
+      <h6>
+        By using Freelance Afric, you agree to our <a routerLink="/terms_of_service">Terms of Service</a> and
+        <a routerLink="/privacy_policy">Privacy Policy</a>
+      </h6>
+      <h5>Copyright © 2024 Freelance Afric. All rights reserved.</h5>
+    </div>
   </section>
 </section>
