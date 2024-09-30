@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, signal } from '@angular/core';
+import { AfterViewInit, Component, computed, inject, input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GigsService } from '@freelanceafric/gigs-data-access';
 import { I_Gig } from '@freelanceafric/gigs-shared';
@@ -11,9 +11,11 @@ import { GigItemComponent } from '../gig-item/gig-item.component';
   templateUrl: './gig-list.component.html',
   styleUrl: './gig-list.component.scss',
 })
-export class GigListComponent {
+export class GigListComponent implements AfterViewInit {
   filterByCategoryId = input<string>();
   filterBySellerUid = input<string>();
+  gigs = input<I_Gig[]>([]);
+
   gigService = inject(GigsService);
 
   allGigs = signal<I_Gig[]>([]);
@@ -32,9 +34,13 @@ export class GigListComponent {
     return filteredGigs;
   });
 
-  constructor() {
-    this.gigService.getAllGigs().then((gigs) => {
-      this.allGigs.set(gigs);
-    });
+  ngAfterViewInit(): void {
+    if (this.gigs().length > 0) {
+      this.allGigs.set(this.gigs());
+    } else {
+      this.gigService.getAllGigs().then((gigs) => {
+        this.allGigs.set(gigs);
+      });
+    }
   }
 }

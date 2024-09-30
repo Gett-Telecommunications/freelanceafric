@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Auth, user } from '@angular/fire/auth';
-import { Firestore, collection, deleteDoc, doc, getDoc, getDocs, setDoc } from '@angular/fire/firestore';
+import { Firestore, collection, deleteDoc, doc, getDoc, getDocs, query, setDoc, where } from '@angular/fire/firestore';
 import { E_FirestoreCollections } from '@freelanceafric/shared-shared';
 import { I_SellerProfile } from '@freelanceafric/users-shared';
 import { firstValueFrom } from 'rxjs';
@@ -64,6 +64,22 @@ export class SellerProfileService {
       }
       return null;
     });
+  }
+
+  async getProfileByIDs(ids: string[]): Promise<I_SellerProfile[]> {
+    if (!ids.length) return [];
+    try {
+      const query_ = query(this.collection, where('uid', 'in', ids));
+      const querySnapshot = await getDocs(query_);
+      const sellers: I_SellerProfile[] = [];
+      querySnapshot.forEach((doc) => {
+        sellers.push(doc.data() as I_SellerProfile);
+      });
+      return sellers;
+    } catch (error) {
+      console.log(error);
+      throw new Error('Error getting sellers by ids');
+    }
   }
 
   async updateMySellerProfile(profile: I_SellerProfile): Promise<I_SellerProfile | false> {

@@ -1,4 +1,4 @@
 import { Route } from '@angular/router';
-import { UsersNgFeatureComponent } from './users-ng-feature/users-ng-feature.component';
+import { UsersProfilePageComponent } from './components/users-profile-page/users-profile-page.component';
 
-export const usersNgFeatureRoutes: Route[] = [{ path: '', component: UsersNgFeatureComponent }];
+export const usersFeatureRoutes: Route[] = [{ path: '', component: UsersProfilePageComponent }];

@@ -16,6 +16,7 @@ div.seller_card {
     height: 250px;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
+    position: relative;
 
     img {
       width: 100%;
@@ -23,6 +24,12 @@ div.seller_card {
       object-fit: cover;
       border-top-left-radius: 16px;
       border-top-right-radius: 16px;
+    }
+
+    .favorite {
+      position: absolute;
+      top: 16px;
+      right: 16px;
     }
   }
 

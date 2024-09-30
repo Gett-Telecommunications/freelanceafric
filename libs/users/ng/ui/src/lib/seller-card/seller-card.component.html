@@ -1,6 +1,17 @@
 <div class="seller_card" [routerLink]="['/seller', sellerProfile().uid]">
   <div class="image">
     <img [src]="profilePicURL() || ''" alt="image" />
+    <div class="favorite">
+      @if (favorite()) {
+        <button mat-mini-fab color="primary" (click)="removeFromFavorites($event)">
+          <mat-icon class="mat-18">favorite</mat-icon>
+        </button>
+      } @else {
+        <button mat-icon-button color="primary" (click)="addToFavorites($event)">
+          <mat-icon class="mat-18">favorite</mat-icon>
+        </button>
+      }
+    </div>
   </div>
   <div class="details">
     <h3>{{ sellerProfile().displayName }}</h3>

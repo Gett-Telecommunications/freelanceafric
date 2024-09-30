@@ -189,3 +189,14 @@ form {
     padding: 0 8px;
   }
 }
+
+.button_group {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+
+  &.center {
+    justify-content: center;
+    align-items: center;
+  }
+}

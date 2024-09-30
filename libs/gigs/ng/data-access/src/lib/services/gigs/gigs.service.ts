@@ -73,6 +73,22 @@ export class GigsService {
     }
   }
 
+  async getGigsByIDs(ids: string[]): Promise<I_Gig[]> {
+    if (!ids.length) return [];
+    try {
+      const query_ = query(this.collection, where('id', 'in', ids));
+      const querySnapshot = await getDocs(query_);
+      const gigs: I_Gig[] = [];
+      querySnapshot.forEach((doc) => {
+        gigs.push(doc.data() as I_Gig);
+      });
+      return gigs;
+    } catch (error) {
+      console.log(error);
+      throw new Error('Error getting gigs by ids');
+    }
+  }
+
   async getAllGigs(): Promise<I_Gig[]> {
     try {
       const querySnapshot = await getDocs(this.collection);

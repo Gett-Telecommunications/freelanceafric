@@ -7,6 +7,14 @@ service cloud.firestore {
       allow get: if ((request.auth.uid == resource.data.uid));
       allow read, write: if request.auth.token.isAdmin;
     }
+    match /user_profiles/{user_uid} {
+      allow read: if request.auth.uid == user_uid;
+      allow write: if request.auth.uid == user_uid;
+
+      match /favorites/{document=**} {
+        allow read, write: if request.auth.uid == user_uid;
+      }
+    }
     match /files/{document=**} {
       // Any logged in person can create a file in the files collection
       allow create: if request.auth != null;

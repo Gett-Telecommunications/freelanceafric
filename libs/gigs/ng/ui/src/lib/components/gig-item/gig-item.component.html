@@ -4,7 +4,17 @@
     from: <span>KES: {{ gig().price }}</span>
   </p>
   <div class="actions">
-    <button mat-mini-fab><mat-icon>favorite</mat-icon></button>
+    <div class="favorite">
+      @if (favorite()) {
+        <button mat-mini-fab color="primary" (click)="removeFromFavorites($event)">
+          <mat-icon class="mat-18">favorite</mat-icon>
+        </button>
+      } @else {
+        <button mat-icon-button color="primary" (click)="addToFavorites($event)">
+          <mat-icon class="mat-18">favorite</mat-icon>
+        </button>
+      }
+    </div>
     <button mat-flat-button color="primary" class="rounded">More Details</button>
   </div>
 </a>

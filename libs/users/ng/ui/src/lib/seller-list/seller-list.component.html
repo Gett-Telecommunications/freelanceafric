@@ -11,7 +11,7 @@
     <div class="layout"></div>
   </header>
   <ul>
-    @for (seller of allSellers(); track seller.uid) {
+    @for (seller of sellersToShow(); track seller.uid) {
       <li>
         <lib-seller-card [sellerProfile]="seller"></lib-seller-card>
       </li>

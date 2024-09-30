@@ -17,6 +17,16 @@ export const dashboardNgFeatureRoutes: Route[] = [
     title: 'Dashboard | Freelance Afric',
     children: [
       {
+        path: '',
+        title: 'Welcome Dashboard | Freelance Afric',
+        loadChildren: () => import('@freelanceafric/users-ng-feature').then((m) => m.usersAdminFeatureRoutes),
+      },
+      {
+        path: 'profile',
+        title: 'My Profile| Freelance Afric',
+        loadChildren: () => import('@freelanceafric/users-ng-feature').then((m) => m.usersFeatureRoutes),
+      },
+      {
         path: 'admin',
         component: DashboardAdminPageComponent,
         title: 'Admin | Freelance Afric',

@@ -1,0 +1,66 @@
+<main id="users_dashboard_page">
+  @if (user$ | async; as user) {
+    <header class="with_width">
+      <h2>Welcome {{ (user.displayName || user.email || '').split('@')[0].split('.')[0].split(' ')[0] }}!</h2>
+    </header>
+
+    <section class="buy with_width">
+      <div class="text">
+        <h3>My Purchases</h3>
+        <p>Find all the gigs you have purchased or purchase a gig to get started right now!</p>
+        <div class="button_group">
+          <a mat-flat-button color="primary" class="rounded size small" [routerLink]="['/dashboard/buy']">
+            Manage Purchases
+          </a>
+          <a mat-flat-button [routerLink]="['/explore']"> Explore Sellers </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="sell with_width">
+      @if (userService.claims().isSeller) {
+        <div class="text">
+          <h3>My Seller Profile</h3>
+          <p>Manage your profile and track your orders or get started selling on Freelance Afric!</p>
+          <div class="button_group">
+            <a mat-flat-button color="primary" class="rounded size small" [routerLink]="['/dashboard/sell']">
+              Manage My Sales
+            </a>
+            <a mat-flat-button [routerLink]="['/dashboard/sell/my-profile']"> View My Profile </a>
+          </div>
+        </div>
+      } @else {
+        <div class="info">
+          <h3>Become a Seller</h3>
+          <h4>We have noticed that you are not a seller yet.</h4>
+          <p>
+            If you have any skills that you would like to sell, you can become a freelancer on Freelance Afric. Our
+            sellers are the best in the industry and you can join the ranks! <br />
+            Becoming a seller allows you to showcase your skills and earn money at your own time and on your own terms.
+          </p>
+          <div class="button_group">
+            <a mat-flat-button color="primary" class="rounded size small" [routerLink]="['/onboarding']">
+              Create your seller profile
+            </a>
+            <a mat-flat-button [routerLink]="['/explore']"> Explore Sellers </a>
+          </div>
+        </div>
+      }
+    </section>
+
+    <section class="favorites with_width">
+      <h3>My Favorites</h3>
+      <p>Find your favorite gigs and sellers and click on the heart to add them to your favorites list.</p>
+      <div class="lists">
+        @for (item of favoriteTypes; track item) {
+          <div class="list">
+            <h4>My favorite {{ item }}s</h4>
+            <lib-users-favorite-list [type]="item"></lib-users-favorite-list>
+          </div>
+        }
+      </div>
+    </section>
+  } @else {
+    <p>Loading...</p>
+  }
+</main>
