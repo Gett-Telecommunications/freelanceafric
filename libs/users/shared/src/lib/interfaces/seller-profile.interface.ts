@@ -4,12 +4,17 @@ export interface I_SellerProfile {
   intro: string;
   country: string;
   city: string;
+  linkedin?: string;
+  instagram?: string;
+  twitter?: string;
+  facebook?: string;
+  website?: string;
   profileImageID: string;
   categoryIds?: string[];
-  status: 'active' | 'inactive' | 'pending';
+  status: 'active' | 'inactive' | 'pending' | 'revision';
   createdAt: string;
   updatedAt: string;
-  draft?: I_SellerProfile;
+  isDraft?: boolean;
   requestReview?: boolean;
   approval?: {
     approvalStatus: 'pending' | 'approved' | 'rejected' | 'revoked';

@@ -10,9 +10,10 @@ import { FileUploadComponent } from '@freelanceafric/shared-ng-ui';
 import { E_FileRoutes, I_File } from '@freelanceafric/shared-shared';
 import { SellerProfileService, SellerCareerService } from '@freelanceafric/user-ng-data-access';
 import { FileManagementService } from '@freelanceafric/shared-ng-data-access';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { UsersSellerCareerComponent, UsersSellerProfileComponent } from '@freelanceafric/users-ng-ui';
-import { Subscription } from 'rxjs';
+import { debounceTime, firstValueFrom, Subscription } from 'rxjs';
+import { Auth, user } from '@angular/fire/auth';
 
 @Component({
   selector: 'lib-onboarding-sellers-page',
@@ -28,6 +29,7 @@ import { Subscription } from 'rxjs';
     FileUploadComponent,
     UsersSellerProfileComponent,
     UsersSellerCareerComponent,
+    RouterModule,
   ],
   templateUrl: './onboarding-sellers-page.component.html',
   styleUrl: './onboarding-sellers-page.component.scss',
@@ -37,6 +39,9 @@ export class OnboardingSellersPageComponent implements AfterViewInit, OnDestroy 
   filesService = inject(FileManagementService);
   sellerCareerService = inject(SellerCareerService);
   router = inject(Router);
+  auth = inject(Auth);
+
+  user$ = user(this.auth);
 
   //updated from DB changes
   myExistingProfile = signal<I_SellerProfile | null>(null);
@@ -50,6 +55,11 @@ export class OnboardingSellersPageComponent implements AfterViewInit, OnDestroy 
     intro: ['', Validators.required],
     country: ['', Validators.required],
     city: ['', Validators.required],
+    linkedin: [''],
+    instagram: [''],
+    twitter: [''],
+    facebook: [''],
+    website: [''],
   });
 
   careerFormGroup = this._formBuilder.group({
@@ -68,7 +78,13 @@ export class OnboardingSellersPageComponent implements AfterViewInit, OnDestroy 
     }
     return '';
   });
-  profilePicURL = signal('');
+  profilePicURL = computed(() => {
+    const uploadedFiles = this.uploadedFiles();
+    if (uploadedFiles.length > 0) {
+      return uploadedFiles[0].downloadUrl;
+    }
+    return '';
+  });
 
   fileRoutes = E_FileRoutes;
 
@@ -78,40 +94,28 @@ export class OnboardingSellersPageComponent implements AfterViewInit, OnDestroy 
   constructor(private _formBuilder: FormBuilder) {
     effect(() => {
       // Decide which profile to use
-      const profileFromDB = this.myExistingProfile();
-      if (!profileFromDB) return;
-      let profileToUse = profileFromDB;
-      if (profileFromDB.draft) {
-        profileToUse = profileFromDB.draft;
-      }
+      const profileToUse = this.myExistingProfile();
+      if (!profileToUse) return;
       // patch the form values
       this.personalInfoFormGroup.patchValue({
         displayName: profileToUse.displayName,
         intro: profileToUse.intro,
         country: profileToUse.country,
         city: profileToUse.city,
+        linkedin: profileToUse.linkedin,
+        instagram: profileToUse.instagram,
+        twitter: profileToUse.twitter,
+        facebook: profileToUse.facebook,
+        website: profileToUse.website,
       });
       // get the file
       this.filesService.getFileDataByIdFromDB(profileToUse.profileImageID).then((file) => {
         if (file) this.uploadedFiles.set([file]);
       });
     });
-    effect(() => {
-      const uploadedImage = this.profileImageID();
-      if (!uploadedImage) return;
-      this.filesService.getFileDownloadURLById(uploadedImage).then((file) => {
-        if (file) {
-          this.profilePicURL.set(file);
-        }
-      });
-    });
-    effect(() => {
-      const myCareer = this.myExistingCareer();
-      if (!myCareer) return;
-      let careerToUse = myCareer;
-      if (myCareer.draft) {
-        careerToUse = myCareer.draft;
-      }
+    effect(async () => {
+      const careerToUse = this.myExistingCareer();
+      if (!careerToUse) return;
       this.careerFormGroup.patchValue({
         occupation: careerToUse.occupation,
         overview: careerToUse.overview,
@@ -121,11 +125,11 @@ export class OnboardingSellersPageComponent implements AfterViewInit, OnDestroy 
       });
     });
 
-    this.careerFormSub = this.careerFormGroup.valueChanges.subscribe(() => {
-      this.updatedCareer.set(this.formatCareer());
+    this.careerFormSub = this.careerFormGroup.valueChanges.pipe(debounceTime(5050)).subscribe(async () => {
+      this.updatedCareer.set(await this.formatCareer());
     });
-    this.profileFormSub = this.personalInfoFormGroup.valueChanges.subscribe(() => {
-      this.updatedProfile.set(this.formatProfile());
+    this.profileFormSub = this.personalInfoFormGroup.valueChanges.pipe(debounceTime(5050)).subscribe(async () => {
+      this.updatedProfile.set(await this.formatProfile());
     });
   }
 
@@ -133,29 +137,38 @@ export class OnboardingSellersPageComponent implements AfterViewInit, OnDestroy 
     this.fetchMyData();
   }
 
-  formatProfile(): I_SellerProfile {
+  private async formatProfile(): Promise<I_SellerProfile> {
+    const user = await firstValueFrom(this.user$);
+    if (!user) throw new Error('User not found when formatting profile data');
     return {
-      uid: '',
+      uid: user.uid,
       displayName: this.personalInfoFormGroup.value.displayName || '',
       intro: this.personalInfoFormGroup.value.intro || '',
       country: this.personalInfoFormGroup.value.country || '',
       city: this.personalInfoFormGroup.value.city || '',
+      linkedin: this.personalInfoFormGroup.value.linkedin || '',
+      instagram: this.personalInfoFormGroup.value.instagram || '',
+      twitter: this.personalInfoFormGroup.value.twitter || '',
+      facebook: this.personalInfoFormGroup.value.facebook || '',
+      website: this.personalInfoFormGroup.value.website || '',
       status: 'pending',
       profileImageID: this.profileImageID() || '',
-      createdAt: new Date().toISOString(),
+      createdAt: this.myExistingProfile()?.createdAt || new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
   }
 
-  formatCareer(): I_SellerCareer {
+  private async formatCareer(): Promise<I_SellerCareer> {
+    const user = await firstValueFrom(this.user$);
+    if (!user) throw new Error('User not found when formatting career data');
     return {
-      uid: '',
+      uid: user.uid,
       occupation: this.careerFormGroup.value.occupation || '',
       overview: this.careerFormGroup.value.overview || '',
       experience: this.careerFormGroup.value.experience || '',
       skills: this.careerFormGroup.value.skills || '',
       education: this.careerFormGroup.value.education || '',
-      createdAt: new Date().toISOString(),
+      createdAt: this.myExistingCareer()?.createdAt || new Date().toISOString(),
       updatedAt: new Date().toISOString(),
       status: 'pending',
     };
@@ -164,11 +177,12 @@ export class OnboardingSellersPageComponent implements AfterViewInit, OnDestroy 
   fetchMyData() {
     this.sellerProfileService.getMyProfile().then((profile) => {
       if (!profile) return;
-      this.myExistingProfile.set(profile);
+      if (profile.published) this.myExistingProfile.set(profile.published);
+      if (profile.draft) this.myExistingProfile.set(profile.draft);
     });
     this.sellerCareerService.getMySellerCareer().then((career) => {
-      if (!career) return;
-      this.myExistingCareer.set(career);
+      if (career.published) this.myExistingCareer.set(career.published);
+      if (career.draft) this.myExistingCareer.set(career.draft);
     });
   }
 
@@ -178,14 +192,15 @@ export class OnboardingSellersPageComponent implements AfterViewInit, OnDestroy 
       alert('Please upload a profile image');
       return;
     }
+    const profile = await this.formatProfile();
     try {
       if (this.myExistingProfile()) {
-        const saved = await this.sellerProfileService.updateMySellerProfile(this.formatProfile());
+        const saved = await this.sellerProfileService.updateMySellerProfile(profile);
         if (saved) {
           this.myExistingProfile.set(saved);
         }
       } else {
-        const saved = await this.sellerProfileService.createSellerProfile(this.formatProfile());
+        const saved = await this.sellerProfileService.createSellerProfile(profile);
         if (saved) {
           this.myExistingProfile.set(saved);
         }
@@ -196,16 +211,18 @@ export class OnboardingSellersPageComponent implements AfterViewInit, OnDestroy 
   }
 
   async submitCareerForm() {
-    if (!this.careerFormGroup.valid) return;
+    if (!this.careerFormGroup.valid) throw new Error('Career Form invalid');
+    const updatedCareer = await this.formatCareer();
     try {
       const myCareer = this.myExistingCareer();
+      console.log({ updatedCareer, myCareer });
       if (myCareer) {
-        const saved = await this.sellerCareerService.updateMySellerCareer(this.formatCareer());
+        const saved = await this.sellerCareerService.updateMySellerCareer(updatedCareer);
         if (saved) {
-          this.myExistingCareer.set({ ...myCareer, draft: saved });
+          this.myExistingCareer.set(updatedCareer);
         }
       } else {
-        const saved = await this.sellerCareerService.createSellerCareer(this.formatCareer());
+        const saved = await this.sellerCareerService.createSellerCareer(updatedCareer);
         if (saved) {
           this.myExistingCareer.set(saved);
         }
@@ -223,6 +240,17 @@ export class OnboardingSellersPageComponent implements AfterViewInit, OnDestroy 
     } catch (error) {
       console.log(error);
       return;
+    }
+  }
+
+  async reUploadProfileImage() {
+    const uploadedFile = this.uploadedFiles()[0];
+    if (!uploadedFile) throw new Error('No file to upload');
+    try {
+      await this.filesService.deleteFile(uploadedFile);
+      this.uploadedFiles.set([]);
+    } catch (error) {
+      console.log(error);
     }
   }
 

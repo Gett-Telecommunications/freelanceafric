@@ -30,25 +30,34 @@ export class SellerProfileService {
     }
   }
 
-  async getMyProfile(): Promise<I_SellerProfile | null | false> {
+  async getMyProfile(): Promise<{ draft: I_SellerProfile | null; published: I_SellerProfile | null } | false> {
     const loggedInUser = await firstValueFrom(this.user$);
-    if (!loggedInUser) throw new Error('User must be logged in to get a seller profile');
+    if (!loggedInUser) throw new Error('User must be logged in to get their own seller profile');
     const uid = loggedInUser.uid;
     try {
+      const draft = await this.getMyDraftSellerProfile();
+      if (draft) draft.isDraft = true;
       const docRef = doc(this.collection, uid);
       const docSnap = await getDoc(docRef);
+      let published: I_SellerProfile | null = null;
       if (docSnap.exists()) {
-        return docSnap.data() as I_SellerProfile;
+        published = docSnap.data() as I_SellerProfile;
       }
-      return null;
+      return { published, draft: draft || null };
     } catch (error) {
       console.log(error);
       return false;
     }
   }
 
-  async getAllSellerProfiles(): Promise<I_SellerProfile[]> {
-    const querySnapshot = await getDocs(this.collection);
+  async getAllSellerProfiles(includeUnpublished = false): Promise<I_SellerProfile[]> {
+    let query_;
+    if (includeUnpublished) {
+      query_ = query(this.collection);
+    } else {
+      query_ = query(this.collection, where('status', '==', 'active'));
+    }
+    const querySnapshot = await getDocs(query_);
     const sellerProfiles: I_SellerProfile[] = [];
     querySnapshot.forEach((doc) => {
       sellerProfiles.push(doc.data() as I_SellerProfile);
@@ -82,17 +91,44 @@ export class SellerProfileService {
     }
   }
 
-  async updateMySellerProfile(profile: I_SellerProfile): Promise<I_SellerProfile | false> {
+  async getMyDraftSellerProfile(): Promise<I_SellerProfile | null | false> {
+    const loggedInUser = await firstValueFrom(this.user$);
+    if (!loggedInUser) throw new Error('User must be logged in to get their own draft seller profile');
+    const uid = loggedInUser.uid;
+    try {
+      const docRef = doc(this.collection, uid, 'drafts', 'profile');
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        return docSnap.data() as I_SellerProfile;
+      }
+      return null;
+    } catch (error) {
+      console.log(error);
+      throw new Error('Error getting seller profile');
+    }
+  }
+
+  async getDraftSellerProfileByID(uid: string): Promise<I_SellerProfile | null | false> {
+    try {
+      const docRef = doc(this.collection, uid, 'drafts', 'profile');
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        return docSnap.data() as I_SellerProfile;
+      }
+      return null;
+    } catch (error) {
+      console.log(error);
+      throw new Error('Error getting seller profile');
+    }
+  }
+
+  async updateMySellerProfile(newProfile: I_SellerProfile): Promise<I_SellerProfile | false> {
     const loggedInUser = await firstValueFrom(this.user$);
     if (!loggedInUser) throw new Error('User must be logged in update seller profile');
     const uid = loggedInUser.uid;
-    const existingProfile = await this.getProfileByID(uid);
-    if (!existingProfile) throw new Error('Seller profile not found');
-    profile.updatedAt = new Date().toISOString();
-    const newProfile = { ...existingProfile, draft: profile, updatedAt: new Date().toISOString() };
     try {
-      await setDoc(doc(this.collection, uid), newProfile);
-      return profile;
+      await setDoc(doc(this.collection, uid, 'drafts', 'profile'), newProfile);
+      return newProfile;
     } catch (error) {
       console.log(error);
       return false;
@@ -101,21 +137,17 @@ export class SellerProfileService {
 
   async submitForReview(): Promise<boolean> {
     const loggedInUser = await firstValueFrom(this.user$);
-    if (!loggedInUser) throw new Error('User must be logged in to submit for review');
+    if (!loggedInUser) throw new Error('User must be logged in to submit for review on seller profile');
     const uid = loggedInUser.uid;
-    const profile = await this.getMyProfile();
-    if (!profile) throw new Error('No profile to submit for review');
+    const draft = await this.getMyDraftSellerProfile();
+    if (!draft) throw new Error('No draft to submit for review');
     try {
-      await setDoc(
-        doc(this.collection, uid),
-        {
-          requestReview: true,
-        },
-        { merge: true },
-      );
+      await setDoc(doc(this.collection, uid, 'drafts', 'review'), draft);
+      await setDoc(doc(this.collection, uid), { requestReview: true }, { merge: true });
+      await deleteDoc(doc(this.collection, uid, 'drafts', 'profile'));
       return true;
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      console.log(error.message);
       return false;
     }
   }

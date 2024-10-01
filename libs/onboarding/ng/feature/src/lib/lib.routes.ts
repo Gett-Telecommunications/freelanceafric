@@ -4,5 +4,6 @@ import { OnboardingSellersPageComponent } from './pages/sellers-page/onboarding-
 
 export const onboardingNgFeatureRoutes: Route[] = [
   { path: '', component: OnboardingDashboardPageComponent, title: 'Onboarding | Freelance Afric' },
+  { path: 'welcome', component: OnboardingDashboardPageComponent, title: 'Onboarding | Freelance Afric' },
   { path: 'seller', component: OnboardingSellersPageComponent, title: 'Seller Onboarding | Freelance Afric' },
 ];

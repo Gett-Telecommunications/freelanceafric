@@ -10,7 +10,7 @@ section.file_item {
   gap: 8px;
   align-items: center;
   justify-content: space-between;
-  padding:  0 8px 8px 8px;
+  padding: 0 8px 8px 8px;
   border-bottom: 1px solid #ccc;
   position: relative;
   background-color: #e1e1e144;
@@ -21,11 +21,21 @@ section.file_item {
 
   div.name {
     flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .problem {
+      color: red;
+    }
   }
 
   p {
     color: black;
     z-index: 1;
+    display: flex;
+    align-items: center;
+    margin: 0;
   }
 
   div.progress_bar {

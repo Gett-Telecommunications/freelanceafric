@@ -1,10 +1,13 @@
 form,
 .content {
   min-height: 70vh;
+  max-width: 1300px;
   padding: 16px;
   border: 1px solid lightgrey;
   border-radius: 16px;
   width: 100%;
+  margin-top: 1rem;
+  overflow: auto;
 
   .actions {
     display: flex;
@@ -16,4 +19,28 @@ form,
     grid-template-columns: auto 1fr;
     gap: 16px;
   }
+}
+
+.getting_started {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.what_not_to_do {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
+  a {
+    color: var(--primary-color);
+    font-weight: 700;
+  }
+}
+
+.review_process {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
 }

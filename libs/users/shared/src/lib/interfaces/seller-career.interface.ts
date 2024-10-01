@@ -7,7 +7,7 @@ export interface I_SellerCareer {
   education: string;
   createdAt: string;
   updatedAt: string;
-  draft?: I_SellerCareer | null;
+  isDraft?: boolean;
   status: 'active' | 'inactive' | 'pending';
   requestReview?: boolean;
 }

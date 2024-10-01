@@ -38,14 +38,7 @@ export class SellerCareerService {
     career.uid = uid;
     career.updatedAt = new Date().toISOString();
     try {
-      await setDoc(
-        doc(this.collection, uid),
-        {
-          status: 'pending',
-        },
-        { merge: true },
-      );
-      await setDoc(doc(this.collection, uid, 'draft', 'default'), career);
+      await setDoc(doc(this.collection, uid, 'drafts', 'career'), career);
       return career;
     } catch (error) {
       console.log(error);
@@ -57,7 +50,7 @@ export class SellerCareerService {
     const loggedInUser = await firstValueFrom(this.user$);
     if (!loggedInUser) return null;
     const uid = loggedInUser.uid;
-    const docRef = doc(this.collection, uid, 'draft', 'default');
+    const docRef = doc(this.collection, uid, 'drafts', 'career');
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       return docSnap.data() as I_SellerCareer;
@@ -66,7 +59,7 @@ export class SellerCareerService {
   }
 
   async getDraftSellerCareerByID(uid: string): Promise<I_SellerCareer | null> {
-    const docRef = doc(this.collection, uid, 'draft', 'default');
+    const docRef = doc(this.collection, uid, 'drafts', 'career');
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       return docSnap.data() as I_SellerCareer;
@@ -74,28 +67,29 @@ export class SellerCareerService {
     return null;
   }
 
-  async getMySellerCareer(): Promise<I_SellerCareer | null> {
+  async getMySellerCareer(): Promise<{ published: I_SellerCareer | null; draft: I_SellerCareer | null }> {
     const loggedInUser = await firstValueFrom(this.user$);
-    if (!loggedInUser) return null;
+    if (!loggedInUser) throw new Error('User must be logged in to get a seller profile');
     const uid = loggedInUser.uid;
     const docRef = doc(this.collection, uid);
     const docSnap = await getDoc(docRef);
     const draft = await this.getDraftSellerCareer();
+    if (draft) draft.isDraft = true;
+    let published: I_SellerCareer | null = null;
     if (docSnap.exists()) {
-      const career = docSnap.data() as I_SellerCareer;
-      career.draft = draft;
-      return career;
+      published = docSnap.data() as I_SellerCareer;
     }
-    return null;
+    return { published, draft };
   }
 
   async submitForReview(): Promise<boolean> {
     const loggedInUser = await firstValueFrom(this.user$);
     if (!loggedInUser) throw new Error('User must be logged in to submit for review');
     const uid = loggedInUser.uid;
-    const career = await this.getMySellerCareer();
-    if (!career) throw new Error('No career to submit for review');
+    const draft = await this.getDraftSellerCareer();
+    if (!draft) throw new Error('No drafts to submit for review');
     try {
+      await setDoc(doc(this.collection, uid, 'drafts', 'review'), draft);
       await setDoc(
         doc(this.collection, uid),
         {
@@ -103,6 +97,7 @@ export class SellerCareerService {
         },
         { merge: true },
       );
+      await deleteDoc(doc(this.collection, uid, 'drafts', 'career'));
       return true;
     } catch (error) {
       console.log(error);
@@ -130,7 +125,7 @@ export class SellerCareerService {
         { merge: true },
       );
       // delete the draft
-      await deleteDoc(doc(this.collection, uid, 'draft', 'default'));
+      await deleteDoc(doc(this.collection, uid, 'drafts', 'career'));
       return true;
     } catch (error) {
       console.log(error);

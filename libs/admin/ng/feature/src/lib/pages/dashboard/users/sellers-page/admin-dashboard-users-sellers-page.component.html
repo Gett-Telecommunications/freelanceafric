@@ -65,7 +65,7 @@
       <p>Select a seller to view their profile</p>
     } @else {
       @if (selectedSellerProfile(); as selectedSellerProfile) {
-        <lib-users-seller-profile [profile]="selectedSellerProfile"></lib-users-seller-profile>
+        <lib-users-seller-profile [sellerProfile]="selectedSellerProfile"></lib-users-seller-profile>
       } @else {
         <p>Loading seller profile...</p>
       }

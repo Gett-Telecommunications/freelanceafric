@@ -8,24 +8,31 @@ import {
   computed,
   effect,
   input,
+  output,
+  signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { I_FileUploadProgress } from '@freelanceafric/shared-ng-data-access';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'lib-file-item',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule],
+  imports: [CommonModule, MatIconModule, MatButtonModule, MatTooltipModule],
   templateUrl: './file-item.component.html',
   styleUrl: './file-item.component.scss',
 })
-export class FileItemComponent implements OnChanges {
-  @Input() file?: File;
-  @Input() fileActions: TemplateRef<any> | null = null;
-
+export class FileItemComponent implements OnChanges, AfterViewInit {
+  file = input.required<File>();
+  fileActions = input.required<TemplateRef<any> | null>();
   uploadProgress = input<I_FileUploadProgress>();
+  fileSizeLimit_kb = input.required<number>();
+
+  problems = output<string[]>();
+
+  internalProblems = signal<string[]>([]);
 
   protected downloadUrl = computed(() => this.uploadProgress()?.downloadUrl);
 
@@ -33,6 +40,13 @@ export class FileItemComponent implements OnChanges {
 
   ngOnChanges(): void {
     this.cd.detectChanges();
+  }
+
+  ngAfterViewInit(): void {
+    if (this.file().size > this.fileSizeLimit_kb() * 1024) {
+      this.problems.emit([`File size is too large for ${this.file().name}`]);
+      this.internalProblems.set(['File size is too large']);
+    }
   }
 
   // Method that converts bytes to human readable format

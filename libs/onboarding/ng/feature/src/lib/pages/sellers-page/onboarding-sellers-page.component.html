@@ -2,50 +2,175 @@
   <mat-step>
     <form>
       <ng-template matStepLabel>Make your profile stand out</ng-template>
-      <h2>Get Started</h2>
+      <div class="getting_started">
+        <h2>Welcome to Freelance Afric! 🎉</h2>
+        <p>
+          We’re thrilled you’re here! Freelance Afric is your gateway to finding clients, showcasing your talents, and
+          building a thriving freelance career.
+        </p>
+
+        <h3>Before you dive into creating your profile, here’s what you need to know:</h3>
+        <ul>
+          <li>
+            <strong>Your Profile Matters:</strong> This is your digital storefront! A well-crafted profile attracts
+            clients and sets you apart. We’ll guide you through the steps to make it shine.
+          </li>
+          <li>
+            <strong>Be Authentic:</strong> Whether it’s your experience, skills, or background, authenticity is key.
+            Clients want to work with real, trustworthy professionals, so make sure your profile reflects the best
+            version of you.
+          </li>
+          <li>
+            <strong>Complete Your Profile:</strong> The more detailed and accurate your profile is, the better your
+            chances of getting hired. We’ll walk you through each section to ensure nothing is left out.
+          </li>
+        </ul>
+
+        <h3>Are you ready to create a profile that stands out? Let’s get started! 🚀</h3>
+      </div>
       <div class="actions">
-        <button mat-raised-button class="rounded" color="primary" matStepperNext>Next</button>
+        <button mat-raised-button class="rounded" color="primary" matStepperNext>Lets Go!</button>
       </div>
     </form>
   </mat-step>
   <mat-step>
     <form>
       <ng-template matStepLabel>What not to do.</ng-template>
-      <h2>How to avoid getting banned</h2>
+      <div class="what_not_to_do">
+        <h2>What Not to Do ❌</h2>
+        <p>
+          As you create your profile on Freelance Afric, we want you to succeed! Here are a few important things to
+          avoid so you can make the best impression:
+        </p>
+
+        <ul>
+          <li>
+            <strong>Don’t Provide False Information:</strong> Honesty is critical! Avoid inflating your skills or adding
+            experience you don’t have. Clients appreciate transparency and trust goes a long way in securing long-term
+            projects.
+          </li>
+          <li>
+            <strong>Don’t Leave Your Profile Incomplete:</strong> A half-filled profile won’t impress clients. Make sure
+            to complete every section—this increases your chances of being noticed and hired.
+          </li>
+          <li>
+            <strong>Don’t Use Unprofessional Language or Images:</strong> Your profile is your brand! Avoid slang,
+            casual language, or any unprofessional photos. Use clear, formal language and upload a professional-looking
+            profile picture.
+          </li>
+          <li>
+            <strong>Don’t Ignore Client Messages:</strong> Responsiveness is key to building relationships with clients.
+            Even if you’re not available for a project, acknowledge the client’s message.
+          </li>
+          <li>
+            <strong>Don’t Copy Others’ Work:</strong> Plagiarism will hurt your reputation. Make sure all content in
+            your portfolio or gig descriptions is your original work.
+          </li>
+        </ul>
+
+        <p>
+          By avoiding these pitfalls, you’ll build a strong profile that will help you stand out for the right reasons!
+        </p>
+        <h3>
+          If your profile does not meet our
+          <a [routerLink]="['/terms_of_service']" color="primary">terms of service</a>, you will be banned from the
+          platform without any recourse.
+        </h3>
+      </div>
       <div class="actions">
         <button mat-button matStepperPrevious class="rounded dark outlined" type="submit">Back</button>
-        <button mat-raised-button class="rounded" color="primary" matStepperNext type="submit">Next</button>
+        <button mat-raised-button class="rounded" color="primary" matStepperNext type="submit">I got this</button>
       </div>
     </form>
   </mat-step>
   <mat-step [stepControl]="personalInfoFormGroup">
+    <ng-template matStepLabel>Personal Profile</ng-template>
     <form [formGroup]="personalInfoFormGroup" (submit)="submitProfileForm()">
-      <ng-template matStepLabel>Personal Profile</ng-template>
       <h2>Personal Profile</h2>
-      <lib-file-upload
-        [fileRoute]="fileRoutes.PUBLIC_SELLER_PROFILE_IMAGES"
-        (uploadedFiles)="uploadedFiles.set($event)"
-        [multiple]="false"
-      ></lib-file-upload>
-      <img [src]="profilePicURL()" width="200px" />
+      <div class="draft" *ngIf="myExistingProfile()?.isDraft">From Draft</div>
+      @if (uploadedFiles().length > 0 && profilePicURL()) {
+        <img [src]="profilePicURL()" width="200px" />
+        <button mat-button (click)="reUploadProfileImage()">Re-Upload</button>
+      } @else {
+        <lib-file-upload
+          [fileRoute]="fileRoutes.PUBLIC_SELLER_PROFILE_IMAGES"
+          (uploadedFiles)="uploadedFiles.set($event)"
+          [multiple]="false"
+          [fileSizeLimit_kb]="400"
+        ></lib-file-upload>
+      }
       <mat-form-field>
-        <mat-label>Display name</mat-label>
-        <input matInput placeholder="Display name" formControlName="displayName" required />
+        <mat-label>Display Name</mat-label>
+        <input
+          matInput
+          placeholder="e.g., John Doe, Jane Smith, or Your Organization"
+          formControlName="displayName"
+          required
+        />
+        <mat-hint>This can be your personal name or the name of your organization.</mat-hint>
       </mat-form-field>
+
       <mat-form-field>
-        <mat-label>Personal Intro</mat-label>
-        <textarea matInput placeholder="Intro" formControlName="intro" required></textarea>
+        <mat-label>Personal Introduction</mat-label>
+        <textarea
+          matInput
+          placeholder="A brief introduction about yourself or your organization"
+          formControlName="intro"
+          required
+        ></textarea>
+        <mat-hint
+          >Introduce yourself or your organization. Highlight your expertise and what makes you unique.</mat-hint
+        >
       </mat-form-field>
+
       <div class="form_group">
         <mat-form-field>
           <mat-label>Country</mat-label>
-          <input matInput placeholder="Country" formControlName="country" required />
+          <input matInput placeholder="e.g., Kenya, Nigeria, South Africa" formControlName="country" required />
+          <mat-hint>Where are you or your organization based?</mat-hint>
         </mat-form-field>
+
         <mat-form-field>
           <mat-label>City</mat-label>
-          <input matInput placeholder="City" formControlName="city" required />
+          <input matInput placeholder="e.g., Nairobi, Lagos, Cape Town" formControlName="city" required />
+          <mat-hint>Enter the city you are located in.</mat-hint>
         </mat-form-field>
       </div>
+
+      <h3>Optional Links</h3>
+
+      <div class="form_group">
+        <mat-form-field>
+          <mat-label>LinkedIn Profile</mat-label>
+          <input matInput placeholder="LinkedIn URL" formControlName="linkedin" />
+          <mat-hint>Provide your LinkedIn profile link (optional).</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Instagram Profile</mat-label>
+          <input matInput placeholder="Instagram URL" formControlName="instagram" />
+          <mat-hint>Provide your Instagram profile link (optional).</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Twitter Profile</mat-label>
+          <input matInput placeholder="Twitter URL" formControlName="twitter" />
+          <mat-hint>Provide your Twitter profile link (optional).</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Facebook Profile</mat-label>
+          <input matInput placeholder="Facebook URL" formControlName="facebook" />
+          <mat-hint>Provide your Facebook profile link (optional).</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Website</mat-label>
+          <input matInput placeholder="Website URL" formControlName="website" />
+          <mat-hint>If you have a website, add the link here (optional).</mat-hint>
+        </mat-form-field>
+      </div>
+
       <div class="actions">
         <button mat-button matStepperPrevious class="rounded dark outlined" type="submit">Back</button>
         <button mat-raised-button class="rounded" color="primary" matStepperNext type="submit">Next</button>
@@ -54,27 +179,62 @@
   </mat-step>
   <mat-step [stepControl]="careerFormGroup" label="Your Professional Profile">
     <form [formGroup]="careerFormGroup" (submit)="submitCareerForm()">
-      <h2>Tell us about your work</h2>
+      <h2>Tell Us About Your Professional Background</h2>
+      <div class="draft" *ngIf="myExistingCareer()?.isDraft">From Draft</div>
       <mat-form-field>
-        <mat-label>Occupation</mat-label>
-        <input matInput formControlName="occupation" placeholder="Occupation" required />
+        <mat-label>Current Occupation</mat-label>
+        <input matInput formControlName="occupation" placeholder="e.g., Web Developer, Graphic Designer" required />
+        <mat-hint>State your current role or title that best describes your professional work.</mat-hint>
       </mat-form-field>
+
       <mat-form-field>
-        <mat-label>Overview</mat-label>
-        <textarea matInput formControlName="overview" placeholder="Overview" required></textarea>
+        <mat-label>Professional Overview</mat-label>
+        <textarea
+          matInput
+          formControlName="overview"
+          placeholder="Briefly describe your profession, expertise, and key services"
+          required
+        ></textarea>
+        <mat-hint>
+          Provide a concise summary of what you do, your industry experience, and the value you offer to clients.
+        </mat-hint>
       </mat-form-field>
+
       <mat-form-field>
-        <mat-label>Experience</mat-label>
-        <textarea matInput formControlName="experience" placeholder="Experience" required></textarea>
+        <mat-label>Work Experience</mat-label>
+        <textarea
+          matInput
+          formControlName="experience"
+          placeholder="Summarize your past work experience or key projects"
+          required
+        ></textarea>
+        <mat-hint>
+          Highlight relevant jobs, freelance projects, or work history that showcase your skills and accomplishments.
+        </mat-hint>
       </mat-form-field>
+
       <mat-form-field>
-        <mat-label>Skills</mat-label>
-        <textarea matInput formControlName="skills" placeholder="Skills" required></textarea>
+        <mat-label>Key Skills</mat-label>
+        <textarea
+          matInput
+          formControlName="skills"
+          placeholder="e.g., Web Design, JavaScript, SEO, Adobe Photoshop"
+          required
+        ></textarea>
+        <mat-hint>List your top skills that are directly related to the services you provide. Be specific!</mat-hint>
       </mat-form-field>
+
       <mat-form-field>
-        <mat-label>Education</mat-label>
-        <textarea matInput formControlName="education" placeholder="Education" required></textarea>
+        <mat-label>Education & Certifications</mat-label>
+        <textarea
+          matInput
+          formControlName="education"
+          placeholder="e.g., Bachelor’s Degree in Computer Science, Certified Project Manager"
+          required
+        ></textarea>
+        <mat-hint>Mention any relevant degrees, certifications, or courses that support your expertise.</mat-hint>
       </mat-form-field>
+
       <div class="actions">
         <button mat-button matStepperPrevious class="rounded dark outlined" type="submit">Back</button>
         <button mat-raised-button class="rounded" color="primary" matStepperNext type="submit">Next</button>
@@ -84,11 +244,48 @@
   <mat-step>
     <div class="content">
       <ng-template matStepLabel>Review</ng-template>
-      <p>You are now done.</p>
+      <div class="review_process">
+        <div class="text_content">
+          <h2>Review & Approval Process 🚀</h2>
+          <p>Thank you for submitting your profile!</p>
+
+          <p>
+            Our team is dedicated to ensuring the highest quality of freelancers on Freelance Afric. Here’s what happens
+            next:
+          </p>
+
+          <ol>
+            <li>
+              <strong>Admin Review</strong><br />
+              One of our admins will carefully review your profile to ensure it meets our standards. We’re checking for
+              completeness, professionalism, and accuracy to give you the best chance of landing gigs.
+            </li>
+
+            <li>
+              <strong>Approval or Revisions</strong><br />
+              - If your profile meets all the requirements, it will be approved, and you’ll be ready to showcase your
+              skills to potential clients!<br />
+              - If we find any areas that need improvement, we’ll return your profile with specific feedback. You’ll
+              have the opportunity to make changes and resubmit.
+            </li>
+          </ol>
+
+          <h3>What’s Next?</h3>
+          <p>
+            Even while your profile is being reviewed, you can start creating gigs and setting up your services. Once
+            your profile is approved, your gigs will be visible to potential clients!
+          </p>
+
+          <p>
+            Keep an eye on your inbox for updates. Once approved, your profile will be live, and you can start receiving
+            project inquiries.
+          </p>
+        </div>
+      </div>
       <section>
         <lib-users-seller-profile
           *ngIf="updatedProfile() as updatedProfile"
-          [profile]="updatedProfile"
+          [sellerProfile]="updatedProfile"
         ></lib-users-seller-profile>
         <lib-users-seller-career
           *ngIf="updatedCareer() as updatedCareer"

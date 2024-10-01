@@ -28,6 +28,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   @Input() multiple = false;
   @Input() disabled = false;
   @Input() required = false;
+  fileSizeLimit_kb = input<number>(1000000);
 
   fileRoute = input.required<E_FileRoutes>();
 
