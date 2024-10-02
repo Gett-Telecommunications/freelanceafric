@@ -178,10 +178,12 @@ export class OnboardingSellersPageComponent implements AfterViewInit, OnDestroy 
     this.sellerProfileService.getMyProfile().then((profile) => {
       if (!profile) return;
       if (profile.published) this.myExistingProfile.set(profile.published);
+      if (profile.review) this.myExistingProfile.set(profile.review);
       if (profile.draft) this.myExistingProfile.set(profile.draft);
     });
     this.sellerCareerService.getMySellerCareer().then((career) => {
       if (career.published) this.myExistingCareer.set(career.published);
+      if (career.review) this.myExistingCareer.set(career.review);
       if (career.draft) this.myExistingCareer.set(career.draft);
     });
   }

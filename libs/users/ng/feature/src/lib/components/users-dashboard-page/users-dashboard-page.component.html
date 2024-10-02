@@ -30,21 +30,81 @@
           </div>
         </div>
       } @else {
-        <div class="info">
-          <h3>Become a Seller</h3>
-          <h4>We have noticed that you are not a seller yet.</h4>
-          <p>
-            If you have any skills that you would like to sell, you can become a freelancer on Freelance Afric. Our
-            sellers are the best in the industry and you can join the ranks! <br />
-            Becoming a seller allows you to showcase your skills and earn money at your own time and on your own terms.
-          </p>
-          <div class="button_group">
-            <a mat-flat-button color="primary" class="rounded size small" [routerLink]="['/onboarding']">
-              Create your seller profile
-            </a>
-            <a mat-flat-button [routerLink]="['/explore']"> Explore Sellers </a>
+        @if (
+          (!mySellerCareers() ||
+            (!mySellerCareers()?.published && !mySellerCareers()?.draft && !mySellerCareers()?.review)) &&
+          (!mySellerProfiles() ||
+            (!mySellerProfiles()?.published && !mySellerProfiles()?.draft && !mySellerProfiles()?.review))
+        ) {
+          <div class="info">
+            <h3>Become a Seller</h3>
+            <h4>We have noticed that you are not a seller yet.</h4>
+            <p>
+              If you have any skills that you would like to sell, you can become a freelancer on Freelance Afric. Our
+              sellers are the best in the industry and you can join the ranks! <br />
+              Becoming a seller allows you to showcase your skills and earn money at your own time and on your own
+              terms.
+            </p>
+            <div class="button_group">
+              <a mat-flat-button color="primary" class="rounded size small" [routerLink]="['/onboarding']">
+                Create your seller profile
+              </a>
+              <a mat-flat-button [routerLink]="['/explore']"> Explore Sellers </a>
+            </div>
           </div>
-        </div>
+        } @else {
+          <div class="info">
+            <h3>My Seller Career</h3>
+            <div class="card_group">
+              @if (mySellerCareers()?.published && mySellerCareers()?.published?.status === 'active') {
+                <div class="card">
+                  <p>Manage your Professional info and ensure that you have the right eyes on you!</p>
+                  <div class="button_group">
+                    <a mat-flat-button color="primary" class="rounded size small" [routerLink]="['/dashboard/sell']">
+                      Manage My Sales
+                    </a>
+                    <a mat-flat-button [routerLink]="['/dashboard/sell/my-profile']"> View My Profile </a>
+                  </div>
+                </div>
+              } @else {
+                <div class="card">
+                  <p>Your profile is not yet approved, but you can start creating Gigs for when it is.</p>
+                  <div class="button_group"></div>
+                  <a mat-flat-button color="primary" class="rounded size small" [routerLink]="['/dashboard/sell']">
+                    Manage My Sales
+                  </a>
+                  <a mat-flat-button [routerLink]="['/dashboard/sell/my-profile']"> View My Profile </a>
+                </div>
+              }
+              @if (mySellerProfiles()?.draft) {
+                <div class="card">
+                  @if (mySellerProfiles()?.published?.status === 'active') {
+                    <h4>Are you upgrading?</h4>
+                  } @else {
+                    <h4>Great First Steps!</h4>
+                  }
+                  <p>Seems like you have a version of your profile that is still in draft.</p>
+                  <div class="button_group"></div>
+                  <a mat-flat-button color="primary" class="rounded size small" [routerLink]="['/onboarding/seller']">
+                    Request for Review
+                  </a>
+                </div>
+              } @else {
+                <div class="card">
+                  <h4>Remember!</h4>
+                  <p>
+                    You can always go through the onboarding process to get revise your profile and get it re-approved.
+                  </p>
+                  <div class="button_group">
+                    <a mat-flat-button color="primary" class="rounded size small" [routerLink]="['/onboarding/seller']">
+                      Request for Review
+                    </a>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        }
       }
     </section>
 

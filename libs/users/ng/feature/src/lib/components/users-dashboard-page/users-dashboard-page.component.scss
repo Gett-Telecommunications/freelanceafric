@@ -30,4 +30,17 @@ main#users_dashboard_page {
       border-radius: 1rem;
     }
   }
+
+  .card_group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    .card {
+      flex: 1;
+      padding: 1rem;
+      background-color: rgba(0, 0, 0, 0.027);
+      border-radius: 1rem;
+    }
+  }
 }

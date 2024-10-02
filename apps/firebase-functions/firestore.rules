@@ -35,13 +35,13 @@ service cloud.firestore {
       // anyone can read from the seller profiles collection if the status is active
       allow get, list: if resource.data.status == 'active';
       // only admins can update and delete
-      allow read, update: if (request.auth.token.isAdmin || request.auth.uid == resource.uid);
+      allow read, create, update: if (request.auth.token.isAdmin || request.auth.uid == user_uid);
       allow delete: if request.auth.token.isAdmin;
       match /drafts/profile {
         allow read, write: if request.auth.token.isAdmin || request.auth.uid == user_uid;
       }
       match /drafts/review {
-        allow read, create: if request.auth.uid == resource.data.uid || request.auth.uid == request.resource.data.uid;
+        allow read, create, update: if request.auth.uid == user_uid ;
         allow read, delete: if request.auth.token.isAdmin ;
       }
       match /drafts/history {
@@ -62,7 +62,7 @@ service cloud.firestore {
         allow read, write: if request.auth.token.isAdmin || request.auth.uid == resource.data.uid || request.auth.uid == request.resource.data.uid;
       }
       match /drafts/review {
-        allow read, create: if request.auth.uid == resource.data.uid || request.auth.uid == request.resource.data.uid;
+        allow read, create, update: if request.auth.uid == resource.data.uid || request.auth.uid == request.resource.data.uid;
         allow read, delete: if request.auth.token.isAdmin ;
       }
       match /drafts/history {

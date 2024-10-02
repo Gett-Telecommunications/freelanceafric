@@ -20,9 +20,9 @@ export class SellerProfileService {
     if (!loggedInUser) throw new Error('User must be logged in to create a seller profile');
     const uid = loggedInUser.uid;
     profile.uid = uid;
-
     try {
       await setDoc(doc(this.collection, uid), profile);
+      await setDoc(doc(this.collection, uid, 'drafts', 'profile'), profile);
       return profile;
     } catch (error) {
       console.log(error);
@@ -30,7 +30,9 @@ export class SellerProfileService {
     }
   }
 
-  async getMyProfile(): Promise<{ draft: I_SellerProfile | null; published: I_SellerProfile | null } | false> {
+  async getMyProfile(): Promise<
+    { draft: I_SellerProfile | null; published: I_SellerProfile | null; review: I_SellerProfile | null } | false
+  > {
     const loggedInUser = await firstValueFrom(this.user$);
     if (!loggedInUser) throw new Error('User must be logged in to get their own seller profile');
     const uid = loggedInUser.uid;
@@ -43,7 +45,14 @@ export class SellerProfileService {
       if (docSnap.exists()) {
         published = docSnap.data() as I_SellerProfile;
       }
-      return { published, draft: draft || null };
+      const reviewDocRef = doc(this.collection, uid, 'drafts', 'review');
+      const reviewDocSnap = await getDoc(reviewDocRef);
+      let review: I_SellerProfile | null = null;
+      if (reviewDocSnap.exists()) {
+        review = reviewDocSnap.data() as I_SellerProfile;
+        if (review) review.isReview = true;
+      }
+      return { published, draft: draft || null, review };
     } catch (error) {
       console.log(error);
       return false;
@@ -147,7 +156,7 @@ export class SellerProfileService {
       await deleteDoc(doc(this.collection, uid, 'drafts', 'profile'));
       return true;
     } catch (error: any) {
-      console.log(error.message);
+      console.log('Error submitting seller profile for review', error.message);
       return false;
     }
   }

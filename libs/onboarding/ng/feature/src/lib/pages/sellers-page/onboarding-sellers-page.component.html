@@ -88,6 +88,7 @@
     <form [formGroup]="personalInfoFormGroup" (submit)="submitProfileForm()">
       <h2>Personal Profile</h2>
       <div class="draft" *ngIf="myExistingProfile()?.isDraft">From Draft</div>
+      <div class="pending_review" *ngIf="myExistingProfile()?.isReview">Pending Review</div>
       @if (uploadedFiles().length > 0 && profilePicURL()) {
         <img [src]="profilePicURL()" width="200px" />
         <button mat-button (click)="reUploadProfileImage()">Re-Upload</button>
@@ -181,6 +182,7 @@
     <form [formGroup]="careerFormGroup" (submit)="submitCareerForm()">
       <h2>Tell Us About Your Professional Background</h2>
       <div class="draft" *ngIf="myExistingCareer()?.isDraft">From Draft</div>
+      <div class="pending_review" *ngIf="myExistingCareer()?.isReview">Pending Review</div>
       <mat-form-field>
         <mat-label>Current Occupation</mat-label>
         <input matInput formControlName="occupation" placeholder="e.g., Web Developer, Graphic Designer" required />

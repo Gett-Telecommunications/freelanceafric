@@ -24,6 +24,7 @@ export class SellerCareerService {
     career.updatedAt = new Date().toISOString();
     try {
       await setDoc(doc(this.collection, uid), career);
+      await setDoc(doc(this.collection, uid, 'drafts', 'career'), career);
       return career;
     } catch (error) {
       console.log(error);
@@ -67,7 +68,11 @@ export class SellerCareerService {
     return null;
   }
 
-  async getMySellerCareer(): Promise<{ published: I_SellerCareer | null; draft: I_SellerCareer | null }> {
+  async getMySellerCareer(): Promise<{
+    published: I_SellerCareer | null;
+    draft: I_SellerCareer | null;
+    review: I_SellerCareer | null;
+  }> {
     const loggedInUser = await firstValueFrom(this.user$);
     if (!loggedInUser) throw new Error('User must be logged in to get a seller profile');
     const uid = loggedInUser.uid;
@@ -79,7 +84,14 @@ export class SellerCareerService {
     if (docSnap.exists()) {
       published = docSnap.data() as I_SellerCareer;
     }
-    return { published, draft };
+    const reviewDocRef = doc(this.collection, uid, 'drafts', 'review');
+    const reviewDocSnap = await getDoc(reviewDocRef);
+    let review: I_SellerCareer | null = null;
+    if (reviewDocSnap.exists()) {
+      review = reviewDocSnap.data() as I_SellerCareer;
+      if (review) review.isReview = true;
+    }
+    return { published, draft, review };
   }
 
   async submitForReview(): Promise<boolean> {

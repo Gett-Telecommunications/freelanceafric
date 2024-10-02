@@ -15,6 +15,7 @@ export interface I_SellerProfile {
   createdAt: string;
   updatedAt: string;
   isDraft?: boolean;
+  isReview?: boolean;
   requestReview?: boolean;
   approval?: {
     approvalStatus: 'pending' | 'approved' | 'rejected' | 'revoked';
