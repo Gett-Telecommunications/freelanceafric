@@ -11,4 +11,10 @@ export interface I_SellerCareer {
   isReview?: boolean;
   status: 'active' | 'inactive' | 'pending';
   requestReview?: boolean;
+  approval?: {
+    approvalStatus: 'approved' | 'rejected';
+    approvedBy: string;
+    approvedAt: string;
+    message: string;
+  };
 }

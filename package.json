@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start:dev": "npx nx serve freelanceafric --configuration=development",
+    "start:local": "npx nx serve freelanceafric --configuration=development",
     "start:emulators": " npx nx run firebase-functions:emulate ",
     "build": "npx nx run freelanceafric:build --configuration=production "
   },

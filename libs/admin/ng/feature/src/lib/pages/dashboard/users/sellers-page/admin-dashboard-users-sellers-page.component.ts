@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild, effect, inject, signal } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, ViewChild, WritableSignal, effect, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -9,7 +9,7 @@ import { MatSort } from '@angular/material/sort';
 import { I_SellerCareer, I_SellerProfile } from '@freelanceafric/users-shared';
 import { SellerCareerService, SellerProfileService } from '@freelanceafric/user-ng-data-access';
 import { MatButtonModule } from '@angular/material/button';
-import { takeWhile } from 'rxjs';
+import { Subscription, takeWhile } from 'rxjs';
 import { UsersSellerCareerComponent, UsersSellerProfileComponent } from '@freelanceafric/users-ng-ui';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '@freelanceafric/auth-data-access';
@@ -32,7 +32,7 @@ import { AuthService } from '@freelanceafric/auth-data-access';
   templateUrl: './admin-dashboard-users-sellers-page.component.html',
   styleUrl: './admin-dashboard-users-sellers-page.component.scss',
 })
-export class AdminDashboardUsersSellersPageComponent implements AfterViewInit {
+export class AdminDashboardUsersSellersPageComponent implements AfterViewInit, OnDestroy {
   private sellerProfileService = inject(SellerProfileService);
   private sellerCareerService = inject(SellerCareerService);
   private router = inject(Router);
@@ -50,6 +50,10 @@ export class AdminDashboardUsersSellersPageComponent implements AfterViewInit {
   selectedSellerUID = signal<string | null>(null);
   selectedSellerProfile = signal<I_SellerProfile | null>(null);
   selectedSellerCareer = signal<I_SellerCareer | null>(null);
+  showReviewData: WritableSignal<boolean> = signal<boolean>(false);
+
+  paramsSub?: Subscription;
+  queryParamsSub?: Subscription;
 
   constructor() {
     effect(() => {
@@ -63,8 +67,14 @@ export class AdminDashboardUsersSellersPageComponent implements AfterViewInit {
         this.dataSource.sort = this.sort;
       }
     });
-    this.activatedRoute.params.pipe(takeWhile(() => !this.selectedSellerUID())).subscribe((params) => {
+    this.paramsSub = this.activatedRoute.params.pipe(takeWhile(() => !this.selectedSellerUID())).subscribe((params) => {
       this.selectedSellerUID.set(params['r_seller_uid']);
+    });
+    this.queryParamsSub = this.activatedRoute.queryParams.subscribe(async (params) => {
+      const r_review = params['r_review'];
+      if (r_review === 'true') this.showReviewData.set(true);
+      else this.showReviewData.set(false);
+      await this.fetchData();
     });
   }
 
@@ -72,22 +82,33 @@ export class AdminDashboardUsersSellersPageComponent implements AfterViewInit {
     this.fetchData();
   }
 
-  fetchData() {
-    this.sellerProfileService.getAllSellerProfiles().then((sellerProfiles) => {
+  async fetchData() {
+    this.sellerProfileService.getAllSellerProfiles(true).then((sellerProfiles) => {
       this.allProfiles.set(sellerProfiles);
     });
     const selectedSellerUID = this.selectedSellerUID();
+    const showReviewData = this.showReviewData();
+
     if (selectedSellerUID) {
-      this.sellerProfileService.getProfileByID(selectedSellerUID).then((sellerProfile) => {
+      if (showReviewData) {
+        const sellerProfile = await this.sellerProfileService.getSellerReviewProfileByID(selectedSellerUID);
         if (sellerProfile) {
           this.selectedSellerProfile.set(sellerProfile);
-          return;
         }
-        throw new Error('Seller profile not found');
-      });
-      this.sellerCareerService.getDraftSellerCareerByID(selectedSellerUID).then((sellerCareer) => {
-        this.selectedSellerCareer.set(sellerCareer);
-      });
+        const sellerCareer = await this.sellerCareerService.getSellerReviewCareerByID(selectedSellerUID);
+        if (sellerCareer) {
+          this.selectedSellerCareer.set(sellerCareer);
+        }
+      } else {
+        const sellerProfile = await this.sellerProfileService.getProfileByID(selectedSellerUID);
+        if (sellerProfile) {
+          this.selectedSellerProfile.set(sellerProfile);
+        }
+        const sellerCareer = await this.sellerCareerService.getSellerCareerById(selectedSellerUID);
+        if (sellerCareer) {
+          this.selectedSellerCareer.set(sellerCareer);
+        }
+      }
     }
   }
 
@@ -161,5 +182,10 @@ export class AdminDashboardUsersSellersPageComponent implements AfterViewInit {
     if (rejectedProfile && rejectedCareer && updatedPermissions) {
       this.fetchData();
     }
+  }
+
+  ngOnDestroy() {
+    this.paramsSub?.unsubscribe();
+    this.queryParamsSub?.unsubscribe();
   }
 }

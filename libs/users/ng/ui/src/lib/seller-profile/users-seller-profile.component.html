@@ -1,5 +1,6 @@
 <section class="profile floating">
-  <div class="draft">This is not a reviewed profile</div>
+  <div class="draft" *ngIf="sellerProfile()?.isDraft">This is not a reviewed profile. It is a draft.</div>
+  <div class="pending_review" *ngIf="sellerProfile()?.isReview">This is a reviewed profile. It is pending review.</div>
   <div class="image">
     <img [src]="profilePicURL()" />
   </div>

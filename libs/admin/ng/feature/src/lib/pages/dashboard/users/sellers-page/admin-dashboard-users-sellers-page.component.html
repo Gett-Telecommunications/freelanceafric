@@ -36,8 +36,19 @@
               mat-flat-button
               color="primary"
               [routerLink]="['/dashboard/admin/users/sellers', row.uid]"
+              [queryParams]="{ r_review: false }"
               routerLinkActive="active"
               >Preview
+            </a>
+            <a
+              mat-flat-button
+              color="primary"
+              [routerLink]="['/dashboard/admin/users/sellers', row.uid]"
+              [queryParams]="{ r_review: true }"
+              routerLinkActive="active"
+              *ngIf="row.requestReview"
+            >
+              Preview Pending Review
             </a>
             <button mat-mini-fab (click)="approveAllFor(row.uid)">
               <mat-icon class="mat-18">check</mat-icon>

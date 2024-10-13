@@ -44,7 +44,7 @@ service cloud.firestore {
         allow read, create, update: if request.auth.uid == user_uid ;
         allow read, delete: if request.auth.token.isAdmin ;
       }
-      match /drafts/history {
+      match /history/{id} {
         // allow someone to see their own history of published careers
         allow read: if request.auth.uid == resource.data.uid || request.auth.uid == request.resource.data.uid;
         // allow admins to see all history
@@ -65,7 +65,7 @@ service cloud.firestore {
         allow read, create, update: if request.auth.uid == resource.data.uid || request.auth.uid == request.resource.data.uid;
         allow read, delete: if request.auth.token.isAdmin ;
       }
-      match /drafts/history {
+      match /history/{id} {
         // allow someone to see their own history of published careers
         allow read: if request.auth.uid == resource.data.uid || request.auth.uid == request.resource.data.uid;
         // allow admins to see all history
