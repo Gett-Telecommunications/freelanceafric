@@ -9,6 +9,7 @@ import { SellerNewGigPageComponent } from './users/seller/seller-new-gig-page/se
 import { SellerGigPreviewPageComponent } from './users/seller/seller-gig-preview-page/seller-gig-preview-page.component';
 import { DashboardOrdersPageComponent } from './pages/orders-page/dashboard-orders-page.component';
 import { OrderDetailsPageComponent } from '@freelanceafric/orders-feature';
+import { SellerGigEditPageComponent } from './users/seller/seller-gig-edit-page/seller-gig-edit-page.component';
 
 export const dashboardNgFeatureRoutes: Route[] = [
   {
@@ -60,6 +61,11 @@ export const dashboardNgFeatureRoutes: Route[] = [
                 path: 'preview/:r_gigId',
                 component: SellerGigPreviewPageComponent,
                 title: 'Preview Gig | Freelance Afric',
+              },
+              {
+                path: 'edit/:r_gigId',
+                component: SellerGigEditPageComponent,
+                title: 'Edit Gig | Freelance Afric',
               },
             ],
           },

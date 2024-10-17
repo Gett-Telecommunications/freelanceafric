@@ -1,0 +1,50 @@
+{
+  "name": "gigs-firebase",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/gigs/firebase/src",
+  "projectType": "application",
+  "tags": ["firebase:function", "firebase:name:gigs-firebase", "firebase:dep:firebase-functions"],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/gigs/firebase",
+        "main": "libs/gigs/firebase/src/main.ts",
+        "tsConfig": "libs/gigs/firebase/tsconfig.app.json",
+        "assets": [
+          "libs/gigs/firebase/src/assets",
+          {
+            "glob": "**/*",
+            "input": "apps/firebase-functions/environment",
+            "output": "."
+          }
+        ],
+        "generatePackageJson": true,
+        "platform": "node",
+        "bundle": true,
+        "thirdParty": false,
+        "dependenciesFieldType": "dependencies",
+        "target": "node16",
+        "format": ["esm"],
+        "esbuildOptions": {
+          "logLevel": "info"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/gigs/firebase/jest.config.ts"
+      }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "nx run firebase-functions:deploy --only functions:gigs-firebase"
+      },
+      "dependsOn": ["build"]
+    }
+  }
+}

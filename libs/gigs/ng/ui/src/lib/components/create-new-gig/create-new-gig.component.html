@@ -2,11 +2,26 @@
   <mat-step [stepControl]="gigIntroFormGroup">
     <form [formGroup]="gigIntroFormGroup">
       <ng-template matStepLabel>Basic Gig Details</ng-template>
+      <div class="file_upload">
+        @if (uploadedImages().length > 0) {
+          <img *ngIf="uploadedImages().length > 0" [src]="uploadedImages()[0].downloadUrl" width="400px" />
+        } @else {
+          <p>Upload a cover image for your gig</p>
+          <lib-file-upload
+            [fileRoute]="fileRoutes.PUBLIC_GIG_IMAGES"
+            (uploadedFiles)="uploadedImages.set($event)"
+            [multiple]="false"
+            [fileSizeLimit_kb]="800"
+          ></lib-file-upload>
+        }
+      </div>
       <mat-form-field>
         <mat-label>Title</mat-label>
         <input matInput placeholder="I will..." formControlName="title" required />
+        <mat-hint>Start with "I will" and be specific, e.g., "I will design a professional logo"</mat-hint>
         <mat-error *ngIf="gigIntroFormGroup.controls.title.hasError('required')">Please enter a title</mat-error>
       </mat-form-field>
+
       <mat-form-field>
         <mat-label>Categories</mat-label>
         <mat-select formControlName="categories" multiple>
@@ -14,25 +29,53 @@
             <mat-option value="{{ category.id }}">{{ category.name }}</mat-option>
           }
         </mat-select>
+        <mat-hint>Choose categories that best describe your service. You can select multiple!</mat-hint>
         <mat-error *ngIf="gigIntroFormGroup.controls.categories.hasError('required')">
           Please select at least one category
         </mat-error>
       </mat-form-field>
+
       <mat-form-field>
         <mat-label>Description</mat-label>
-        <textarea matInput placeholder="I will..." formControlName="description" required></textarea>
+        <textarea
+          matInput
+          placeholder="Describe your gig in detail..."
+          formControlName="description"
+          required
+        ></textarea>
+        <mat-hint
+          >Provide a clear, detailed description of what you'll deliver. Include your expertise and what makes your
+          service unique.</mat-hint
+        >
         <mat-error *ngIf="gigIntroFormGroup.controls.description.hasError('required')">
           Please enter a description
         </mat-error>
       </mat-form-field>
       <div>
-        <button mat-button matStepperNext>Next</button>
+        <button mat-button matStepperNext (click)="saveStep1()">Next</button>
       </div>
     </form>
   </mat-step>
   <mat-step [stepControl]="pricingFormGroup">
     <form [formGroup]="pricingFormGroup">
       <ng-template matStepLabel>Time and Budget</ng-template>
+      <mat-form-field>
+        <mat-label>Price in KES</mat-label>
+        <input matInput type="number" formControlName="price" placeholder="500" required />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Duration</mat-label>
+        <input matInput type="number" formControlName="duration" placeholder="1 week" required />
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="pricingFormGroup">
+    <form [formGroup]="pricingFormGroup">
+      <ng-template matStepLabel>Extra Services</ng-template>
       <mat-form-field>
         <mat-label>Price in KES</mat-label>
         <input matInput type="number" formControlName="price" placeholder="500" required />

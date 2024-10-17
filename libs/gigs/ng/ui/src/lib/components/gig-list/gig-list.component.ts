@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, computed, inject, input, signal } from '@angular/core';
+import { AfterViewInit, Component, computed, effect, inject, input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GigsService } from '@freelanceafric/gigs-data-access';
 import { I_Gig } from '@freelanceafric/gigs-shared';
@@ -13,8 +13,8 @@ import { GigItemComponent } from '../gig-item/gig-item.component';
 })
 export class GigListComponent implements AfterViewInit {
   filterByCategoryId = input<string>();
-  filterBySellerUid = input<string>();
-  gigs = input<I_Gig[]>([]);
+  filterBySellerUid = input.required<string | null>();
+  gigs = input<I_Gig[] | null>(null);
 
   gigService = inject(GigsService);
 
@@ -22,25 +22,41 @@ export class GigListComponent implements AfterViewInit {
 
   gigsToShow = computed(() => {
     const filterByCategory = this.filterByCategoryId();
-    const filterBySeller = this.filterBySellerUid();
-    if (!filterByCategory && !filterBySeller) return this.allGigs();
+    if (!filterByCategory) return this.allGigs();
     let filteredGigs = this.allGigs();
     if (filterByCategory) {
       filteredGigs = filteredGigs.filter((gig) => gig.categories.includes(filterByCategory));
     }
-    if (filterBySeller) {
-      filteredGigs = filteredGigs.filter((gig) => gig.sellerUID === filterBySeller);
-    }
     return filteredGigs;
   });
 
+  constructor() {
+    effect(
+      async () => {
+        if (this.filterBySellerUid()) {
+          await this.loadData();
+        }
+      },
+      { allowSignalWrites: true },
+    );
+  }
+
   ngAfterViewInit(): void {
-    if (this.gigs().length > 0) {
-      this.allGigs.set(this.gigs());
+    this.loadData();
+  }
+
+  async loadData() {
+    console.log('gigsToShow', { uid: this.filterBySellerUid(), category: this.filterByCategoryId() });
+
+    const sellerId = this.filterBySellerUid();
+    if (this.gigs()) return;
+    let gigsFromDB: I_Gig[] | null = null;
+    if (sellerId) {
+      gigsFromDB = await this.gigService.getGigsForSeller(sellerId);
     } else {
-      this.gigService.getAllGigs().then((gigs) => {
-        this.allGigs.set(gigs);
-      });
+      gigsFromDB = await this.gigService.getAllGigs();
     }
+    console.log('allGigs', { gigsFromDB });
+    this.allGigs.set(gigsFromDB);
   }
 }

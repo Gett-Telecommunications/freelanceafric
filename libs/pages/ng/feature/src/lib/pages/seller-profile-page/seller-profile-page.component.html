@@ -1,13 +1,13 @@
 <section id="seller_profile_page">
   <section class="header">
-    <lib-users-seller-profile [sellerProfile]="sellerProfile()"></lib-users-seller-profile>
     <div class="content with_width">
       <h2>{{ sellerProfile()?.displayName }}'s Profile</h2>
     </div>
   </section>
   <section class="main_content container with_width">
+    <lib-users-seller-profile [sellerProfile]="sellerProfile()"></lib-users-seller-profile>
     <section class="gigs floating">
-      <lib-gig-list [filterBySellerUid]="sellerProfile()?.uid"></lib-gig-list>
+      <lib-gig-list [filterBySellerUid]="sellerProfile()?.uid || null"></lib-gig-list>
     </section>
   </section>
 </section>

@@ -5,7 +5,7 @@
     </header>
 
     <section class="gigs with_width">
-      <lib-gig-list [filterByCategoryId]="category.id"></lib-gig-list>
+      <lib-gig-list [filterByCategoryId]="category.id" [filterBySellerUid]="null"></lib-gig-list>
     </section>
   } @else {
     <p>Loading category...</p>

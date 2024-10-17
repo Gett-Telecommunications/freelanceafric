@@ -1,0 +1,8 @@
+<header></header>
+<section class="basic_info">
+  <div class="actions">
+    <button mat-button (click)="approveGigInfo('approved')">Approve</button>
+    <button mat-button (click)="approveGigInfo('rejected')">Reject</button>
+  </div>
+  <lib-view-gig [gigId]="gigId()" [showDraft]="true"></lib-view-gig>
+</section>

@@ -2,7 +2,7 @@
   @case ('gig') {
     @if (gigs().length > 0) {
       <section class="gigs">
-        <lib-gig-list [gigs]="gigs()"></lib-gig-list>
+        <lib-gig-list [gigs]="gigs()" [filterBySellerUid]="null"></lib-gig-list>
       </section>
     } @else {
       <h4>You have no favorite gigs yet</h4>

@@ -1,4 +1,4 @@
-import { Component, effect, inject, input, signal } from '@angular/core';
+import { Component, computed, effect, inject, input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { I_Gig } from '@freelanceafric/gigs-shared';
 import { GigsService } from '@freelanceafric/gigs-data-access';
@@ -17,17 +17,29 @@ import { SellerProfileService } from '@freelanceafric/user-ng-data-access';
 })
 export class ViewGigComponent {
   gigId = input.required<string>();
+  gig = input<I_Gig | null>(null);
+  showDraft = input<boolean>(false);
 
   gigService = inject(GigsService);
   sellerProfileService = inject(SellerProfileService);
 
   selectedGig = signal<I_Gig | null>(null);
   sellerProfile = signal<I_SellerProfile | null>(null);
+  gigToShow = computed(() => {
+    const gig = this.gig();
+    const selectedGig = this.selectedGig();
+    return gig || selectedGig;
+  });
 
   constructor() {
     effect(async () => {
       const gigId = this.gigId();
-      const gig = await this.gigService.getGigById(gigId);
+      const gigFromParent = this.gig();
+      if (gigFromParent) {
+        this.selectedGig.set(gigFromParent);
+        return;
+      }
+      const gig = await this.gigService.getGigById(gigId, this.showDraft());
       if (gig) {
         this.selectedGig.set(gig);
       }

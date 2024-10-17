@@ -4,7 +4,15 @@
     <ul>
       @for (gig of allMyGigs(); track gig.id) {
         <li>
-          <a [routerLink]="['/dashboard/sell/gigs/preview', gig.id]">{{ gig.title }}</a>
+          <a [routerLink]="['/dashboard/sell/gigs/preview', gig.id]" routerLinkActive="active">
+            <span *ngIf="gig.isDraft" class="draft">DRAFT</span>{{ gig.title || 'Draft-' + gig.id }}
+          </a>
+          <span>
+            <button mat-icon-button [routerLink]="['/dashboard/sell/gigs/edit', gig.id]" routerLinkActive="active">
+              <mat-icon class="mat-18">edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="gigsService.deleteGig(gig.id)"><mat-icon>delete</mat-icon></button>
+          </span>
         </li>
       }
     </ul>

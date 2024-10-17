@@ -1,7 +1,7 @@
 <a class="gig_item" [routerLink]="['/gig', gig().id]" routerLinkActive="active">
-  <h3>{{ gig().title }}</h3>
+  <h3><span class="draft" *ngIf="gig().isDraft">Draft</span> {{ gig().title }}</h3>
   <p>
-    from: <span>KES: {{ gig().price }}</span>
+    <!-- from: <span>KES: {{ gig().price }}</span> -->
   </p>
   <div class="actions">
     <div class="favorite">

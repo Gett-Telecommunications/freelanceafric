@@ -1,28 +1,28 @@
 <section id="view_gig">
-  @if (selectedGig(); as selectedGig) {
+  @if (gigToShow(); as gigToShow) {
     <header class="with_width">
       <div class="decoration left"></div>
       <div class="decoration center"></div>
       <div class="decoration right"></div>
       <div class="text">
-        <h1>{{ selectedGig.title }}</h1>
+        <h1><span class="draft" *ngIf="gigToShow.isDraft">Draft</span>{{ gigToShow.title }}</h1>
       </div>
     </header>
     <section class="main with_width">
       <main>
-        <div [innerHTML]="selectedGig.description"></div>
+        <div [innerHTML]="gigToShow.description"></div>
       </main>
       <aside>
         <div class="pricing">
           <div class="price statistic">
             <h3>Price</h3>
-            <p>KES {{ selectedGig.price }}</p>
+            <!-- <p>KES {{ gigToShow.price }}</p> -->
           </div>
           <div class="duration statistic">
             <h3>Duration</h3>
-            <p>{{ selectedGig.duration }} Days</p>
+            <!-- <p>{{ gigToShow.duration }} Days</p> -->
           </div>
-          <button mat-flat-button color="accent" class="rounded" [routerLink]="['/checkout', selectedGig.id]">
+          <button mat-flat-button color="accent" class="rounded" [routerLink]="['/checkout', gigToShow.id]">
             Book Now
           </button>
         </div>

@@ -7,6 +7,43 @@ section#seller_gigs_page {
   aside {
     grid-column: 1/2;
     grid-row: 1/2;
+
+    ul {
+      li {
+        display: flex;
+        align-items: center;
+
+        &:hover {
+          background-color: rgb(240, 240, 240);
+        }
+
+        a {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          width: 300px;
+          line-height: .9rem;
+          border-left: 5px solid transparent;
+          height: 48px;
+          padding-left: 5px;
+
+          &:hover {
+            border-left: 5px solid var(--accent-color);
+          }
+
+          &.active {
+            border-left: 5px solid var(--primary-color);
+          }
+        }
+
+        button {
+          &.active {
+            background-color: var(--primary-color);
+            color: white;
+          }
+        }
+      }
+    }
   }
 
   section.main_page {

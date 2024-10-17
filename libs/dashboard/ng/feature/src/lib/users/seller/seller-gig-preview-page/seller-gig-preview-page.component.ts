@@ -25,7 +25,7 @@ export class SellerGigPreviewPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.roueSub = this.route.paramMap.subscribe((params) => {
       this.gigId.set(params.get('r_gigId') || '');
-      this.gigService.getGigById(this.gigId()).then((gig) => {
+      this.gigService.getGigById(this.gigId(), true).then((gig) => {
         if (gig) {
           this.selectedGig.set(gig);
         }

@@ -1,0 +1,16 @@
+<main id="admin_dashboard_gigs_approve_page">
+  <aside>
+    <mat-list dense>
+      <mat-list-item
+        *ngFor="let gig of gigs()"
+        [routerLink]="['/dashboard/admin/gigs/approve', gig.id]"
+        routerLinkActive="active"
+      >
+        Gig - {{ gig.id }}
+      </mat-list-item>
+    </mat-list>
+  </aside>
+  <section class="main_page">
+    <router-outlet></router-outlet>
+  </section>
+</main>

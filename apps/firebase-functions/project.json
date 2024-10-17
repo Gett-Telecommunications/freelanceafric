@@ -3,7 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "tags": ["firebase:app", "firebase:name:firebase-functions", "scope:functions", "framework:firebase-functions"],
-  "implicitDependencies": ["firebase-auth", "orders-firebase"],
+  "implicitDependencies": ["firebase-auth", "gigs-firebase", "orders-firebase"],
   "targets": {
     "build": {
       "executor": "nx:run-commands",

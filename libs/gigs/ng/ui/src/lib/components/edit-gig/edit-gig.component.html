@@ -1,0 +1,58 @@
+<header>
+  @if (!currentGig()?.isReview) {
+    <button mat-raised-button color="primary" (click)="requestReview()">Request Review</button>
+  } @else {
+    <h4>You have requested review for this gig</h4>
+  }
+</header>
+<form [formGroup]="gigIntroFormGroup" (submit)="onSubmitIntroForm()">
+  <ng-template matStepLabel>Basic Gig Details</ng-template>
+  <div class="file_upload">
+    @if (uploadedImages().length > 0) {
+      <img *ngIf="uploadedImages().length > 0" [src]="uploadedImages()[0].downloadUrl" width="400px" /><br />
+      <button mat-raised-button color="accent" (click)="changePicture()">Change Picture</button>
+    } @else {
+      <p>Upload a cover image for your gig</p>
+      <lib-file-upload
+        [fileRoute]="fileRoutes.PUBLIC_GIG_IMAGES"
+        (uploadedFiles)="uploadedImages.set($event)"
+        [multiple]="false"
+        [fileSizeLimit_kb]="800"
+      ></lib-file-upload>
+    }
+  </div>
+  <mat-form-field>
+    <mat-label>Title</mat-label>
+    <input matInput placeholder="I will..." formControlName="title" required />
+    <mat-hint>Start with "I will" and be specific, e.g., "I will design a professional logo"</mat-hint>
+    <mat-error *ngIf="gigIntroFormGroup.controls.title.hasError('required')">Please enter a title</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Categories</mat-label>
+    <mat-select formControlName="categories" multiple>
+      @for (category of allCategories(); track category.id) {
+        <mat-option value="{{ category.id }}">{{ category.name }}</mat-option>
+      }
+    </mat-select>
+    <mat-hint>Choose categories that best describe your service. You can select multiple!</mat-hint>
+    <mat-error *ngIf="gigIntroFormGroup.controls.categories.hasError('required')">
+      Please select at least one category
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <textarea matInput placeholder="Describe your gig in detail..." formControlName="description" required></textarea>
+    <mat-hint
+      >Provide a clear, detailed description of what you'll deliver. Include your expertise and what makes your service
+      unique.</mat-hint
+    >
+    <mat-error *ngIf="gigIntroFormGroup.controls.description.hasError('required')">
+      Please enter a description
+    </mat-error>
+  </mat-form-field>
+  <div>
+    <button mat-flat-button color="primary" class="rounded" type="submit">Save</button>
+  </div>
+</form>

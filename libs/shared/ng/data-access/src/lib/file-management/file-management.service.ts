@@ -236,6 +236,7 @@ export class FileManagementService implements OnDestroy {
 
   async getFileDataByIdFromDB(fileId: string): Promise<I_File | undefined> {
     try {
+      if (!fileId) throw new Error('File ID not found when calling getFileDataByIdFromDB');
       const docRef = doc(this.filesCollection, fileId);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {

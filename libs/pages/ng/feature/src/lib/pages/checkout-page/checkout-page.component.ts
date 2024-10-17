@@ -47,7 +47,8 @@ export class CheckoutPageComponent implements OnDestroy, OnInit, AfterViewInit {
   totalPrice = computed(() => {
     const selectedGig = this.selectedGig();
     if (!selectedGig) return 0;
-    return selectedGig.price + this.processingFee();
+    // return selectedGig.price + this.processingFee();
+    return 0;
   });
 
   paymentDetailsForm = new FormGroup({
