@@ -10,6 +10,8 @@ export function getFileTypesForRoute(route: E_FileRoutes): T_FileTypes[] {
       return ['**/*'];
     case E_FileRoutes.PUBLIC_GIG_IMAGES:
       return ['image/*'];
+    case E_FileRoutes.PUBLIC_WORK_HISTORY_FILES:
+      return ['**/*'];
     default: {
       const _route: never = route;
       return _route;

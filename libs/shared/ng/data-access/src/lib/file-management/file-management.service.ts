@@ -12,7 +12,16 @@ import {
   updateDoc,
   where,
 } from '@angular/fire/firestore';
-import { Storage, UploadTask, deleteObject, getDownloadURL, ref, uploadBytesResumable } from '@angular/fire/storage';
+import {
+  FullMetadata,
+  Storage,
+  UploadTask,
+  deleteObject,
+  getDownloadURL,
+  getMetadata,
+  ref,
+  uploadBytesResumable,
+} from '@angular/fire/storage';
 import { Observable, Subscription } from 'rxjs';
 
 import { Auth, User, user } from '@angular/fire/auth';
@@ -274,6 +283,18 @@ export class FileManagementService implements OnDestroy {
       const storageRef = ref(this.storage, fileFromDB.fullPath);
       const fileUrl = await getDownloadURL(storageRef);
       return fileUrl;
+    } catch (error) {
+      console.log(error);
+      throw new Error('Error getting file from the storage');
+    }
+  }
+
+  async getFileMetadataFromStorageById(file: I_File): Promise<FullMetadata | undefined> {
+    try {
+      const storageRef = ref(this.storage, file.fullPath);
+      const fileUrl = await getDownloadURL(storageRef);
+      const fileMetadata = await getMetadata(storageRef);
+      return fileMetadata;
     } catch (error) {
       console.log(error);
       throw new Error('Error getting file from the storage');

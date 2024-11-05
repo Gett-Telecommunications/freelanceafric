@@ -6,7 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import { I_SellerCareer, I_SellerProfile } from '@freelanceafric/users-shared';
-import { FileUploadComponent } from '@freelanceafric/shared-ng-ui';
+import { FilePreviewComponent, FileUploadComponent } from '@freelanceafric/shared-ng-ui';
 import { E_FileRoutes, I_File } from '@freelanceafric/shared-shared';
 import { SellerProfileService, SellerCareerService } from '@freelanceafric/user-ng-data-access';
 import { FileManagementService } from '@freelanceafric/shared-ng-data-access';
@@ -30,6 +30,7 @@ import { Auth, user } from '@angular/fire/auth';
     UsersSellerProfileComponent,
     UsersSellerCareerComponent,
     RouterModule,
+    FilePreviewComponent,
   ],
   templateUrl: './onboarding-sellers-page.component.html',
   styleUrl: './onboarding-sellers-page.component.scss',
@@ -67,10 +68,24 @@ export class OnboardingSellersPageComponent implements AfterViewInit, OnDestroy 
     overview: ['', Validators.required],
     experience: ['', Validators.required],
     skills: ['', Validators.required],
-    education: ['', Validators.required],
+    education: [''],
   });
 
+  /**
+   * Uploaded files for the work history
+   */
+  uploadedWorkFiles: WritableSignal<I_File[]> = signal([]);
+  uploadedWorkFileIDs = computed(() => {
+    const uploadedFiles = this.uploadedWorkFiles();
+    const filesInDB = this.myExistingProfile()?.workHistory || [];
+    let uploaded: string[] = [];
+    if (uploadedFiles.length > 0) {
+      uploaded = uploadedFiles.map((file) => file.id);
+    }
+    return [...filesInDB, ...uploaded];
+  });
   uploadedFiles: WritableSignal<I_File[]> = signal([]);
+
   profileImageID = computed(() => {
     const uploadedFiles = this.uploadedFiles();
     if (uploadedFiles.length > 0) {
@@ -124,6 +139,7 @@ export class OnboardingSellersPageComponent implements AfterViewInit, OnDestroy 
         education: careerToUse.education,
       });
     });
+    //
 
     this.careerFormSub = this.careerFormGroup.valueChanges.pipe(debounceTime(5050)).subscribe(async () => {
       this.updatedCareer.set(await this.formatCareer());
@@ -152,6 +168,7 @@ export class OnboardingSellersPageComponent implements AfterViewInit, OnDestroy 
       facebook: this.personalInfoFormGroup.value.facebook || '',
       website: this.personalInfoFormGroup.value.website || '',
       status: 'pending',
+      workHistory: this.uploadedWorkFileIDs(),
       profileImageID: this.profileImageID() || '',
       createdAt: this.myExistingProfile()?.createdAt || new Date().toISOString(),
       updatedAt: new Date().toISOString(),
@@ -187,6 +204,25 @@ export class OnboardingSellersPageComponent implements AfterViewInit, OnDestroy 
       if (career.draft) this.myExistingCareer.set(career.draft);
     });
   }
+
+  /**
+   * Direct save function that updates the work history
+   * @param file
+   * @returns
+   */
+  directSaveWorkHistoryOnUpload = async (file: I_File): Promise<boolean> => {
+    const workHistory = this.myExistingProfile()?.workHistory || [];
+    workHistory.push(file.id);
+    const profile = await this.formatProfile();
+    profile.workHistory = workHistory;
+    try {
+      await this.sellerProfileService.updateMySellerProfile(profile);
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  };
 
   async submitProfileForm() {
     if (!this.personalInfoFormGroup.valid) return;

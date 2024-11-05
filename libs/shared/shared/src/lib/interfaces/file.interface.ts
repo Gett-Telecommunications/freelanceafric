@@ -1,7 +1,7 @@
 import { E_FileRoutes } from './file-routes.enum';
 
 export interface I_File {
-  id?: string;
+  id: string;
   originalName: string;
   uploadName: string;
   downloadUrl?: string;

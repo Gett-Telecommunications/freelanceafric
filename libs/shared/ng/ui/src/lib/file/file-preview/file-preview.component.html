@@ -1,0 +1,18 @@
+<div class="file_preview">
+  @switch (fileType()) {
+    @case ('image/jpeg') {
+      <img [src]="fileURL()" width="200px" />
+    }
+    @case ('image/png') {
+      <img [src]="fileURL()" width="200px" />
+    }
+    @default {
+      <div class="file">
+        <p>No preview available for this file type</p>
+        <p>File Type: {{ fileType() }}</p>
+        <p>File Name: {{ fileName() }}</p>
+        <a mat-raised-button [href]="fileURL()" target="_blank">Download</a>
+      </div>
+    }
+  }
+</div>

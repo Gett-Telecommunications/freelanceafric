@@ -16,3 +16,5 @@ export * from './lib/headers/cover-header/cover-header.component';
 export * from './lib/headers/floating-header/floating-header.component';
 
 export * from './lib/chat/chat-message/chat-message.component';
+
+export * from './lib/file/file-preview/file-preview.component';

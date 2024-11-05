@@ -181,6 +181,10 @@
   <mat-step [stepControl]="careerFormGroup" label="Your Professional Profile">
     <form [formGroup]="careerFormGroup" (submit)="submitCareerForm()">
       <h2>Tell Us About Your Professional Background</h2>
+      <p>
+        This information will not be visible to clients unless you explicitly allow it. We only use it when reviewing
+        your profile and the gigs you put up.
+      </p>
       <div class="draft" *ngIf="myExistingCareer()?.isDraft">From Draft</div>
       <div class="pending_review" *ngIf="myExistingCareer()?.isReview">Pending Review</div>
       <mat-form-field>
@@ -195,7 +199,6 @@
           matInput
           formControlName="overview"
           placeholder="Briefly describe your profession, expertise, and key services"
-          required
         ></textarea>
         <mat-hint>
           Provide a concise summary of what you do, your industry experience, and the value you offer to clients.
@@ -208,7 +211,6 @@
           matInput
           formControlName="experience"
           placeholder="Summarize your past work experience or key projects"
-          required
         ></textarea>
         <mat-hint>
           Highlight relevant jobs, freelance projects, or work history that showcase your skills and accomplishments.
@@ -221,7 +223,6 @@
           matInput
           formControlName="skills"
           placeholder="e.g., Web Design, JavaScript, SEO, Adobe Photoshop"
-          required
         ></textarea>
         <mat-hint>List your top skills that are directly related to the services you provide. Be specific!</mat-hint>
       </mat-form-field>
@@ -232,7 +233,6 @@
           matInput
           formControlName="education"
           placeholder="e.g., Bachelor’s Degree in Computer Science, Certified Project Manager"
-          required
         ></textarea>
         <mat-hint>Mention any relevant degrees, certifications, or courses that support your expertise.</mat-hint>
       </mat-form-field>
@@ -242,6 +242,28 @@
         <button mat-raised-button class="rounded" color="primary" matStepperNext type="submit">Next</button>
       </div>
     </form>
+  </mat-step>
+  <mat-step label="Work History">
+    <h2>Work History</h2>
+    <p>Show your clients a sample of the work you have done. This will help them get a better idea of your skills.</p>
+    <lib-file-upload
+      [fileRoute]="fileRoutes.PUBLIC_WORK_HISTORY_FILES"
+      (uploadedFiles)="uploadedWorkFiles.set($event)"
+      [multiple]="true"
+      [fileSizeLimit_kb]="1000"
+      [directSaveFunction]="directSaveWorkHistoryOnUpload"
+    ></lib-file-upload>
+    <section class="previews">
+      <div class="grid">
+        @for (file of this.myExistingProfile()?.workHistory; track $index) {
+          <lib-file-preview [fileId]="file"></lib-file-preview>
+        }
+      </div>
+    </section>
+    <div class="actions">
+      <button mat-button matStepperPrevious class="rounded dark outlined" type="submit">Back</button>
+      <button mat-raised-button class="rounded" color="primary" matStepperNext type="submit">Next</button>
+    </div>
   </mat-step>
   <mat-step>
     <div class="content">
@@ -264,7 +286,8 @@
             </li>
 
             <li>
-              <strong>Approval or Revisions</strong><br />
+              <strong>Approval or Revisions</strong>
+              <br />
               - If your profile meets all the requirements, it will be approved, and you’ll be ready to showcase your
               skills to potential clients!<br />
               - If we find any areas that need improvement, we’ll return your profile with specific feedback. You’ll

@@ -1,4 +1,14 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, inject, input, output } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  InputSignal,
+  OnDestroy,
+  OnInit,
+  inject,
+  input,
+  output,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -28,6 +38,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   @Input() multiple = false;
   @Input() disabled = false;
   @Input() required = false;
+  directSaveFunction = input<(file: I_File) => Promise<boolean>>();
   fileSizeLimit_kb = input<number>(1000000);
 
   fileRoute = input.required<E_FileRoutes>();
@@ -68,7 +79,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
           completedUploads = data.map((value) => value.fileObj);
           this.cd.detectChanges();
         },
-        complete: () => {
+        complete: async () => {
           this.fileUploadForm.reset();
           this.uploadSubscription?.unsubscribe();
           const _completedUploads: I_File[] = [];
@@ -77,6 +88,12 @@ export class FileUploadComponent implements OnInit, OnDestroy {
               _completedUploads.push(value.toJson);
             }
           });
+          const directSaveFunction = this.directSaveFunction();
+          if (directSaveFunction) {
+            for (const file of _completedUploads) {
+              await directSaveFunction(file);
+            }
+          }
           this.uploadedFiles.emit(_completedUploads);
         },
       });
