@@ -1,0 +1,71 @@
+<div id="gig_package_form">
+  <h2>Gig Package Form</h2>
+  <form [formGroup]="gigPackageForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline">
+      <mat-label>Label</mat-label>
+      <input matInput formControlName="label" placeholder="Enter package label" />
+      <mat-hint>e.g., Basic, Standard, Premium</mat-hint>
+      <mat-error *ngIf="gigPackageForm.get('label')?.hasError('required')"> Label is required </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description" placeholder="Describe the package"></textarea>
+      <mat-hint>Provide details about this package</mat-hint>
+      <mat-error *ngIf="gigPackageForm.get('description')?.hasError('required')"> Description is required </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Price Amount</mat-label>
+      <input matInput formControlName="priceAmount" type="number" min="1" placeholder="Enter price" />
+      <mat-hint>Minimum price is 1</mat-hint>
+      <mat-error *ngIf="gigPackageForm.get('priceAmount')?.hasError('required')"> Price amount is required </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Currency</mat-label>
+      <mat-select formControlName="priceCurrency">
+        <mat-option value="USD">USD</mat-option>
+        <mat-option value="KES">KES</mat-option>
+      </mat-select>
+      <mat-error *ngIf="gigPackageForm.get('priceCurrency')?.hasError('required')"> Currency is required </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Delivery Time</mat-label>
+      <input matInput formControlName="deliveryTimeValue" type="number" min="1" placeholder="Enter delivery time" />
+      <mat-hint>Specify the duration for delivery</mat-hint>
+      <mat-error *ngIf="gigPackageForm.get('deliveryTimeValue')?.hasError('required')">
+        Delivery time is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Delivery Time Unit</mat-label>
+      <mat-select formControlName="deliveryTimeUnit">
+        <mat-option value="days">Days</mat-option>
+        <mat-option value="weeks">Weeks</mat-option>
+      </mat-select>
+      <mat-error *ngIf="gigPackageForm.get('deliveryTimeUnit')?.hasError('required')">
+        Delivery time unit is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Allowed Revisions</mat-label>
+      <input
+        matInput
+        formControlName="allowedRevisions"
+        type="number"
+        min="1"
+        placeholder="Enter number of revisions"
+      />
+      <mat-hint>Specify the number of revisions allowed</mat-hint>
+      <mat-error *ngIf="gigPackageForm.get('allowedRevisions')?.hasError('required')">
+        Allowed revisions are required
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="gigPackageForm.invalid">Submit</button>
+  </form>
+</div>

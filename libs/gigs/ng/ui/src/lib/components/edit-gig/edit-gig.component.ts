@@ -12,6 +12,9 @@ import { I_Gig } from '@freelanceafric/gigs-shared';
 import { FileManagementService } from '@freelanceafric/shared-ng-data-access';
 import { E_FileRoutes, I_File } from '@freelanceafric/shared-shared';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTabsModule } from '@angular/material/tabs';
+import { GigPackageFormComponent } from '../gig-package-form/gig-package-form.component';
+import { GigExtrasFormComponent } from '../gig-extras-form/gig-extras-form.component';
 
 @Component({
   selector: 'lib-edit-gig',
@@ -24,6 +27,9 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule,
     MatSelectModule,
     FileUploadComponent,
+    MatTabsModule,
+    GigPackageFormComponent,
+    GigExtrasFormComponent,
   ],
   templateUrl: './edit-gig.component.html',
   styleUrl: './edit-gig.component.scss',

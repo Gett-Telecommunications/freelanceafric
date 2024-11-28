@@ -1,0 +1,52 @@
+<form [formGroup]="gigExtrasForm" (ngSubmit)="onSubmitExtras()">
+  <mat-form-field appearance="outline">
+    <mat-label>Description</mat-label>
+    <textarea matInput formControlName="description" placeholder="Describe the extra service"></textarea>
+    <mat-hint>e.g., Extra fast delivery, additional features</mat-hint>
+    <mat-error *ngIf="gigExtrasForm.get('description')?.hasError('required')"> Description is required </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Extra Duration</mat-label>
+    <input matInput formControlName="extraDurationValue" type="number" min="1" placeholder="Enter duration" />
+    <mat-hint>Specify the extra time required for this service</mat-hint>
+    <mat-error *ngIf="gigExtrasForm.get('extraDurationValue')?.hasError('required')">
+      Extra duration is required
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Duration Unit</mat-label>
+    <mat-select formControlName="extraDurationUnit">
+      <mat-option value="days">Days</mat-option>
+      <mat-option value="weeks">Weeks</mat-option>
+    </mat-select>
+    <mat-error *ngIf="gigExtrasForm.get('extraDurationUnit')?.hasError('required')">
+      Duration unit is required
+    </mat-error>
+  </mat-form-field>
+
+  <div class="form_group">
+    <mat-form-field appearance="outline">
+      <mat-label>Extra Price Amount</mat-label>
+      <input matInput formControlName="extraPriceAmount" type="number" min="1" placeholder="Enter price" />
+      <mat-hint>Minimum price is 1</mat-hint>
+      <mat-error *ngIf="gigExtrasForm.get('extraPriceAmount')?.hasError('required')">
+        Price amount is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Currency</mat-label>
+      <mat-select formControlName="extraPriceCurrency">
+        <mat-option value="USD">USD</mat-option>
+        <mat-option value="KES">KES</mat-option>
+      </mat-select>
+      <mat-error *ngIf="gigExtrasForm.get('extraPriceCurrency')?.hasError('required')">
+        Currency is required
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="gigExtrasForm.invalid">Submit</button>
+</form>

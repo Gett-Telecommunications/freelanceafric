@@ -3,7 +3,7 @@ import { I_GigTiming } from './gig-timing.interface';
 export interface I_GigPackage {
   id: string;
   gigId: string;
-  title: string;
+  label: string;
   description: string;
   price: {
     value: number;

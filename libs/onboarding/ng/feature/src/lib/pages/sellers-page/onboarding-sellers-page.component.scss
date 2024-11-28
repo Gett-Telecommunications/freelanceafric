@@ -9,10 +9,6 @@ form,
   margin-top: 1rem;
   overflow: auto;
 
-  .actions {
-    display: flex;
-    gap: 16px;
-  }
 
   section {
     display: grid;
@@ -48,5 +44,20 @@ form,
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+ul,
+li {
+  margin-left: 1rem;
+  list-style: square !important;
+}
+
+li {
+  margin-bottom: .5rem;
+}
+
+.actions {
+  display: flex;
   gap: 16px;
 }

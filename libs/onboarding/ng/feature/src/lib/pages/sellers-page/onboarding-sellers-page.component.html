@@ -26,6 +26,8 @@
           </li>
         </ul>
 
+        <a href="">Click here for helpful articles</a>
+
         <h3>Are you ready to create a profile that stands out? Let’s get started! 🚀</h3>
       </div>
       <div class="actions">
@@ -244,7 +246,7 @@
     </form>
   </mat-step>
   <mat-step label="Work History">
-    <h2>Work History</h2>
+    <h2>Portfolio</h2>
     <p>Show your clients a sample of the work you have done. This will help them get a better idea of your skills.</p>
     <lib-file-upload
       [fileRoute]="fileRoutes.PUBLIC_WORK_HISTORY_FILES"
@@ -263,6 +265,7 @@
     <div class="actions">
       <button mat-button matStepperPrevious class="rounded dark outlined" type="submit">Back</button>
       <button mat-raised-button class="rounded" color="primary" matStepperNext type="submit">Next</button>
+      <button mat-raised-button class="rounded" color="accent" matStepperNext type="submit">Skip</button>
     </div>
   </mat-step>
   <mat-step>

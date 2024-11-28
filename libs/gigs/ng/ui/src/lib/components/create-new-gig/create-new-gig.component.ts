@@ -27,6 +27,7 @@ import { Unsubscribe } from '@angular/fire/firestore';
 import { FileManagementService } from '@freelanceafric/shared-ng-data-access';
 import { Auth, user } from '@angular/fire/auth';
 import { MatIconModule } from '@angular/material/icon';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'lib-create-new-gig',
@@ -52,6 +53,7 @@ export class CreateNewGigComponent implements OnInit, AfterViewInit, OnDestroy {
   fileManagerService = inject(FileManagementService);
   auth = inject(Auth);
   user$ = user(this.auth);
+  router = inject(Router);
 
   uploadedImages: WritableSignal<I_File[]> = signal([]);
   savedImageId = signal<string>('');
@@ -169,6 +171,7 @@ export class CreateNewGigComponent implements OnInit, AfterViewInit, OnDestroy {
     partialGig.id = currentGig.id;
     try {
       await this.gigsService.updateGigIntro(currentGig.id, partialGig);
+      this.router.navigate([`/dashboard/sell/gigs/edit`, currentGig.id]);
     } catch (error) {
       console.log(error);
     }
